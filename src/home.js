@@ -4,30 +4,42 @@ class Home extends React.Component {
 	constructor() {
 		super();
 		this.state = {
-			name: []
+			title: ''
 		};
-		this.fetchResults = this.fetchResults.bind(this);
-	}
+        this.updateTitle = this.updateTitle.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
+        this.fetchResults = this.fetchResults.bind(this);
+    }
 
-	fetchResults(e) {
+    updateTitle(e) {
+        this.setState({ title: e.target.value})
+    }
+    
+    onSubmit(e) {
+        console.log(this.state.title);
+        this.fetchResults();
+        e.preventDefault();
+    }
+    
+    fetchResults() {
+        
 		// Use preventDefault() to stop the form submitting
-		e.preventDefault();
 
-	}
-
-	componentDidMount() {
-		var title = document.querySelector('.search');
-		fetch('https://chicken-coop.p.rapidapi.com/games?title=' + title.value, {
+		fetch('https://chicken-coop.p.rapidapi.com/games?title=`{this.state.title}`', {
 			method: 'GET',
 			headers: {
 				'x-rapidapi-host': 'chicken-coop.p.rapidapi.com',
 				'x-rapidapi-key': '5d0b4bd3ccmshb5942bd75f3f8b8p1c8bb5jsnb3247ba29bde'
 			}
 		})
-			.then((response) => {
-                console.log(response);
-                
-			})
+			.then((resource) => {
+                console.log(resource);
+            })
+            .then((resource) => {
+                this.setState({
+                    
+                })
+            })
 			.catch((err) => {
 				console.log(err);
 			});
@@ -42,17 +54,17 @@ class Home extends React.Component {
 					<div className="controls">
 						<form>
 							<p>
-								<label for="search">Enter a SINGLE search term (required): </label>
-								<input type="text" id="search" className="search" required />
+								<label htmlFor="search">Enter a SINGLE search term (required): </label>
+								<input type="text" id="search" className="search" onChange={this.updateTitle} required />
 							</p>
 							<p>
-								<button className="submit" onClick={this.fetchResults} >Submit search</button>
+								<button className="submit" onClick={this.onSubmit} >Submit search</button>
 							</p>
 						</form>
 					</div>
 				</div>
 				<div className="results">
-					<section />
+                    <p>{this.state.title}</p>
 				</div>
 			</div>
 		);
