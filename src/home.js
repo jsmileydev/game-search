@@ -97,16 +97,15 @@ class Home extends React.Component {
 				console.log(this.responseText);
 				var gameobj = JSON.parse(this.responseText);
 				console.log(gameobj.result);
-				/*var html = '';
-				gameobj.result.forEach(function(val) {
-					var keys = Object.keys(val);
+				var html = '';
+				for (var key in gameobj.result) {
 					html += "<div class=''>";
-					keys.forEach(function(key) {
-						html += '<strong>' + key + '</strong>: ' + val[key] + '<br>';
-					});
+					if(gameobj.result.hasOwnProperty(key)) {
+						html += '<strong>' + key + '</strong>: ' + gameobj.result[key] + '<br>';
+					}
 					html += '</div><br>';
-				});*/
-				document.getElementById('game-results').innerHTML = gameobj.result;
+				}
+				document.getElementById('game-results').innerHTML = html;
 			}
 		});
 
@@ -147,7 +146,7 @@ class Home extends React.Component {
 						</form>
 						<form>
 							<p>
-								<label htmlFor="search-title-data">Enter a SINGLE game title (required): </label>
+								<label htmlFor="search-title-data">Enter an EXACT game title (required): </label>
 								<input
 									type="text"
 									id="search-title-data"
