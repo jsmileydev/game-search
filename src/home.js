@@ -4,32 +4,32 @@ class Home extends React.Component {
 	constructor() {
 		super();
 		this.state = {
-			game: []
+			game: ''
 		};
-		this.updateTitle = this.updateTitle.bind(this);
-		this.onSubmit = this.onSubmit.bind(this);
-		this.fetchResults = this.fetchResults.bind(this);
+		this.handleChange = this.handleChange.bind(this);
+		this.handleClick = this.handleClick.bind(this);
+		//this.fetchResults = this.fetchResults.bind(this);
 	}
 
-	updateTitle(e) {
-		//this.setState({ title: e.target.value });
+	handleChange(e) {
+		var search = e.target.value;
+		this.setState({ game: search });
 	}
 
-	onSubmit(e) {
+	handleClick() {
 		console.log(this.state.game);
-		//this.fetchResults();
-		e.preventDefault();
-	}
-
-	componentDidMount() {
 		this.fetchResults();
 	}
+
+	/*componentDidMount() {
+		this.fetchResults();
+	}*/
 
 	fetchResults() {
 		// Use preventDefault() to stop the form submitting
 		var data = null;
 
-		var url = 'tomb%20raider';
+		var url = this.state.game;
 
 		var xhr = new XMLHttpRequest();
 		xhr.withCredentials = true;
@@ -37,47 +37,26 @@ class Home extends React.Component {
 		xhr.addEventListener('readystatechange', function() {
 			if (this.readyState === this.DONE) {
 				console.log(this.responseText);
-				var obj = JSON.parse(this.responseText);
-				console.log(obj.result);
-				document.getElementById('game-results').innerHTML = obj.result;
+				var gameobj = JSON.parse(this.responseText);
+				console.log(gameobj.result);
+				var html = '';
+				gameobj.result.forEach(function(val) {
+					var keys = Object.keys(val);
+					html += "<div class=''>";
+					keys.forEach(function(key) {
+						html += '<strong>' + key + '</strong>: ' + val[key] + '<br>';
+					});
+					html += '</div><br>';
+				});
+				document.getElementById('game-results').innerHTML = html;
 			}
 		});
 
-		xhr.open('GET', 'https://chicken-coop.p.rapidapi.com/games?title=' + url);
-		xhr.setRequestHeader('x-rapidapi-host', 'chicken-coop.p.rapidapi.com');
-		xhr.setRequestHeader('x-rapidapi-key', '5d0b4bd3ccmshb5942bd75f3f8b8p1c8bb5jsnb3247ba29bde');
+		xhr.open("GET", "https://chicken-coop.p.rapidapi.com/games?title=" + url);
+		xhr.setRequestHeader("x-rapidapi-host", "chicken-coop.p.rapidapi.com");
+		xhr.setRequestHeader("x-rapidapi-key", "5d0b4bd3ccmshb5942bd75f3f8b8p1c8bb5jsnb3247ba29bde");
 
 		xhr.send(data);
-
-
-		/*fetch('https://chicken-coop.p.rapidapi.com/games?title=', {
-			method: 'GET',
-			headers: {
-				'x-rapidapi-host': 'chicken-coop.p.rapidapi.com',
-				'x-rapidapi-key': '5d0b4bd3ccmshb5942bd75f3f8b8p1c8bb5jsnb3247ba29bde'
-			}
-		})
-			.then(response => {
-                response.json()
-                console.log(response.results)
-			})
-			.then((data) => {
-				let games = data.response.map((games) => {
-					return <li key={games.response}>{games.result.title}</li>;
-				});
-				this.setState({
-					game: games
-                });
-                console.log('state', this.state.game);
-            })
-            .then(result => {
-                this.setState({
-                    game: result
-                })
-            })
-			.catch(err => {
-				console.log(err);
-			});*/
 	}
 
 	render() {
@@ -94,24 +73,17 @@ class Home extends React.Component {
 									type="text"
 									id="search"
 									className="search"
-									onChange={this.updateTitle}
+									onChange={this.handleChange}
 									required
 								/>
 							</p>
 							<p>
-								<button className="submit" onClick={this.onSubmit}>
-									Submit search
-								</button>
+								<input type="button" className="submit" onClick={this.handleClick} value="Submit search"/>
 							</p>
 						</form>
 					</div>
 				</div>
-				<div className="results">
-					<ul id="game-list">{this.state.game.map((game) => <li key={game.id}>{game.game}</li>)}</ul>
-				</div>
-				<div id="game-results">
-
-				</div>
+				<div id="game-results" />
 			</div>
 		);
 	}
