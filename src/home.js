@@ -162,8 +162,11 @@ class Home extends React.Component {
 	render() {
 		return (
 			<div>
+				<div id="head-ellipse"></div>
+				<header>
 				<h1>Game search</h1>
 				<p>Powered by Chicken Coop's Metacritic API</p>
+				</header>
 				<div className="wrapper">
 					<div className="container">
 						<form className="pure-form pure-form-stacked column">

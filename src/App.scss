@@ -1,86 +1,108 @@
-body {
-  background: rgb(32, 32, 32);
+$black: rgb(32, 32, 32);
+$white: rgb(233, 232, 232);
+$steam-blue: rgb(0, 175, 239);
 
+body {
+	background: $black;
 }
 
 .App {
-  text-align: center;
-  color: rgb(233, 232, 232);
+	text-align: center;
+  color: $white;
+  
+  #head-ellipse {
+    position: absolute;
+    top: -9em;
+    left: 0;
+    width: 100%;
+    height: 18em;
+    background-color: $steam-blue;
+    border-bottom-left-radius: 50%;
+    border-bottom-right-radius: 50%;
+    z-index: -5;
+  }
 
-  .container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: stretch;
+  header {
+    height: 10em;
+    width: 75%;
+    margin: 0 auto;
+    color: $black;
+  }
+
+	.container {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: stretch;
     height: 20em;
     
-    
-    form {
-      width: 40%;
 
-      legend {
-        color: rgb(233, 232, 232) !important;
-        width: 60% !important;
-        margin: .75em auto;
-        font-weight: bold;
-        padding-bottom: .75em;
-      }
-  
-      .search {
-        margin: 1em auto !important;
-        color: rgb(32, 32, 32);
-      }
-  
-      .submit {
-        color: rgb(32, 32, 32);
-      }
-    }    
 
-    #or {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: stretch;
-      color: rgb(32, 32, 32);
-      width: 4em;
-      height: 100%;
-      margin: 0 auto;
+		form {
+			width: 40%;
 
-      h3 {
-        margin: 0 auto;
-        height: 4em;
-        width: 4em;
-        line-height: 4em;
-        background: rgb(233, 232, 232);
-        border-radius: 2em;
-      }
-    }
-  }
+			legend {
+				color: $white !important;
+				width: 60% !important;
+				margin: .75em auto;
+				font-weight: bold;
+				padding-bottom: .75em;
+			}
 
-  #game-results {
-    text-align: left;
-    margin: 2em 4em;
-    border-top: 1px solid rgb(233, 232, 232);
-    padding-top: 2em;
+			.search {
+				margin: 1em auto !important;
+				color: $black;
+			}
 
-    .game-cover {
-      margin: 1em;
-    }
+			.submit {
+				color: $black;
+			}
+		}
 
-    span {
-      display: inline-block;
-      margin-bottom: .25em;
-    }
-  }
+		#or {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: stretch;
+			color: $black;
+			width: 4em;
+			height: 100%;
+			margin: 0 auto;
+
+			h3 {
+				margin: 1em auto;
+				height: 4em;
+				width: 4em;
+				line-height: 4em;
+				background: $steam-blue;
+				border-radius: 2em;
+			}
+		}
+	}
+
+	#game-results {
+		text-align: left;
+		margin: 2em 4em;
+		border-top: 1px solid $white;
+		padding-top: 2em;
+
+		.game-cover {
+			margin: 1em;
+		}
+
+		span {
+			display: inline-block;
+			margin-bottom: .25em;
+		}
+	}
 }
 
-
-
-
-
-
-
-
-
-
-
+@media only screen and (max-width: 768px) {
+	.container {
+		flex-direction: column !important;
+		height: auto !important;
+		.column {
+			width: 100% !important;
+		}
+	}
+}
