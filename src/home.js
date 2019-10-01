@@ -1,4 +1,5 @@
 import React from 'react';
+import { marioSvg } from './images/365cons-mario.svg';
 
 class Home extends React.Component {
 	constructor() {
@@ -162,16 +163,23 @@ class Home extends React.Component {
 	render() {
 		return (
 			<div>
-				<div id="head-ellipse"></div>
+				<div id="head-ellipse" />
 				<header>
-				<h1>Game search</h1>
-				<p>Powered by Chicken Coop's Metacritic API</p>
+					<div id="gameboy-head">
+						<img
+							src={require('./images/icons8-visual-game-boy-768.png')}
+							alt="gameboy-head" className="pure-css"
+						/>
+						<p>Powered by Chicken Coop's Metacritic API</p>
+					</div>
 				</header>
 				<div className="wrapper">
 					<div className="container">
 						<form className="pure-form pure-form-stacked column">
 							<fieldset>
-								<legend>Return all related game titles and its released platforms</legend>
+								<legend>
+									<marioSvg />Return all related game titles and its released platforms
+								</legend>
 								<div>
 									<label htmlFor="search-title">Enter a search term: </label>
 									<input
@@ -183,12 +191,13 @@ class Home extends React.Component {
 									/>
 								</div>
 								<div>
-									<input
-										type="button"
-										className="submit"
+									<button
+										type="submit"
+										className="submit button-success pure-button"
 										onClick={this.submitGameTitle}
-										value="Submit search"
-									/>
+									>
+										Submit Search
+									</button>
 								</div>
 							</fieldset>
 						</form>
@@ -216,14 +225,15 @@ class Home extends React.Component {
 										onChange={this.inputGamePlatData}
 										required
 									/>
-									</div>
+								</div>
 								<div>
-									<input
-										type="button"
-										className="submit"
+									<button
+										type="submit"
+										className="submit button-success pure-button"
 										onClick={this.submitGameData}
-										value="Submit search"
-									/>
+									>
+										Submit Search
+									</button>
 								</div>
 							</fieldset>
 						</form>
@@ -237,7 +247,5 @@ class Home extends React.Component {
 		);
 	}
 }
-
-
 
 export default Home;
