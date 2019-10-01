@@ -5,7 +5,9 @@ class Home extends React.Component {
 		super();
 		this.state = {
 			game: '',
-			plat: ''
+			plat: '',
+			showSearch: true,
+			showNew: false
 		};
 		this.inputGameTitle = this.inputGameTitle.bind(this);
 		this.submitGameTitle = this.submitGameTitle.bind(this);
@@ -17,7 +19,6 @@ class Home extends React.Component {
 	}
 
 	//SEARCH FOR ALL GAMES RELATED TO INPUT
-	
 
 	inputGameTitle(e) {
 		var search = e.target.value;
@@ -65,16 +66,16 @@ class Home extends React.Component {
 				var html = '';
 				gameobj.result.forEach(function(val) {
 					var keys = Object.keys(val);
-					html += "<div class=''>";
+					html += "<div className='title-result'>";
 					keys.forEach(function(key) {
 						html +=
-							'<strong>' +
+							'<span className="title-key"><strong>' +
 							key.replace(/([a-z](?=[A-Z]))/g, '$1 ').replace(/^./, function(str) {
 								return str.toUpperCase();
 							}) +
-							'</strong>: ' +
+							'</strong></span><span className="title-value">: ' +
 							val[key] +
-							'<br>';
+							'</span><br>';
 					});
 					html += '</div><br>';
 				});
@@ -88,7 +89,6 @@ class Home extends React.Component {
 
 		xhr.send(data);
 	}
-
 
 	// SEARCH FULL DATA FOR ONE GAME
 
@@ -129,12 +129,22 @@ class Home extends React.Component {
 				var gameobj = JSON.parse(this.responseText);
 				console.log(gameobj.result);
 				var html = '';
-				html += '<div className="game-cover"><img src="' + gameobj.result['image'] + '" alt="game cover" className="game-cover" /></div><div className="game-info">';
+				html +=
+					'<div className="game-cover"><img src="' +
+					gameobj.result['image'] +
+					'" alt="game cover" className="game-cover pure-img" /></div><div className="game-info">';
 				for (var key in gameobj.result) {
-					if(gameobj.result.hasOwnProperty(key)) {
+					if (gameobj.result.hasOwnProperty(key)) {
 						if (key !== 'image') {
-							html += '<div class=""><strong>' + key.replace(/([a-z](?=[A-Z]))/g, '$1 ').replace(/^./, function(str){ return str.toUpperCase(); }) + '</strong>: ' + gameobj.result[key] + '<br></div><br>';
-						}						
+							html +=
+								'<div className="data-result"><span className="data-key"><strong>' +
+								key.replace(/([a-z](?=[A-Z]))/g, '$1 ').replace(/^./, function(str) {
+									return str.toUpperCase();
+								}) +
+								'</strong></span><span className="data-value">: ' +
+								gameobj.result[key] +
+								'</span><br></div><br>';
+						}
 					}
 				}
 				html += '</div>';
@@ -153,74 +163,78 @@ class Home extends React.Component {
 		return (
 			<div>
 				<h1>Game search</h1>
-
+				<p>Powered by Chicken Coop's Metacritic API</p>
 				<div className="wrapper">
-					<div className="controls">
-						<form>
+					<div className="container">
+						<form className="pure-form pure-form-stacked column">
 							<fieldset>
-							<legend>Return all related game titles and the platforms released under</legend>
-							<div>
-								<label htmlFor="search-title">Enter a SINGLE search term (required): </label>
-								<input
-									type="text"
-									id="search-title"
-									className="search"
-									onChange={this.inputGameTitle}
-									required
-								/>
-							</div>
-							<div>
-								<input
-									type="button"
-									className="submit"
-									onClick={this.submitGameTitle}
-									value="Submit search"
-								/>
-							</div>
+								<legend>Return all related game titles and its released platforms</legend>
+								<div>
+									<label htmlFor="search-title">Enter a search term: </label>
+									<input
+										type="text"
+										id="search-title"
+										className="search"
+										onChange={this.inputGameTitle}
+										required
+									/>
+								</div>
+								<div>
+									<input
+										type="button"
+										className="submit"
+										onClick={this.submitGameTitle}
+										value="Submit search"
+									/>
+								</div>
 							</fieldset>
 						</form>
-						<div id="or">
+						<div id="or" className="column">
 							<h3>OR</h3>
 						</div>
-						<form>
+						<form className="pure-form pure-form-stacked column">
 							<fieldset>
-							<legend>Return all information related to a specific game</legend>
-							<div>
-								<label htmlFor="search-title-data">Enter an EXACT game title (required): </label>
-								<input
-									type="text"
-									id="search-title-data"
-									className="search"
-									onChange={this.inputGameTitleData}
-									required
-								/>
-								<br/>
-								<label htmlFor="search-plat-data">Enter a SINGLE platform (required): </label>
-								<input
-									type="text"
-									id="search-plat-data"
-									className="search"
-									value="pc"
-									onChange={this.inputGamePlatData}
-									required
-								/>
-							</div>
-							<div>
-								<input
-									type="button"
-									className="submit"
-									onClick={this.submitGameData}
-									value="Submit search"
-								/>
-							</div>
+								<legend>Return all information related to a specific game</legend>
+								<div>
+									<label htmlFor="search-title-data">Enter an EXACT game title: </label>
+									<input
+										type="text"
+										id="search-title-data"
+										className="search"
+										onChange={this.inputGameTitleData}
+										required
+									/>
+									<label htmlFor="search-plat-data">Enter a platform: </label>
+									<input
+										type="text"
+										id="search-plat-data"
+										className="search"
+										placeholder="Example: pc"
+										onChange={this.inputGamePlatData}
+										required
+									/>
+									</div>
+								<div>
+									<input
+										type="button"
+										className="submit"
+										onClick={this.submitGameData}
+										value="Submit search"
+									/>
+								</div>
 							</fieldset>
 						</form>
 					</div>
 				</div>
+				{/*<div id="new-search">
+					<button id="new" className="submit">New Search</button>
+		</div>*/}
 				<div id="game-results" />
 			</div>
 		);
 	}
 }
+
+
 
 export default Home;
