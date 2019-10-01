@@ -60,7 +60,7 @@ class Home extends React.Component {
 				//Convert responseText string to useable object
 				var gameobj = JSON.parse(this.responseText);
 				console.log(gameobj.result);
-				//Use dynamicSort to group result object by title alphabetically (otherwise seemingly random?)
+				//Use dynamicSort to group result object by title (otherwise seemingly random?)
 				gameobj.result = gameobj.result.sort(dynamicSort('title'));
 				var html = '';
 				gameobj.result.forEach(function(val) {
@@ -89,6 +89,9 @@ class Home extends React.Component {
 		xhr.send(data);
 	}
 
+
+	// SEARCH FULL DATA FOR ONE GAME
+
 	inputGameTitleData(e) {
 		var search = e.target.value;
 		this.setState({ game: search });
@@ -101,8 +104,6 @@ class Home extends React.Component {
 			plat: platSearch
 		});
 	}
-
-	// SEARCH FULL DATA FOR ONE GAME
 
 	inputGamePlatData(e) {
 		var platSearch = e.target.value;
@@ -126,16 +127,18 @@ class Home extends React.Component {
 			if (this.readyState === this.DONE) {
 				console.log(this.responseText);
 				var gameobj = JSON.parse(this.responseText);
-				console.log(gameobj.result['title']);
-				/*var html = '';
+				console.log(gameobj.result);
+				var html = '';
+				html += '<div className="game-cover"><img src="' + gameobj.result['image'] + '" alt="game cover" className="game-cover" /></div><div className="game-info">';
 				for (var key in gameobj.result) {
-					html += "<div class=''>";
 					if(gameobj.result.hasOwnProperty(key)) {
-						html += '<strong>' + key.replace(/([a-z](?=[A-Z]))/g, '$1 ').replace(/^./, function(str){ return str.toUpperCase(); }) + '</strong>: ' + gameobj.result[key] + '<br>';
+						if (key !== 'image') {
+							html += '<div class=""><strong>' + key.replace(/([a-z](?=[A-Z]))/g, '$1 ').replace(/^./, function(str){ return str.toUpperCase(); }) + '</strong>: ' + gameobj.result[key] + '<br></div><br>';
+						}						
 					}
-					html += '</div><br>';
 				}
-				document.getElementById('game-results').innerHTML = html;*/
+				html += '</div>';
+				document.getElementById('game-results').innerHTML = html;
 			}
 		});
 
@@ -150,12 +153,13 @@ class Home extends React.Component {
 		return (
 			<div>
 				<h1>Game search</h1>
-				<h4>Returns all related game titles and the platforms released under</h4>
 
 				<div className="wrapper">
 					<div className="controls">
 						<form>
-							<p>
+							<fieldset>
+							<legend>Return all related game titles and the platforms released under</legend>
+							<div>
 								<label htmlFor="search-title">Enter a SINGLE search term (required): </label>
 								<input
 									type="text"
@@ -164,18 +168,24 @@ class Home extends React.Component {
 									onChange={this.inputGameTitle}
 									required
 								/>
-							</p>
-							<p>
+							</div>
+							<div>
 								<input
 									type="button"
 									className="submit"
 									onClick={this.submitGameTitle}
 									value="Submit search"
 								/>
-							</p>
+							</div>
+							</fieldset>
 						</form>
+						<div id="or">
+							<h3>OR</h3>
+						</div>
 						<form>
-							<p>
+							<fieldset>
+							<legend>Return all information related to a specific game</legend>
+							<div>
 								<label htmlFor="search-title-data">Enter an EXACT game title (required): </label>
 								<input
 									type="text"
@@ -184,6 +194,7 @@ class Home extends React.Component {
 									onChange={this.inputGameTitleData}
 									required
 								/>
+								<br/>
 								<label htmlFor="search-plat-data">Enter a SINGLE platform (required): </label>
 								<input
 									type="text"
@@ -193,15 +204,16 @@ class Home extends React.Component {
 									onChange={this.inputGamePlatData}
 									required
 								/>
-							</p>
-							<p>
+							</div>
+							<div>
 								<input
 									type="button"
 									className="submit"
 									onClick={this.submitGameData}
 									value="Submit search"
 								/>
-							</p>
+							</div>
+							</fieldset>
 						</form>
 					</div>
 				</div>
