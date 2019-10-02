@@ -1,6 +1,6 @@
 import React from 'react';
 import SearchHome from './searchhome';
-import GameResults from './loading';
+import ReactLoading from 'react-loading';
 
 class ChickenCoop extends React.Component {
 	constructor() {
@@ -39,11 +39,14 @@ class ChickenCoop extends React.Component {
 	inputGameTitle(e) {
 		var search = e.target.value;
 		this.setState({ game: search });
+
+		var loading = <div id="loading-svg" ><ReactLoading type={"bubbles"} color={"rgb(233, 232, 232)"} height="20%" width="20%"  /></div>;
+
+		document.getElementById('game-results').innerHTML = loading;
 	}
 
 	submitGameTitle() {
 
-		this.loadResults();
 
 		//XMLHttpRequest to Metacritic Database
 
@@ -73,7 +76,6 @@ class ChickenCoop extends React.Component {
 		xhr.addEventListener('readystatechange', function() {
 			if (this.readyState === this.DONE) {
 				console.log(this.responseText);
-				this.completeResults();
 				//Convert responseText string to useable object
 				var gameobj = JSON.parse(this.responseText);
 				console.log(gameobj.result);
@@ -98,7 +100,7 @@ class ChickenCoop extends React.Component {
 					});
 					html += '</div><br>';
 				});
-				html += '</div>';
+				html += '</div>';	
 				document.getElementById('game-results').innerHTML = html;
 			}
 		});
@@ -147,6 +149,9 @@ class ChickenCoop extends React.Component {
 				//Convert responseText string to useable object
 				var gameobj = JSON.parse(this.responseText);
 				console.log(gameobj.result);
+				if (gameobj.result === 'No result') {
+					console.log('Incorrect game title');
+				}
 				//Create result div
 				var html = '';
 				//Separate game cover & title first in 1st div
@@ -170,6 +175,9 @@ class ChickenCoop extends React.Component {
 								'</span><br></div><br>';
 						}
 					}
+				}			
+				if (gameobj.result === 'No result') {
+					html = '<div id="no-result"><span>Please enter a correct game title</span></div>';
 				}
 				html += '</div>';
 				document.getElementById('game-results').innerHTML = html;
@@ -184,6 +192,13 @@ class ChickenCoop extends React.Component {
 	}
 
 	render() {
+
+		/*if ( isLoaded) {
+			resultDiv =  <div id="game-results"></div> 
+		} else {
+			resultDiv = <ReactLoading type={'bubbles'} color={'rgb(233, 232, 232)'} height='667' width='375' />
+		}*/
+
 		return (
 			<div>
 				<div id="head-ellipse" />
@@ -204,7 +219,8 @@ class ChickenCoop extends React.Component {
 					submitGameTitle={this.submitGameTitle}
 					submitGameData={this.submitGameData}
 				/>
-				<GameResults isLoaded={this.isLoaded} />
+				<div id="game-results"></div>
+				
 			</div>
 		);
 	}
