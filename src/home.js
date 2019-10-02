@@ -64,6 +64,7 @@ class Home extends React.Component {
 				//Use dynamicSort to group result object by title (otherwise seemingly random?)
 				gameobj.result = gameobj.result.sort(dynamicSort('title'));
 				var html = '';
+				html += '<div id="title-result-container">';
 				gameobj.result.forEach(function(val) {
 					var keys = Object.keys(val);
 					html += "<div className='title-result'>";
@@ -73,12 +74,13 @@ class Home extends React.Component {
 							key.replace(/([a-z](?=[A-Z]))/g, '$1 ').replace(/^./, function(str) {
 								return str.toUpperCase();
 							}) +
-							':</strong></span><span className="title-value"> ' +
+							':</strong></span>&nbsp;<span className="title-value"> ' +
 							val[key] +
 							'</span><br>';
 					});
 					html += '</div><br>';
 				});
+				html += '</div>'
 				document.getElementById('game-results').innerHTML = html;
 			}
 		});
@@ -129,20 +131,22 @@ class Home extends React.Component {
 				var gameobj = JSON.parse(this.responseText);
 				console.log(gameobj.result);
 				var html = '';
+				//Separate game cover & title first in 1st div
 				html +=
-					'<div className="game-cover"><img src="' +
+					'<div id="game-cover-title"><img src="' +
 					gameobj.result['image'] +
-					'" alt="game cover" className="game-cover pure-img" /></div><div className="game-info">';
+					'" alt="game cover" id="game-cover pure-img" /><p className="game-name"><strong>' + gameobj.result['title'] + '</strong></p></div><div id="game-info">';
+				//Then loop through remaining info in 2nd div
 				for (var key in gameobj.result) {
 					if (gameobj.result.hasOwnProperty(key)) {
-						if (key !== 'image') {
+						if (key !== 'image' && key!== 'title') {
 							html +=
 								'<div className="data-result"><span className="data-key"><strong>' +
 								key.replace(/([a-z](?=[A-Z]))/g, '$1 ').replace(/^./, function(str) {
 									return str.toUpperCase();
 								}) +
-								':</strong></span><span className="data-value"> ' +
-								gameobj.result[key] +
+								': </strong></span>&nbsp;<span className="data-value"> ' +
+								gameobj.result[key].toString().replace(/,/g, ', ') +
 								'</span><br></div><br>';
 						}
 					}
