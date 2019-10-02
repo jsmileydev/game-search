@@ -11,11 +11,9 @@ class Home extends React.Component {
 		};
 		this.inputGameTitle = this.inputGameTitle.bind(this);
 		this.submitGameTitle = this.submitGameTitle.bind(this);
-		//this.fetchTitleResults = this.fetchTitleResults.bind(this);
 		this.inputGameTitleData = this.inputGameTitleData.bind(this);
 		this.inputGamePlatData = this.inputGamePlatData.bind(this);
 		this.submitGameData = this.submitGameData.bind(this);
-		//this.fetchDataResults = this.fetchDataResults.bind(this);
 	}
 
 	//SEARCH FOR ALL GAMES RELATED TO INPUT
@@ -26,12 +24,9 @@ class Home extends React.Component {
 	}
 
 	submitGameTitle() {
-		/*console.log(this.state.game);
-		this.fetchTitleResults();
-	}
 
-	fetchTitleResults() {*/
-		// Use preventDefault() to stop the form submitting
+		//XMLHttpRequest to Metacritic Database
+
 		var data = null;
 
 		var url = this.state.game;
@@ -63,6 +58,8 @@ class Home extends React.Component {
 				console.log(gameobj.result);
 				//Use dynamicSort to group result object by title (otherwise seemingly random?)
 				gameobj.result = gameobj.result.sort(dynamicSort('title'));
+
+				//Create result div
 				var html = '';
 				html += '<div id="title-result-container">';
 				gameobj.result.forEach(function(val) {
@@ -113,10 +110,9 @@ class Home extends React.Component {
 	}
 
 	submitGameData() {
-		/*this.fetchDataResults();
-	}
 
-	fetchDataResults() {*/
+		//XMLHttpRequest to Metacritic Database
+
 		var data = null;
 
 		var title = this.state.game;
@@ -128,8 +124,10 @@ class Home extends React.Component {
 		xhr.addEventListener('readystatechange', function() {
 			if (this.readyState === this.DONE) {
 				console.log(this.responseText);
+				//Convert responseText string to useable object
 				var gameobj = JSON.parse(this.responseText);
 				console.log(gameobj.result);
+				//Create result div
 				var html = '';
 				//Separate game cover & title first in 1st div
 				html +=
