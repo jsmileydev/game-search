@@ -47,14 +47,14 @@ body {
 	.container {
 		display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: center;
 		align-items: stretch;
     height: 20em;
     
 
 
 		form {
-			width: 40%;
+      width: 35%;
 
 			legend {
 				color: $white !important;
@@ -82,15 +82,17 @@ body {
 			color: $black;
 			width: 5em;
 			height: 100%;
-			margin: 0 auto;
 
 			h3 {
 				margin: 1em auto;
-				height: 4em;
-				width: 4em;
-				line-height: 4em;
+				height: 3em;
+				width: 3em;
+				line-height: 3em;
 				background: $steam-blue;
-				border-radius: 2em;
+        background: linear-gradient(to bottom, rgba(0, 175, 239,0.2) 10%, rgba(0, 175, 239,1)), url('./images/icons8-circuit-50.png');
+        background-position: center;
+        background-size: 50%;
+				border-radius: 1.5em;
 			}
 		}
 	}
@@ -100,9 +102,12 @@ body {
 		margin: 2em 4em;
 		border-top: 1px solid $white;
 		padding-top: 2em;
+    img {
+      margin: 1em 0;
+    }
 
 		.game-cover {
-			margin: 1em;
+      margin: 1em !important;
 		}
 
 		span {

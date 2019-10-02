@@ -1,5 +1,4 @@
 import React from 'react';
-import { marioSvg } from './images/365cons-mario.svg';
 
 class Home extends React.Component {
 	constructor() {
@@ -74,7 +73,7 @@ class Home extends React.Component {
 							key.replace(/([a-z](?=[A-Z]))/g, '$1 ').replace(/^./, function(str) {
 								return str.toUpperCase();
 							}) +
-							'</strong></span><span className="title-value">: ' +
+							':</strong></span><span className="title-value"> ' +
 							val[key] +
 							'</span><br>';
 					});
@@ -142,7 +141,7 @@ class Home extends React.Component {
 								key.replace(/([a-z](?=[A-Z]))/g, '$1 ').replace(/^./, function(str) {
 									return str.toUpperCase();
 								}) +
-								'</strong></span><span className="data-value">: ' +
+								':</strong></span><span className="data-value"> ' +
 								gameobj.result[key] +
 								'</span><br></div><br>';
 						}
@@ -178,7 +177,7 @@ class Home extends React.Component {
 						<form className="pure-form pure-form-stacked column">
 							<fieldset>
 								<legend>
-									<marioSvg />Return all related game titles and its released platforms
+									Get all related game titles and their released platforms
 								</legend>
 								<div>
 									<label htmlFor="search-title">Enter a search term: </label>
@@ -191,13 +190,12 @@ class Home extends React.Component {
 									/>
 								</div>
 								<div>
-									<button
-										type="submit"
+									<input 
+										type="button"
 										className="submit button-success pure-button"
 										onClick={this.submitGameTitle}
-									>
-										Submit Search
-									</button>
+										value="Submit Search"
+									/>
 								</div>
 							</fieldset>
 						</form>
@@ -206,7 +204,7 @@ class Home extends React.Component {
 						</div>
 						<form className="pure-form pure-form-stacked column">
 							<fieldset>
-								<legend>Return all information related to a specific game</legend>
+								<legend>Get all details about a specific game</legend>
 								<div>
 									<label htmlFor="search-title-data">Enter an EXACT game title: </label>
 									<input
@@ -227,13 +225,12 @@ class Home extends React.Component {
 									/>
 								</div>
 								<div>
-									<button
-										type="submit"
+									<input
+										type="button"
 										className="submit button-success pure-button"
 										onClick={this.submitGameData}
-									>
-										Submit Search
-									</button>
+										value="Submit Search"
+									/>
 								</div>
 							</fieldset>
 						</form>
