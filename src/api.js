@@ -2,6 +2,11 @@ import React from 'react';
 import SearchHome from './searchhome';
 import ReactLoading from 'react-loading';
 
+
+const LoadAni = ({ type, color }) => (
+	<ReactLoading type={'bubbles'} color={'rgb(233, 232, 232)'} height={'10%'} width={'10%'} id='load-ani' />
+);
+
 class ChickenCoop extends React.Component {
 	constructor() {
 		super();
@@ -11,7 +16,6 @@ class ChickenCoop extends React.Component {
 			isLoaded: null,
 			showSearch: true,
 			showNew: false
-
 		};
 		this.inputGameTitle = this.inputGameTitle.bind(this);
 		this.submitGameTitle = this.submitGameTitle.bind(this);
@@ -27,26 +31,23 @@ class ChickenCoop extends React.Component {
 	loadResults() {
 		this.setState({
 			isLoaded: false
-		})
+		});
 	}
 
 	completeResults() {
 		this.setState({
 			isLoaded: true
-		})
+		});
 	}
 
 	inputGameTitle(e) {
 		var search = e.target.value;
-		this.setState({ game: search });
-
-		var loading = <div id="loading-svg" ><ReactLoading type={"bubbles"} color={"rgb(233, 232, 232)"} height="20%" width="20%"  /></div>;
-
-		document.getElementById('game-results').innerHTML = loading;
+		this.setState({ game: search});
 	}
 
 	submitGameTitle() {
 
+		this.setState({isLoaded: true});
 
 		//XMLHttpRequest to Metacritic Database
 
@@ -100,7 +101,7 @@ class ChickenCoop extends React.Component {
 					});
 					html += '</div><br>';
 				});
-				html += '</div>';	
+				html += '</div>';
 				document.getElementById('game-results').innerHTML = html;
 			}
 		});
@@ -133,6 +134,9 @@ class ChickenCoop extends React.Component {
 	}
 
 	submitGameData() {
+
+		this.setState({isLoaded: true});
+
 		//XMLHttpRequest to Metacritic Database
 
 		var data = null;
@@ -155,12 +159,8 @@ class ChickenCoop extends React.Component {
 				//Create result div
 				var html = '';
 				//Separate game cover & title first in 1st div
-				html +=
-					'<div id="game-cover-title"><img src="' +
-					gameobj.result['image'] +
-					'" alt="game cover" id="game-cover pure-img" /><p className="game-name"><strong>' +
-					gameobj.result['title'] +
-					'</strong></p></div><div id="game-info">';
+				html +=	'<div id="game-cover-title"><img src="' + gameobj.result['image'] +	'" alt="game cover" id="game-cover pure-img" /><p className="game-name"><strong>' +
+					gameobj.result['title'] + '</strong></p></div><div id="game-info">';
 				//Then loop through remaining info in 2nd div
 				for (var key in gameobj.result) {
 					if (gameobj.result.hasOwnProperty(key)) {
@@ -175,7 +175,7 @@ class ChickenCoop extends React.Component {
 								'</span><br></div><br>';
 						}
 					}
-				}			
+				}
 				if (gameobj.result === 'No result') {
 					html = '<div id="no-result"><span>Please enter a correct game title</span></div>';
 				}
@@ -192,7 +192,6 @@ class ChickenCoop extends React.Component {
 	}
 
 	render() {
-
 		/*if ( isLoaded) {
 			resultDiv =  <div id="game-results"></div> 
 		} else {
@@ -219,8 +218,7 @@ class ChickenCoop extends React.Component {
 					submitGameTitle={this.submitGameTitle}
 					submitGameData={this.submitGameData}
 				/>
-				<div id="game-results"></div>
-				
+				<div id="game-results"> { this.state.isLoaded ? <LoadAni/> : <div></div> } </div> 
 			</div>
 		);
 	}
