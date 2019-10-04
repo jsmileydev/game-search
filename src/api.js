@@ -2,9 +2,8 @@ import React from 'react';
 import SearchHome from './searchhome';
 import ReactLoading from 'react-loading';
 
-
 const LoadAni = ({ type, color }) => (
-	<ReactLoading type={'bubbles'} color={'rgb(233, 232, 232)'} height={'10%'} width={'10%'} id='load-ani' />
+	<ReactLoading type={'bubbles'} color={'rgb(233, 232, 232)'} height={'10%'} width={'10%'} id="load-ani" />
 );
 
 class ChickenCoop extends React.Component {
@@ -14,6 +13,7 @@ class ChickenCoop extends React.Component {
 			game: '',
 			plat: '',
 			isLoaded: null,
+			results: '',
 			showSearch: true,
 			showNew: false
 		};
@@ -22,38 +22,28 @@ class ChickenCoop extends React.Component {
 		this.inputGameTitleData = this.inputGameTitleData.bind(this);
 		this.inputGamePlatData = this.inputGamePlatData.bind(this);
 		this.submitGameData = this.submitGameData.bind(this);
-		this.loadResults = this.loadResults.bind(this);
-		this.completeResults = this.completeResults.bind(this);
+		var ListItem;
 	}
+
+	
 
 	//SEARCH FOR ALL GAMES RELATED TO INPUT
 
-	loadResults() {
-		this.setState({
-			isLoaded: false
-		});
-	}
-
-	completeResults() {
-		this.setState({
-			isLoaded: true
-		});
-	}
-
 	inputGameTitle(e) {
 		var search = e.target.value;
-		this.setState({ game: search});
+		this.setState({ game: search });
 	}
 
 	submitGameTitle() {
-
-		this.setState({isLoaded: true});
+		this.setState({ isLoaded: true });
 
 		//XMLHttpRequest to Metacritic Database
 
 		var data = null;
 
 		var url = this.state.game;
+
+		var _this = this;
 
 		var xhr = new XMLHttpRequest();
 		xhr.withCredentials = true;
@@ -74,24 +64,125 @@ class ChickenCoop extends React.Component {
 			};
 		}
 
+		
+
 		xhr.addEventListener('readystatechange', function() {
 			if (this.readyState === this.DONE) {
+				_this.setState({
+					isLoaded: false
+				});
 				console.log(this.responseText);
 				//Convert responseText string to useable object
 				var gameobj = JSON.parse(this.responseText);
-				console.log(gameobj.result);
 				//Use dynamicSort to group result object by title (otherwise seemingly random?)
 				gameobj.result = gameobj.result.sort(dynamicSort('title'));
+				console.log(gameobj.result, typeof gameobj.result);
+
+
+				var renderItems = () => {
+					const ListItem = gameobj.result.map((item, index) => (
+						<div className="title-result" key={item.title}>
+							<span className="title-key">
+								<strong>Title:</strong>
+							</span>
+							<span className="title-value">
+								<strong>{item.title}</strong>
+							</span>
+							<br />
+							<span className="title-key">
+								<strong>Platform:</strong>
+							</span>
+							<span className="title-value">
+								<strong>{item.platform}</strong>
+							</span>
+							<br />
+						</div>
+					));
+					return ListItem;
+				}
+
+				document.getElementById('game-results').append({renderItems});
+
+				/*_this.ListItem = gameobj.result.map((item) => (
+					<GameListItem 
+						key={item.title}
+						title={item.title}
+						platform={item.platform}
+					/>
+				));
+
+
+				function gameTitle(obj) {
+					obj.forEach(function(val) {
+						var keys = Object.keys(val);
+						keys.forEach(function(key) {
+							return (
+								<div className="title-result">
+									<span className="title-key">
+										<strong>
+											{key.replace(/([a-z](?=[A-Z]))/g, '$1 ').replace(/^./, function(str) {
+												return str.toUpperCase();
+											})}:
+										</strong>
+									</span>
+									<span className="title-value">
+										<strong>{val[key]}</strong>
+									</span>
+									<br />
+								</div>
+							);
+						});
+					});
+				}
+
+
+				_this.setState({
+					results: <div></div>
+				});
+
+				
+				console.log(_this.state.results);
+
+				//console.log(_this.state.results);
 
 				//Create result div
-				var html = '';
-				html += '<div id="title-result-container">';
+
+				/*function gameTitle() {
+					gameobj.result.forEach(function(val) {
+						var keys = Object.keys(val);
+						keys.forEach(function(key) {
+							return (
+								<div className="title-result">
+									<span className="title-key">
+										<strong>
+											{key.replace(/([a-z](?=[A-Z]))/g, '$1 ').replace(/^./, function(str) {
+												return str.toUpperCase();
+											})}:
+										</strong>
+									</span>
+									<span className="title-value">
+										<strong>{val[key]}</strong>
+									</span>
+									<br />
+								</div>
+							);
+						});
+					});
+				}
+
+				
+
+				/*<ListItem props={gameobj}/>
+
+				var html = '<div id="title-result-container">';
 				gameobj.result.forEach(function(val) {
+					
 					var keys = Object.keys(val);
-					html += "<div className='title-result'>";
+					html += '<div className="title-result">';
 					keys.forEach(function(key) {
+
 						html +=
-							'<span className="title-key"><strong>' +
+							'<span className="title-key" data-title=><strong>' +
 							key.replace(/([a-z](?=[A-Z]))/g, '$1 ').replace(/^./, function(str) {
 								return str.toUpperCase();
 							}) +
@@ -100,9 +191,10 @@ class ChickenCoop extends React.Component {
 							'</span><br>';
 					});
 					html += '</div><br>';
+					console.log(_this.state.game);
 				});
 				html += '</div>';
-				document.getElementById('game-results').innerHTML = html;
+				document.getElementById('game-results').append(<ListItem props={gameobj}/>);*/
 			}
 		});
 
@@ -134,8 +226,7 @@ class ChickenCoop extends React.Component {
 	}
 
 	submitGameData() {
-
-		this.setState({isLoaded: true});
+		this.setState({ isLoaded: true });
 
 		//XMLHttpRequest to Metacritic Database
 
@@ -159,8 +250,12 @@ class ChickenCoop extends React.Component {
 				//Create result div
 				var html = '';
 				//Separate game cover & title first in 1st div
-				html +=	'<div id="game-cover-title"><img src="' + gameobj.result['image'] +	'" alt="game cover" id="game-cover pure-img" /><p className="game-name"><strong>' +
-					gameobj.result['title'] + '</strong></p></div><div id="game-info">';
+				html +=
+					'<div id="game-cover-title"><img src="' +
+					gameobj.result['image'] +
+					'" alt="game cover" id="game-cover pure-img" /><p className="game-name"><strong>' +
+					gameobj.result['title'] +
+					'</strong></p></div><div id="game-info">';
 				//Then loop through remaining info in 2nd div
 				for (var key in gameobj.result) {
 					if (gameobj.result.hasOwnProperty(key)) {
@@ -177,7 +272,7 @@ class ChickenCoop extends React.Component {
 					}
 				}
 				if (gameobj.result === 'No result') {
-					html = '<div id="no-result"><span>Please enter a correct game title</span></div>';
+					html = '<div id="no-result"><span>Please enter a correct game title and platform</span></div>';
 				}
 				html += '</div>';
 				document.getElementById('game-results').innerHTML = html;
@@ -218,7 +313,7 @@ class ChickenCoop extends React.Component {
 					submitGameTitle={this.submitGameTitle}
 					submitGameData={this.submitGameData}
 				/>
-				<div id="game-results"> { this.state.isLoaded ? <LoadAni/> : <div></div> } </div> 
+				<div id="game-results"> {this.state.isLoaded ? <LoadAni /> : <div>{this.ListItem} </div>} </div>
 			</div>
 		);
 	}
