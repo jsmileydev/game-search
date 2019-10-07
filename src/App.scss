@@ -1,6 +1,9 @@
 $black: rgb(43, 42, 42);
 $white: rgb(233, 232, 232);
 $steam-blue: rgb(0, 175, 239);
+$good-green: #6c3;
+$meh-yellow: #fc3;
+$bad-red: #f00;
 
 body {
 	background: $black;
@@ -131,6 +134,20 @@ body {
     #game-info {
       margin-left: 2em;
       width: 40%;
+
+      .green-bg {
+        background-color: $good-green;
+        border-radius: 6px;
+      }
+      .yellow-bg {
+        background-color: $meh-yellow;
+        border-radius: 6px;
+      }
+      .red-bg {
+        background-color: $bad-red;
+        border-radius: 6px;
+      }
+
     }
 
 		span {

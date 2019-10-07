@@ -142,7 +142,7 @@ class ChickenCoop extends React.Component {
 		var data = null;
 
 		var title = this.state.game;
-		var plat = this.state.plat;
+		var plat = this.state.plat.replace(/\s/g, '-');
 
 		var xhr = new XMLHttpRequest();
 		xhr.withCredentials = true;
@@ -153,34 +153,44 @@ class ChickenCoop extends React.Component {
 				//Convert responseText string to useable object
 				var gameobj = JSON.parse(this.responseText);
 				console.log(gameobj.result);
+				if ('error' in gameobj)
 				if (gameobj.result === 'No result') {
 					console.log('Incorrect game title');
 				}
+				console.log('https://www.metacritic.com/game/' + plat.replace(/\s/g, '-') + '/' + title.replace(/\s/g, '-'));
 				//Create result div
 				var html = '';
 				//Separate game cover & title first in 1st div
-				html +=	'<div id="game-cover-title"><img src="' + gameobj.result['image'] +	'" alt="game cover" id="game-cover pure-img" /><p className="game-name"><strong>' +
-					gameobj.result['title'] + '</strong></p></div><div id="game-info">';
+				html +=	'<div id="game-cover-title"><img src="' + gameobj.result['image'] + '" alt="game cover" id="game-cover pure-img" /><p className="game-name"><strong>' + gameobj.result['title'] + '</strong></p></div><div id="game-info">';
 				//Then loop through remaining info in 2nd div
+				
 				for (var key in gameobj.result) {
 					if (gameobj.result.hasOwnProperty(key)) {
-						if (key !== 'image' && key !== 'title') {
+						if (key !== 'image' && key !== 'title' && key !== 'score') {
 							html +=
-								'<div className="data-result"><span className="data-key"><strong>' +
+								'<div className="data-result"></div><span className="data-key"><strong>' +
 								key.replace(/([a-z](?=[A-Z]))/g, '$1 ').replace(/^./, function(str) {
 									return str.toUpperCase();
 								}) +
 								': </strong></span>&nbsp;<span className="data-value"> ' +
 								gameobj.result[key].toString().replace(/,/g, ', ') +
-								'</span><br></div><br>';
+								'</span><br/>';
 						}
 					}
 				}
+				html += '<strong>Metacritic Score: </strong><span id="game-score" className="">' + gameobj.result['score'] + '</span> <a href="https://www.metacritic.com/game/' + plat.replace(/\s/g, '-') + '/' + title.replace(/\s/g, '-') + '" alt="Metacritic review" id="game-review">View Full Review</a></div></div>';
 				if (gameobj.result === 'No result') {
-					html = '<div id="no-result"><span>Please enter a correct game title</span></div>';
+					html = '<div id="no-result"><span>Please enter a correct game title or platform</span></div>';
 				}
-				html += '</div>';
 				document.getElementById('game-results').innerHTML = html;
+				var score = gameobj.result['score'];
+				if (score >= 75) {
+					score.classList.add('green-bg');
+				} else if (score >= 50) {
+					score.classList.add('yellow-bg');
+				} else {
+					score.classList.add('red-bg');
+				}
 			}
 		});
 
