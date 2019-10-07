@@ -14,18 +14,15 @@ class ChickenCoop extends React.Component {
 			plat: '',
 			isLoaded: null,
 			results: '',
-			showSearch: true,
-			showNew: false
+			gameItem: ''
 		};
 		this.inputGameTitle = this.inputGameTitle.bind(this);
 		this.submitGameTitle = this.submitGameTitle.bind(this);
 		this.inputGameTitleData = this.inputGameTitleData.bind(this);
 		this.inputGamePlatData = this.inputGamePlatData.bind(this);
 		this.submitGameData = this.submitGameData.bind(this);
-		var ListItem;
+		this.searchTitle = this.searchTitle.bind(this);
 	}
-
-	
 
 	//SEARCH FOR ALL GAMES RELATED TO INPUT
 
@@ -64,8 +61,6 @@ class ChickenCoop extends React.Component {
 			};
 		}
 
-		
-
 		xhr.addEventListener('readystatechange', function() {
 			if (this.readyState === this.DONE) {
 				_this.setState({
@@ -77,125 +72,27 @@ class ChickenCoop extends React.Component {
 				//Use dynamicSort to group result object by title (otherwise seemingly random?)
 				gameobj.result = gameobj.result.sort(dynamicSort('title'));
 				console.log(gameobj.result, typeof gameobj.result);
-
-
-				var renderItems = () => {
-					const ListItem = gameobj.result.map((item, index) => (
-						<div className="title-result" key={item.title}>
-							<span className="title-key">
-								<strong>Title:</strong>
-							</span>
-							<span className="title-value">
-								<strong>{item.title}</strong>
-							</span>
-							<br />
-							<span className="title-key">
-								<strong>Platform:</strong>
-							</span>
-							<span className="title-value">
-								<strong>{item.platform}</strong>
-							</span>
-							<br />
-						</div>
-					));
-					return ListItem;
-				}
-
-				document.getElementById('game-results').append({renderItems});
-
-				/*_this.ListItem = gameobj.result.map((item) => (
-					<GameListItem 
-						key={item.title}
-						title={item.title}
-						platform={item.platform}
-					/>
-				));
-
-
-				function gameTitle(obj) {
-					obj.forEach(function(val) {
-						var keys = Object.keys(val);
-						keys.forEach(function(key) {
-							return (
-								<div className="title-result">
-									<span className="title-key">
-										<strong>
-											{key.replace(/([a-z](?=[A-Z]))/g, '$1 ').replace(/^./, function(str) {
-												return str.toUpperCase();
-											})}:
-										</strong>
-									</span>
-									<span className="title-value">
-										<strong>{val[key]}</strong>
-									</span>
-									<br />
-								</div>
-							);
-						});
+				const ListItem = gameobj.result.map((item) => {
+						return (
+							<div className="title-result" key={item.title + item.platform}>
+								<input 
+										type="button"
+										className="submit title-submit button-success pure-button" value="Search this game" data-title={item.title} data-plat={item.platform} onClick={_this.searchTitle} /><br/>
+								<span className="title-key">
+									<strong>Title:</strong>
+								</span>
+								<span className="title-name">{item.title}</span>
+								<br />
+								<span className="title-key">
+									<strong>Platform:</strong>
+								</span>
+								<span className="title-platform">{item.platform}</span>
+								<br />
+							</div>
+						);
 					});
-				}
-
-
-				_this.setState({
-					results: <div></div>
-				});
-
-				
-				console.log(_this.state.results);
-
-				//console.log(_this.state.results);
-
-				//Create result div
-
-				/*function gameTitle() {
-					gameobj.result.forEach(function(val) {
-						var keys = Object.keys(val);
-						keys.forEach(function(key) {
-							return (
-								<div className="title-result">
-									<span className="title-key">
-										<strong>
-											{key.replace(/([a-z](?=[A-Z]))/g, '$1 ').replace(/^./, function(str) {
-												return str.toUpperCase();
-											})}:
-										</strong>
-									</span>
-									<span className="title-value">
-										<strong>{val[key]}</strong>
-									</span>
-									<br />
-								</div>
-							);
-						});
-					});
-				}
-
-				
-
-				/*<ListItem props={gameobj}/>
-
-				var html = '<div id="title-result-container">';
-				gameobj.result.forEach(function(val) {
-					
-					var keys = Object.keys(val);
-					html += '<div className="title-result">';
-					keys.forEach(function(key) {
-
-						html +=
-							'<span className="title-key" data-title=><strong>' +
-							key.replace(/([a-z](?=[A-Z]))/g, '$1 ').replace(/^./, function(str) {
-								return str.toUpperCase();
-							}) +
-							':</strong></span>&nbsp;<span className="title-value"> ' +
-							val[key] +
-							'</span><br>';
-					});
-					html += '</div><br>';
-					console.log(_this.state.game);
-				});
-				html += '</div>';
-				document.getElementById('game-results').append(<ListItem props={gameobj}/>);*/
-			}
+					_this.setState({ gameItem: ListItem });
+				};
 		});
 
 		xhr.open('GET', 'https://chicken-coop.p.rapidapi.com/games?title=' + url);
@@ -203,6 +100,19 @@ class ChickenCoop extends React.Component {
 		xhr.setRequestHeader('x-rapidapi-key', '5d0b4bd3ccmshb5942bd75f3f8b8p1c8bb5jsnb3247ba29bde');
 
 		xhr.send(data);
+	}
+
+	//FROM LIST OF TITLE RESULTS, SEARCH FOR DATA ON ONE
+
+	searchTitle(e) {
+		var name = e.target.getAttribute('data-title');
+		var platform = e.target.getAttribute('data-plat');
+		this.setState({
+			game: name,
+			plat: platform,
+			isLoaded: null
+		})
+		console.log(name, platform);
 	}
 
 	// SEARCH FULL DATA FOR ONE GAME
@@ -215,9 +125,7 @@ class ChickenCoop extends React.Component {
 	//Set state of platform to default value of input field ('pc') on initial load
 	componentDidMount() {
 		var platSearch = document.getElementById('search-plat-data').value;
-		this.setState({
-			plat: platSearch
-		});
+		this.setState({ plat: platSearch });
 	}
 
 	inputGamePlatData(e) {
@@ -245,16 +153,18 @@ class ChickenCoop extends React.Component {
 				var gameobj = JSON.parse(this.responseText);
 				console.log(gameobj.result);
 				if ('error' in gameobj)
-				if (gameobj.result === 'No result') {
-					console.log('Incorrect game title');
-				}
-				console.log('https://www.metacritic.com/game/' + plat.replace(/\s/g, '-') + '/' + title.replace(/\s/g, '-'));
+					if (gameobj.result === 'No result') {
+						console.log('Incorrect game title');
+					}
+				console.log(
+					'https://www.metacritic.com/game/' + plat.replace(/\s/g, '-') + '/' + title.replace(/\s/g, '-')
+				);
 				//Create result div
 				var html = '';
 				//Separate game cover & title first in 1st div
-				html +=	'<div id="game-cover-title"><img src="' + gameobj.result['image'] + '" alt="game cover" id="game-cover pure-img" /><p className="game-name"><strong>' + gameobj.result['title'] + '</strong></p></div><div id="game-info">';
+				html += '<div id="game-cover-title"><img src="' + gameobj.result['image'] + '" alt="game cover" id="game-cover pure-img" /><p  className="game-name"><strong>' + gameobj.result['title'] + '</strong></p></div><div id="game-info">';
 				//Then loop through remaining info in 2nd div
-				
+
 				for (var key in gameobj.result) {
 					if (gameobj.result.hasOwnProperty(key)) {
 						if (key !== 'image' && key !== 'title' && key !== 'score') {
@@ -269,19 +179,26 @@ class ChickenCoop extends React.Component {
 						}
 					}
 				}
-				html += '<strong>Metacritic Score: </strong><span id="game-score" className="">' + gameobj.result['score'] + '</span> <a href="https://www.metacritic.com/game/' + plat.replace(/\s/g, '-') + '/' + title.replace(/\s/g, '-') + '" alt="Metacritic review" id="game-review">View Full Review</a></div></div>';
+				html +=
+					'<strong>Metacritic Score: </strong><span id="game-score" className="">' +
+					gameobj.result['score'] +
+					'</span> <a href="https://www.metacritic.com/game/' +
+					plat.replace(/\s/g, '-') +
+					'/' +
+					title.replace(/\s/g, '-') +
+					'" alt="Metacritic review" id="game-review">View Full Review</a></div></div>';
 				if (gameobj.result === 'No result') {
 					html = '<div id="no-result"><span>Please enter a correct game title or platform</span></div>';
 				}
 				document.getElementById('game-results').innerHTML = html;
-				var score = gameobj.result['score'];
+				/*var score = gameobj.result['score'];
 				if (score >= 75) {
 					score.classList.add('green-bg');
 				} else if (score >= 50) {
 					score.classList.add('yellow-bg');
 				} else {
 					score.classList.add('red-bg');
-				}
+				}*/
 			}
 		});
 
@@ -293,11 +210,6 @@ class ChickenCoop extends React.Component {
 	}
 
 	render() {
-		/*if ( isLoaded) {
-			resultDiv =  <div id="game-results"></div> 
-		} else {
-			resultDiv = <ReactLoading type={'bubbles'} color={'rgb(233, 232, 232)'} height='667' width='375' />
-		}*/
 
 		return (
 			<div>
@@ -319,7 +231,7 @@ class ChickenCoop extends React.Component {
 					submitGameTitle={this.submitGameTitle}
 					submitGameData={this.submitGameData}
 				/>
-				<div id="game-results"> {this.state.isLoaded ? <LoadAni /> : <div>{this.ListItem} </div>} </div>
+				<div id="game-results"> {this.state.isLoaded ? <LoadAni /> : <div>{this.state.gameItem} </div>} </div>
 			</div>
 		);
 	}
