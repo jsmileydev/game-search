@@ -127,13 +127,13 @@ body {
     }
 
     img {
-      height: 50%;
+      height: 200px;
       width: auto;
     }
 
     #game-info {
       margin-left: 2em;
-      width: 40%;
+      width: 60%;
 
       .green-bg {
         background-color: $good-green;
@@ -159,6 +159,9 @@ body {
       margin: 0 2em;
       border-left: 3px solid $white;
       padding-left: 3em;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
     }
 	}
 }
