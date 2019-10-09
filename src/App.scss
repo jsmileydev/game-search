@@ -115,8 +115,7 @@ body {
 
     #no-result {
       margin: 0 auto;
-    }
-    
+    }    
 
     #game-cover-title {
       text-align: right;
@@ -129,32 +128,15 @@ body {
     img {
       height: 200px;
       width: auto;
-    }
+    }    
 
-    #game-info {
-      margin-left: 2em;
-      width: 60%;
-
-      
-
-      .green-bg {
-        background-color: $good-green;
-        border-radius: 6px;
-      }
-      .yellow-bg {
-        background-color: $meh-yellow;
-        border-radius: 6px;
-      }
-      .red-bg {
-        background-color: $bad-red;
-        border-radius: 6px;
-      }
-
-    }
-
-		span {
+		span,a {
 			display: inline-block;
 			margin-bottom: .75em;
+    }
+
+    a {
+      color: $white;
     }
     
     #title-result-container {
@@ -163,6 +145,33 @@ body {
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
+      
+      #game-info {
+        margin-left: 2em;
+        width: 60%;
+
+        #game-score {
+          display: inline-block;
+          width: 1.75em;
+          height: 1.75em;
+          margin: .5em;
+          line-height: 1.75em;
+          text-align: center;
+          font-weight: bold;
+          border-radius: 6px;
+        }
+  
+        .green-bg {
+          background-color: $good-green;
+        }
+        .yellow-bg {
+          background-color: $meh-yellow;
+        }
+        .red-bg {
+          background-color: $bad-red;
+        }      
+  
+      }
     }
 	}
 }
@@ -184,29 +193,33 @@ body {
   }    
 	.container {
 		flex-direction: column !important;
-		height: auto !important;
+    height: auto !important;
+    padding-top: 1em !important;
 		.column {
 			width: 100% !important;
 		}
   }
   #game-results {
-
-    #game-cover-title {
-      width: 100% !important;
-      border-right: none !important;
-      text-align: center !important;
-      padding-right: 0 !important;
-    }
-    #game-info {
-      width: 100% !important;
-      margin: 0 !important;
-      padding-top: 1em !important;
-      border-top: 1px solid $white !important;
-    }
+    padding-top: 0 !important;
+    
     #title-result-container {
       border-left: none !important;
       padding-left: 0 !important;
       margin: 0 !important;
+
+      #game-cover-title {
+        width: 100% !important;
+        border-right: none !important;
+        text-align: center !important;
+        padding-right: 0 !important;
+      }
+      #game-info {
+        width: 100% !important;
+        margin: 0 !important;
+        padding-top: 1em !important;
+        border-top: 1px solid $white !important;
+        text-align: center !important;
+      }
     }
   }
 }

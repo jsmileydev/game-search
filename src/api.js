@@ -137,7 +137,8 @@ class ChickenCoop extends React.Component {
 		this.setState({ isLoaded: true });
 		var data = null;
 		var title = this.state.game;
-		var plat = this.state.plat.replace(/\s/g, '-').replace('ps', 'playstation').replace(/([0-9])/g, '-$1');
+		var plat = this.state.plat.replace(/\s/g, '-').replace('ps', 'playstation').replace(/([0-9]+)/g, '-$1');
+		var metalink = 'https://www.metacritic.com/game/' + plat.replace(/\s/g,'-') + '/' + title.replace(/\s/g,'-');
 		var _this = this;
 
 		//XMLHttpRequest to Metacritic Database
@@ -167,6 +168,15 @@ class ChickenCoop extends React.Component {
 				);
 
 				var gameListItem;
+				var scoreBg;
+
+				if (gameobj.result['score'] >= 75) {
+					scoreBg = 'green-bg';
+				} else if (gameobj.result['score'] >= 50) {
+					scoreBg = 'yellow-bg';
+				} else {
+					scoreBg = 'red-bg';
+				}
 				
 				if (gameobj.result !== 'No result') {
 					gameListItem = (
@@ -179,59 +189,56 @@ class ChickenCoop extends React.Component {
 							</div>
 							<div id="game-info">
 								<div className="data-result">
-									<span className="data-key">
-										<strong>Also Available On: </strong>
-									</span>
-									<span className="data-value">
-										{gameobj.result['alsoAvailableOn'].toString().replace(/,/g, ', ')}
-									</span>
-									<br />
-									<span className="data-key">
-										<strong>Description: </strong>
-									</span>
-									<span className="data-value">{gameobj.result['description']}</span>
-									<br />
-									<span className="data-key">
-										<strong>Genre: </strong>
-									</span>
-									<span className="data-value">
-										{gameobj.result['genre'].toString().replace(/,/g, ', ')}
-									</span>
-									<br />
-									<span className="data-key">
-										<strong>Publisher: </strong>
-									</span>
-									<span className="data-value">
-										{gameobj.result['publisher'].toString().replace(/,/g, ', ')}
-									</span>
-									<br />
-									<span className="data-key">
-										<strong>Rating: </strong>
-									</span>
-									<span className="data-value">{gameobj.result['rating']}</span>
-									<br />
-									<span className="data-key">
-										<strong>Release Date: </strong>
-									</span>
-									<span className="data-value">{gameobj.result['releaseDate']}</span>
-									<br />
 									<span>
 										<strong>Metacritic Score: </strong>
 									</span>
-									<span id="game-score" className="">
-										{gameobj.result['score']}
+									<span id="game-score" className={scoreBg}>{gameobj.result['score']}
 									</span>
-									<br />
-									<p>
-										<a
-											href="https://www.metacritic.com/game/' + this.plat.replace(/\s/g, '-') + '/' + this.title.replace(/\s/g, '-') + '"
+										 <a
+											href={metalink}
 											alt="Metacritic review"
 											id="game-review"
 										>
 											{' '}
 											View Full Metacritic Review
 										</a>
-									</p>
+									<br />
+									<span className="data-key">
+										<strong>Description: </strong>
+									</span>&nbsp;
+									<span className="data-value">{gameobj.result['description']}</span>
+									<br />
+									<span className="data-key">
+										<strong>Genre: </strong>
+									</span>&nbsp;
+									<span className="data-value">
+										{gameobj.result['genre'].toString().replace(/,/g, ', ')}
+									</span>
+									<br />
+									<span className="data-key">
+										<strong>Publisher: </strong>
+									</span>&nbsp;
+									<span className="data-value">
+										{gameobj.result['publisher'].toString().replace(/,/g, ', ')}
+									</span>
+									<br />
+									<span className="data-key">
+										<strong>Rating: </strong>
+									</span>&nbsp;
+									<span className="data-value">{gameobj.result['rating']}</span>
+									<br />
+									<span className="data-key">
+										<strong>Release Date: </strong>
+									</span>&nbsp;
+									<span className="data-value">{gameobj.result['releaseDate']}</span>
+									<br />
+									<span className="data-key">
+										<strong>Also Available On: </strong>
+									</span>&nbsp;
+									<span className="data-value">
+										{gameobj.result['alsoAvailableOn'].toString().replace(/,/g, ', ')}
+									</span>
+									<br />
 								</div>
 							</div>
 						</div>
