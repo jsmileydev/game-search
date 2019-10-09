@@ -32,6 +32,7 @@ class ChickenCoop extends React.Component {
 	}
 
 	submitGameTitle() {
+		//Turn on loading animation and convert input to readable data
 		this.setState({ isLoaded: true });
 		var data = null;
 		var url = this.state.game;
@@ -42,7 +43,7 @@ class ChickenCoop extends React.Component {
 		var xhr = new XMLHttpRequest();
 		xhr.withCredentials = true;
 
-		//Function to sort result items
+		//Function to sort results
 		function dynamicSort(property) {
 			var sortOrder = 1;
 			if (property[0] === '-') {
@@ -61,38 +62,49 @@ class ChickenCoop extends React.Component {
 		xhr.addEventListener('readystatechange', function() {
 			if (this.readyState === this.DONE) {
 				console.log(this.responseText);
+
+				//Turn off loading animation and clear input fields
+				_this.setState({ isLoaded: null });
+				document.getElementById('search-title').value = '';
+
 				//Convert responseText string to useable object
 				var gameobj = JSON.parse(this.responseText);
+
 				//Use dynamicSort to group result object by title (otherwise seemingly random?)
 				gameobj.result = gameobj.result.sort(dynamicSort('title'));
 				console.log(gameobj.result, typeof gameobj.result);
+
+				//Create result div
 				const ListItem = gameobj.result.map((item) => {
 					return (
 						<div className="title-result" key={item.title + item.platform}>
-							<input
-								type="button"
-								className="submit title-submit button-success pure-button"
-								value="Search this game"
-								data-title={item.title}
-								data-plat={item.platform}
-								onClick={_this.searchTitle}
-							/>
-							<br />
-							<span className="title-key">
-								<strong>Title:</strong>
-							</span>
-							<span className="title-name">{item.title}</span>
-							<br />
-							<span className="title-key">
-								<strong>Platform:</strong>
-							</span>
-							<span className="title-platform">{item.platform}</span>
-							<br />
+							<div className="title-result-btn">
+								<input
+									type="button"
+									className="submit title-submit button-success pure-button"
+									value="Search this game"
+									data-title={item.title}
+									data-plat={item.platform}
+									onClick={_this.searchTitle}
+								/>
+							</div>							
+							<div className="title-info">
+								<span className="title-key">
+									<strong>Title:</strong>
+								</span>
+								<span className="title-name">{item.title}</span>
+								<br />
+								<span className="title-key">
+									<strong>Platform:</strong>
+								</span>
+								<span className="title-platform">{item.platform}</span>
+							</div>
 						</div>
 					);
 				});
 				_this.setState({ gameItem: ListItem });
 			}
+
 		});
 
 		xhr.open('GET', 'https://chicken-coop.p.rapidapi.com/games?title=' + url);
@@ -102,25 +114,7 @@ class ChickenCoop extends React.Component {
 		xhr.send(data);
 	}
 
-	//FROM LIST OF TITLE RESULTS, SEARCH FOR DATA ON ONE
-
-	searchTitle(e) {
-		var newName = e.target.getAttribute('data-title');
-		var newPlatform = e.target.getAttribute('data-plat');
-		this.setState({
-			game: newName,
-			plat: newPlatform,
-			isLoaded: true
-		});
-		console.log(newName, newPlatform);
-	}
-
 	// SEARCH FULL DATA FOR ONE GAME
-
-	inputGameTitleData(e) {
-		var search = e.target.value;
-		this.setState({ game: search });
-	}
 
 	//Set state of platform to default value of input field ('pc') on initial load
 	componentDidMount() {
@@ -128,17 +122,39 @@ class ChickenCoop extends React.Component {
 		this.setState({ plat: platSearch });
 	}
 
+	//Take title and platform from input fields
+
+	inputGameTitleData(e) {
+		var search = e.target.value;
+		this.setState({ game: search });
+	}
+
 	inputGamePlatData(e) {
 		var platSearch = e.target.value;
 		this.setState({ plat: platSearch });
 	}
 
+	//FROM LIST OF TITLE RESULTS, SEARCH FOR DATA ON ONE
+
+	searchTitle(e) {
+		var newName = e.target.getAttribute('data-title');
+		var newPlatform = e.target.getAttribute('data-plat');
+		this.setState({
+			game: newName,
+			plat: newPlatform
+		});
+		console.log(newName, newPlatform);
+		this.submitGameData();
+	}
+
 	submitGameData() {
+		//Turn on loading animation and convert input to readable data for database request
 		this.setState({ isLoaded: true });
+		console.log(this.state.game, this.state.plat);
 		var data = null;
 		var title = this.state.game;
-		var plat = this.state.plat.replace(/\s/g, '-').replace('ps', 'playstation').replace(/([0-9]+)/g, '-$1');
-		var metalink = 'https://www.metacritic.com/game/' + plat.replace(/\s/g,'-') + '/' + title.replace(/\s/g,'-');
+		var plat = this.state.plat.replace('nintendo', '').trim().replace(/ +/g, '').replace('ps', 'playstation').replace(/([0-9]+)/g, '-$1');
+		var metalink = 'https://www.metacritic.com/game/' + plat.replace(/\s/g, '-') + '/' + title.replace(/\s/g, '-');
 		var _this = this;
 
 		//XMLHttpRequest to Metacritic Database
@@ -149,7 +165,11 @@ class ChickenCoop extends React.Component {
 		xhr.addEventListener('readystatechange', function() {
 			if (this.readyState === this.DONE) {
 				console.log(this.responseText);
+				//Turn off loading animation and clear input fields
 				_this.setState({ isLoaded: null });
+				document.getElementById('search-title-data').value = '';
+				document.getElementById('search-plat-data').value = '';
+
 				//Convert responseText string to useable object
 				var gameobj = JSON.parse(this.responseText);
 				console.log(gameobj.result);
@@ -160,7 +180,8 @@ class ChickenCoop extends React.Component {
 				console.log(
 					'https://www.metacritic.com/game/' + plat.replace(/\s/g, '-') + '/' + title.replace(/\s/g, '-')
 				);
-				//Create result div
+				//Create result and no result div
+
 				const noResult = (
 					<div id="no-result">
 						<span>Please enter a correct game title and platform</span>
@@ -177,7 +198,7 @@ class ChickenCoop extends React.Component {
 				} else {
 					scoreBg = 'red-bg';
 				}
-				
+
 				if (gameobj.result !== 'No result') {
 					gameListItem = (
 						<div id="title-result-container">
@@ -192,16 +213,13 @@ class ChickenCoop extends React.Component {
 									<span>
 										<strong>Metacritic Score: </strong>
 									</span>
-									<span id="game-score" className={scoreBg}>{gameobj.result['score']}
+									<span id="game-score" className={scoreBg}>
+										{gameobj.result['score']}
 									</span>
-										 <a
-											href={metalink}
-											alt="Metacritic review"
-											id="game-review"
-										>
-											{' '}
-											View Full Metacritic Review
-										</a>
+									<a href={metalink} alt="Metacritic review" id="game-review">
+										{' '}
+										View Full Metacritic Review
+									</a>
 									<br />
 									<span className="data-key">
 										<strong>Description: </strong>
@@ -244,15 +262,12 @@ class ChickenCoop extends React.Component {
 						</div>
 					);
 				}
-				
-				
 
 				if (gameobj.result === 'No result') {
 					_this.setState({ gameItem: noResult });
 				} else {
 					_this.setState({ gameItem: gameListItem });
 				}
-				
 			}
 		});
 

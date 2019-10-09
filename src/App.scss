@@ -108,14 +108,23 @@ body {
 		text-align: left;
 		margin: 2em 4em;
     padding-top: 2em;
-
     #load-ani {
       margin: 0 auto;
     }
-
     #no-result {
       margin: 0 auto;
-    }    
+    }
+    .title-result {
+      display: flex;
+      flex-direction: row;
+      height: auto;
+      align-items: center;
+      margin-bottom: 1em;
+      span {
+        line-height: 1.5em;
+        margin-left: 1em;
+      }
+    }
 
     #game-cover-title {
       text-align: right;
@@ -124,19 +133,9 @@ body {
       font-size: 1.5em;
       width: 30%;
     }
-
     img {
       height: 200px;
       width: auto;
-    }    
-
-		span,a {
-			display: inline-block;
-			margin-bottom: .75em;
-    }
-
-    a {
-      color: $white;
     }
     
     #title-result-container {
@@ -144,12 +143,17 @@ body {
       padding-left: 3em;
       display: flex;
       flex-direction: row;
-      flex-wrap: wrap;
-      
+      flex-wrap: wrap;      
       #game-info {
         margin-left: 2em;
-        width: 60%;
-
+        width: 60%;  
+        span,a {
+          display: inline-block;
+          margin-bottom: .75em;
+        }
+        a {
+          color: $white;
+        }  
         #game-score {
           display: inline-block;
           width: 1.75em;
@@ -159,8 +163,7 @@ body {
           text-align: center;
           font-weight: bold;
           border-radius: 6px;
-        }
-  
+        }  
         .green-bg {
           background-color: $good-green;
         }
@@ -169,8 +172,7 @@ body {
         }
         .red-bg {
           background-color: $bad-red;
-        }      
-  
+        }
       }
     }
 	}
