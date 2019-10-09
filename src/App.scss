@@ -135,6 +135,8 @@ body {
       margin-left: 2em;
       width: 60%;
 
+      
+
       .green-bg {
         background-color: $good-green;
         border-radius: 6px;
@@ -157,7 +159,6 @@ body {
     
     #title-result-container {
       margin: 0 2em;
-      border-left: 3px solid $white;
       padding-left: 3em;
       display: flex;
       flex-direction: row;
@@ -198,7 +199,9 @@ body {
     }
     #game-info {
       width: 100% !important;
-      margin-left: 0 !important;
+      margin: 0 !important;
+      padding-top: 1em !important;
+      border-top: 1px solid $white !important;
     }
     #title-result-container {
       border-left: none !important;

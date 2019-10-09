@@ -160,8 +160,16 @@ class ChickenCoop extends React.Component {
 					'https://www.metacritic.com/game/' + plat.replace(/\s/g, '-') + '/' + title.replace(/\s/g, '-')
 				);
 				//Create result div
+				const noResult = (
+					<div id="no-result">
+						<span>Please enter a correct game title and platform</span>
+					</div>
+				);
 
-				const gameListItem = (
+				var gameListItem;
+				
+				if (gameobj.result !== 'No result') {
+					gameListItem = (
 						<div id="title-result-container">
 							<div id="game-cover-title">
 								<img src={gameobj.result['image']} alt="game cover" id="game-cover pure-img" />
@@ -176,83 +184,68 @@ class ChickenCoop extends React.Component {
 									</span>
 									<span className="data-value">
 										{gameobj.result['alsoAvailableOn'].toString().replace(/,/g, ', ')}
-									</span><br/>
+									</span>
+									<br />
 									<span className="data-key">
 										<strong>Description: </strong>
 									</span>
-									<span className="data-value">
-										{gameobj.result['description']}
-									</span><br/>
+									<span className="data-value">{gameobj.result['description']}</span>
+									<br />
 									<span className="data-key">
 										<strong>Genre: </strong>
 									</span>
 									<span className="data-value">
 										{gameobj.result['genre'].toString().replace(/,/g, ', ')}
-									</span><br/>
+									</span>
+									<br />
 									<span className="data-key">
 										<strong>Publisher: </strong>
 									</span>
 									<span className="data-value">
 										{gameobj.result['publisher'].toString().replace(/,/g, ', ')}
-									</span><br/>
+									</span>
+									<br />
 									<span className="data-key">
 										<strong>Rating: </strong>
 									</span>
-									<span className="data-value">
-										{gameobj.result['rating']}
-									</span><br/>
+									<span className="data-value">{gameobj.result['rating']}</span>
+									<br />
 									<span className="data-key">
 										<strong>Release Date: </strong>
 									</span>
-									<span className="data-value">
-										{gameobj.result['releaseDate']}
+									<span className="data-value">{gameobj.result['releaseDate']}</span>
+									<br />
+									<span>
+										<strong>Metacritic Score: </strong>
 									</span>
+									<span id="game-score" className="">
+										{gameobj.result['score']}
+									</span>
+									<br />
+									<p>
+										<a
+											href="https://www.metacritic.com/game/' + this.plat.replace(/\s/g, '-') + '/' + this.title.replace(/\s/g, '-') + '"
+											alt="Metacritic review"
+											id="game-review"
+										>
+											{' '}
+											View Full Metacritic Review
+										</a>
+									</p>
 								</div>
 							</div>
 						</div>
 					);
-
-				_this.setState({ gameItem: gameListItem });
-
-				/*var html = '';
-				//Separate game cover & title first in 1st div
-				html += '<div id="game-cover-title"><img src="' + gameobj.result['image'] + '" alt="game cover" id="game-cover pure-img" /><p  className="game-name"><strong>' + gameobj.result['title'] + '</strong></p></div><div id="game-info">';
-				//Then loop through remaining info in 2nd div
-
-				for (var key in gameobj.result) {
-					if (gameobj.result.hasOwnProperty(key)) {
-						if (key !== 'image' && key !== 'title' && key !== 'score') {
-							html +=
-								'<div className="data-result"></div><span className="data-key"><strong>' +
-								key.replace(/([a-z](?=[A-Z]))/g, '$1 ').replace(/^./, function(str) {
-									return str.toUpperCase();
-								}) +
-								': </strong></span>&nbsp;<span className="data-value"> ' +
-								gameobj.result[key].toString().replace(/,/g, ', ') +
-								'</span><br/>';
-						}
-					}
 				}
-				html +=
-					'<strong>Metacritic Score: </strong><span id="game-score" className="">' +
-					gameobj.result['score'] +
-					'</span> <a href="https://www.metacritic.com/game/' +
-					plat.replace(/\s/g, '-') +
-					'/' +
-					title.replace(/\s/g, '-') +
-					'" alt="Metacritic review" id="game-review">View Full Review</a></div></div>';
+				
+				
+
 				if (gameobj.result === 'No result') {
-					html = '<div id="no-result"><span>Please enter a correct game title or platform</span></div>';
-				}
-				document.getElementById('game-results').innerHTML = html;
-				/*var score = gameobj.result['score'];
-				if (score >= 75) {
-					score.classList.add('green-bg');
-				} else if (score >= 50) {
-					score.classList.add('yellow-bg');
+					_this.setState({ gameItem: noResult });
 				} else {
-					score.classList.add('red-bg');
-				}*/
+					_this.setState({ gameItem: gameListItem });
+				}
+				
 			}
 		});
 
