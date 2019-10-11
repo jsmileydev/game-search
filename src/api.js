@@ -153,7 +153,6 @@ class ChickenCoop extends React.Component {
 			plat: newPlatform
 		});
 		console.log(newName, newPlatform);
-		this.submitGameData();
 	}
 
 	submitGameData() {
