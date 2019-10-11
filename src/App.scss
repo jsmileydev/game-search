@@ -134,8 +134,10 @@ body {
       width: 30%;
     }
     img {
-      height: 200px;
+      min-height: 120px;
+      max-height: 200px;
       width: auto;
+      max-width: 100%;
     }
     
     #title-result-container {

@@ -70,41 +70,50 @@ class ChickenCoop extends React.Component {
 				//Convert responseText string to useable object
 				var gameobj = JSON.parse(this.responseText);
 
-				//Use dynamicSort to group result object by title (otherwise seemingly random?)
-				gameobj.result = gameobj.result.sort(dynamicSort('title'));
-				console.log(gameobj.result, typeof gameobj.result);
+				const noResult = (
+					<div id="no-result">
+						<span>Error: Can't read input</span>
+					</div>
+				);
 
-				//Create result div
-				const ListItem = gameobj.result.map((item) => {
-					return (
-						<div className="title-result" key={item.title + item.platform}>
-							<div className="title-result-btn">
-								<input
-									type="button"
-									className="submit title-submit button-success pure-button"
-									value="Search this game"
-									data-title={item.title}
-									data-plat={item.platform}
-									onClick={_this.searchTitle}
-								/>
-							</div>							
-							<div className="title-info">
-								<span className="title-key">
-									<strong>Title:</strong>
-								</span>
-								<span className="title-name">{item.title}</span>
-								<br />
-								<span className="title-key">
-									<strong>Platform:</strong>
-								</span>
-								<span className="title-platform">{item.platform}</span>
+				if (gameobj.result === 'No result') {
+					_this.setState({ gameItem: noResult });
+				} else {
+					//Use dynamicSort to group result object by title (otherwise seemingly random?)
+					gameobj.result = gameobj.result.sort(dynamicSort('title'));
+					console.log(gameobj.result, typeof gameobj.result);
+
+					//Create result div
+					const ListItem = gameobj.result.map((item) => {
+						return (
+							<div className="title-result" key={item.title + item.platform}>
+								<div className="title-result-btn">
+									<input
+										type="button"
+										className="submit title-submit button-success pure-button"
+										value="Search this game"
+										data-title={item.title}
+										data-plat={item.platform}
+										onClick={_this.searchTitle}
+									/>
+								</div>
+								<div className="title-info">
+									<span className="title-key">
+										<strong>Title:</strong>
+									</span>
+									<span className="title-name">{item.title}</span>
+									<br />
+									<span className="title-key">
+										<strong>Platform:</strong>
+									</span>
+									<span className="title-platform">{item.platform}</span>
+								</div>
 							</div>
-						</div>
-					);
-				});
-				_this.setState({ gameItem: ListItem });
+						);
+					});
+					_this.setState({ gameItem: ListItem });
+				}
 			}
-
 		});
 
 		xhr.open('GET', 'https://chicken-coop.p.rapidapi.com/games?title=' + url);
@@ -152,8 +161,14 @@ class ChickenCoop extends React.Component {
 		this.setState({ isLoaded: true });
 		console.log(this.state.game, this.state.plat);
 		var data = null;
-		var title = this.state.game;
-		var plat = this.state.plat.replace('nintendo', '').trim().replace(/ +/g, '').replace('ps', 'playstation').replace(/([0-9]+)/g, '-$1');
+		var title = this.state.game.replace(':', '');
+		var plat = this.state.plat
+			.replace('nintendo', '')
+			.trim()
+			.replace(/ +/g, '')
+			.replace('ps', 'playstation')
+			.replace('xbox', 'xbox-')
+			.replace(/([0-9]+)/g, '-$1');
 		var metalink = 'https://www.metacritic.com/game/' + plat.replace(/\s/g, '-') + '/' + title.replace(/\s/g, '-');
 		var _this = this;
 
@@ -188,19 +203,18 @@ class ChickenCoop extends React.Component {
 					</div>
 				);
 
-				var gameListItem;
-				var scoreBg;
-
-				if (gameobj.result['score'] >= 75) {
-					scoreBg = 'green-bg';
-				} else if (gameobj.result['score'] >= 50) {
-					scoreBg = 'yellow-bg';
-				} else {
-					scoreBg = 'red-bg';
-				}
-
-				if (gameobj.result !== 'No result') {
-					gameListItem = (
+				if (gameobj.result === undefined) {
+					_this.setState({ gameItem: noResult });
+				} else {			
+					var scoreBg ='';
+					if (gameobj.result['score'] >= 75) {
+						scoreBg = 'green-bg';
+					} else if (gameobj.result['score'] >= 50) {
+						scoreBg = 'yellow-bg';
+					} else {
+						scoreBg = 'red-bg';
+					}
+					const gameListItem = (
 						<div id="title-result-container">
 							<div id="game-cover-title">
 								<img src={gameobj.result['image']} alt="game cover" id="game-cover pure-img" />
@@ -260,12 +274,7 @@ class ChickenCoop extends React.Component {
 								</div>
 							</div>
 						</div>
-					);
-				}
-
-				if (gameobj.result === 'No result') {
-					_this.setState({ gameItem: noResult });
-				} else {
+					);	
 					_this.setState({ gameItem: gameListItem });
 				}
 			}
