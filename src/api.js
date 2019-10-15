@@ -171,12 +171,15 @@ class ChickenCoop extends React.Component {
 		var data = null;
 		var title = this.state.game.replace(':', '').toLowerCase();
 		var plat = this.state.plat
-			.toLowerCase()	
-			.replace('nintendo', '')
+			.toLowerCase()
 			.trim()
 			.replace(/ +/g, '')
+			.replace('nintendo 64', 'n64')
+			.replace('nintendo', '')
 			.replace('ps', 'playstation')
-			.replace('x', 'xbox ')
+			.replace('xone', 'xbox-one')
+			.replace('x360', 'xbox360')
+			.replace('game boy advance', 'gba')
 			.replace(/([0-9]+)/g, '-$1');
 		var metalink = 'https://www.metacritic.com/game/' + plat.replace(/\s/g, '-') + '/' + title.replace(/\s/g, '-');
 		var _this = this;
