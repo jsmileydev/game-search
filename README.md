@@ -2,9 +2,9 @@
 
 Search for detailed information about a game, including link to Metacritic review
 
-Search for all games related to the search input
+Search for top ten games related to the search input
 
-To-do: Allow for search of detailed info about a game listed in all related game search results
+Search for detailed information on a single game result
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
