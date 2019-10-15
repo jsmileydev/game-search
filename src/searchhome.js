@@ -1,14 +1,13 @@
 import React from 'react';
 
-class SearchHome extends React.Component {
-    render() {
+function SearchHome(props) {
         return (
 				<div className="wrapper">
 					<div className="container">
 						<form className="pure-form pure-form-stacked column">
 							<fieldset>
 								<legend>
-									Get all related game titles and their released platforms
+									Get Top 10 related game titles and their released platforms
 								</legend>
 								<div>
 									<label htmlFor="search-title">Enter a search term: </label>
@@ -16,7 +15,7 @@ class SearchHome extends React.Component {
 										type="text"
 										id="search-title"
 										className="search"
-										onChange={this.props.inputGameTitle}
+										onChange={props.inputTitle}
 										required
 									/>
 								</div>
@@ -24,7 +23,7 @@ class SearchHome extends React.Component {
 									<input 
 										type="button"
 										className="submit button-success pure-button"
-										onClick={this.props.submitGameTitle}
+										onClick={props.submitTitle}
 										value="Submit Search"
 									/>
 								</div>
@@ -42,7 +41,7 @@ class SearchHome extends React.Component {
 										type="text"
 										id="search-title-data"
 										className="search"
-										onChange={this.props.inputGameTitleData}
+										onChange={props.inputTitleData}
 										required
 									/>
 									<label htmlFor="search-plat-data">Enter a platform: </label>
@@ -51,7 +50,7 @@ class SearchHome extends React.Component {
 										id="search-plat-data"
 										className="search"
 										placeholder="Example: pc"
-										onChange={this.props.inputGamePlatData}
+										onChange={props.inputPlatData}
 										required
 									/>
 								</div>
@@ -59,7 +58,7 @@ class SearchHome extends React.Component {
 									<input
 										type="button"
 										className="submit button-success pure-button"
-										onClick={this.props.submitGameData}
+										onClick={props.submitData}
 										value="Submit Search"
 									/>
 								</div>
@@ -71,6 +70,5 @@ class SearchHome extends React.Component {
         </div>*/
         )
     }
-}
 
 export default SearchHome;

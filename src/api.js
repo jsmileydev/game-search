@@ -11,27 +11,27 @@ class ChickenCoop extends React.Component {
 		super();
 		this.state = {
 			game: '',
-			plat: '',
+			plat: 'pc',
 			isLoaded: null,
 			results: '',
 			gameItem: ''
 		};
-		this.inputGameTitle = this.inputGameTitle.bind(this);
-		this.submitGameTitle = this.submitGameTitle.bind(this);
-		this.inputGameTitleData = this.inputGameTitleData.bind(this);
-		this.inputGamePlatData = this.inputGamePlatData.bind(this);
-		this.submitGameData = this.submitGameData.bind(this);
+		this.inputTitle = this.inputTitle.bind(this);
+		this.submitTitle = this.submitTitle.bind(this);
+		this.inputTitleData = this.inputTitleData.bind(this);
+		this.inputPlatData = this.inputPlatData.bind(this);
+		this.submitData = this.submitData.bind(this);
 		this.searchTitle = this.searchTitle.bind(this);
 	}
 
 	//SEARCH FOR ALL GAMES RELATED TO INPUT
 
-	inputGameTitle(e) {
+	inputTitle(e) {
 		var search = e.target.value;
 		this.setState({ game: search });
 	}
 
-	submitGameTitle() {
+	submitTitle() {
 		//Turn on loading animation and convert input to readable data
 		this.setState({ isLoaded: true });
 		var data = null;
@@ -84,6 +84,7 @@ class ChickenCoop extends React.Component {
 					console.log(gameobj.result, typeof gameobj.result);
 
 					//Create result div
+
 					const ListItem = gameobj.result.map((item) => {
 						return (
 							<div className="title-result" key={item.title + item.platform}>
@@ -94,7 +95,8 @@ class ChickenCoop extends React.Component {
 										value="Search this game"
 										data-title={item.title}
 										data-plat={item.platform}
-										onClick={_this.searchTitle}
+										onMouseOver={_this.searchTitle}
+										onClick={_this.submitData}
 									/>
 								</div>
 								<div className="title-info">
@@ -111,6 +113,10 @@ class ChickenCoop extends React.Component {
 							</div>
 						);
 					});
+					
+					
+					
+
 					_this.setState({ gameItem: ListItem });
 				}
 			}
@@ -133,14 +139,16 @@ class ChickenCoop extends React.Component {
 
 	//Take title and platform from input fields
 
-	inputGameTitleData(e) {
+	inputTitleData(e) {
 		var search = e.target.value;
 		this.setState({ game: search });
+		console.log(search);
 	}
 
-	inputGamePlatData(e) {
+	inputPlatData(e) {
 		var platSearch = e.target.value;
 		this.setState({ plat: platSearch });
+		console.log(platSearch);
 	}
 
 	//FROM LIST OF TITLE RESULTS, SEARCH FOR DATA ON ONE
@@ -152,21 +160,23 @@ class ChickenCoop extends React.Component {
 			game: newName,
 			plat: newPlatform
 		});
+		console.log(this.state.game, this.state.plat);
 		console.log(newName, newPlatform);
 	}
 
-	submitGameData() {
+	submitData() {
 		//Turn on loading animation and convert input to readable data for database request
 		this.setState({ isLoaded: true });
 		console.log(this.state.game, this.state.plat);
 		var data = null;
-		var title = this.state.game.replace(':', '');
+		var title = this.state.game.replace(':', '').toLowerCase();
 		var plat = this.state.plat
+			.toLowerCase()	
 			.replace('nintendo', '')
 			.trim()
 			.replace(/ +/g, '')
 			.replace('ps', 'playstation')
-			.replace('xbox', 'xbox-')
+			.replace('x', 'xbox ')
 			.replace(/([0-9]+)/g, '-$1');
 		var metalink = 'https://www.metacritic.com/game/' + plat.replace(/\s/g, '-') + '/' + title.replace(/\s/g, '-');
 		var _this = this;
@@ -187,10 +197,9 @@ class ChickenCoop extends React.Component {
 				//Convert responseText string to useable object
 				var gameobj = JSON.parse(this.responseText);
 				console.log(gameobj.result);
-				if ('error' in gameobj)
-					if (gameobj.result === 'No result') {
-						console.log('Incorrect game title');
-					}
+				if (gameobj.result === 'No result') {
+					console.log('Incorrect game title');
+				}
 				console.log(
 					'https://www.metacritic.com/game/' + plat.replace(/\s/g, '-') + '/' + title.replace(/\s/g, '-')
 				);
@@ -202,7 +211,7 @@ class ChickenCoop extends React.Component {
 					</div>
 				);
 
-				if (gameobj.result === undefined) {
+				if (gameobj.result === 'No result') {
 					_this.setState({ gameItem: noResult });
 				} else {			
 					var scoreBg ='';
@@ -213,7 +222,7 @@ class ChickenCoop extends React.Component {
 					} else {
 						scoreBg = 'red-bg';
 					}
-					const gameListItem = (
+					const gameItemData = (
 						<div id="title-result-container">
 							<div id="game-cover-title">
 								<img src={gameobj.result['image']} alt="game cover" id="game-cover pure-img" />
@@ -274,7 +283,7 @@ class ChickenCoop extends React.Component {
 							</div>
 						</div>
 					);	
-					_this.setState({ gameItem: gameListItem });
+					_this.setState({ gameItem: gameItemData });
 				}
 			}
 		});
@@ -301,11 +310,13 @@ class ChickenCoop extends React.Component {
 					</div>
 				</header>
 				<SearchHome
-					inputGameTitle={this.inputGameTitle}
-					inputGameTitleData={this.inputGameTitleData}
-					inputGamePlatData={this.inputGamePlatData}
-					submitGameTitle={this.submitGameTitle}
-					submitGameData={this.submitGameData}
+					inputTitle={this.inputTitle}
+					inputTitleData={this.inputTitleData}
+					inputPlatData={this.inputPlatData}
+					submitTitle={this.submitTitle}
+					submitData={this.submitData}
+					game={this.state.game}
+					platform={this.state.plat}
 				/>
 				<div id="game-results"> {this.state.isLoaded ? <LoadAni /> : <div>{this.state.gameItem} </div>} </div>
 			</div>

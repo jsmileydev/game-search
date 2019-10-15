@@ -1,5 +1,41 @@
 import React from 'react';
 
+const ListItem = gameobj.result.map((item) => {
+	return (
+				<div className="title-result" key={item.title + item.platform}>
+					<div className="title-result-btn">
+						<input
+							type="button"
+							className="submit title-submit button-success pure-button"
+							value="Search this game"
+							data-title={item.title}
+							data-plat={item.platform}
+							onClick={_this.searchTitle}
+						/>
+					</div>
+					<div className="title-info">
+						<span className="title-key">
+							<strong>Title:</strong>
+						</span>
+						<span className="title-name">{item.title}</span>
+						<br />
+						<span className="title-key">
+						<strong>Platform:</strong>
+						</span>
+						<span className="title-platform">{item.platform}</span>
+					</div>
+				</div>
+			);
+});
+
+function GameList() {
+	return(
+		<div id="title-list">
+			<h3 id="list-head">Top Ten Metacritic Results</h3>
+			<ListItem/>
+		</div>
+	)	
+}
 
 
 /*class GameListItem extends React.Component {
