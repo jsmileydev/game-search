@@ -3,7 +3,9 @@ import SearchHome from './searchhome';
 import ReactLoading from 'react-loading';
 
 const LoadAni = ({ type, color }) => (
+	<div id="load-overlay">
 	<ReactLoading type={'bubbles'} color={'rgb(233, 232, 232)'} height={'10%'} width={'10%'} id="load-ani" />
+	</div>
 );
 
 class ChickenCoop extends React.Component {
@@ -113,9 +115,6 @@ class ChickenCoop extends React.Component {
 							</div>
 						);
 					});
-					
-					
-					
 
 					_this.setState({ gameItem: ListItem });
 				}
@@ -216,8 +215,8 @@ class ChickenCoop extends React.Component {
 
 				if (gameobj.result === 'No result') {
 					_this.setState({ gameItem: noResult });
-				} else {			
-					var scoreBg ='';
+				} else {
+					var scoreBg = '';
 					if (gameobj.result['score'] >= 75) {
 						scoreBg = 'green-bg';
 					} else if (gameobj.result['score'] >= 50) {
@@ -285,7 +284,7 @@ class ChickenCoop extends React.Component {
 								</div>
 							</div>
 						</div>
-					);	
+					);
 					_this.setState({ gameItem: gameItemData });
 				}
 			}
@@ -300,7 +299,7 @@ class ChickenCoop extends React.Component {
 
 	render() {
 		return (
-			<div>
+			<main>
 				<div id="head-ellipse" />
 				<header>
 					<div id="gameboy-head">
@@ -312,17 +311,23 @@ class ChickenCoop extends React.Component {
 						<p>Powered by Chicken Coop's Metacritic API</p>
 					</div>
 				</header>
-				<SearchHome
-					inputTitle={this.inputTitle}
-					inputTitleData={this.inputTitleData}
-					inputPlatData={this.inputPlatData}
-					submitTitle={this.submitTitle}
-					submitData={this.submitData}
-					game={this.state.game}
-					platform={this.state.plat}
-				/>
-				<div id="game-results"> {this.state.isLoaded ? <LoadAni /> : <div>{this.state.gameItem} </div>} </div>
-			</div>
+
+				<div id="wrapper">
+					<SearchHome
+						inputTitle={this.inputTitle}
+						inputTitleData={this.inputTitleData}
+						inputPlatData={this.inputPlatData}
+						submitTitle={this.submitTitle}
+						submitData={this.submitData}
+						game={this.state.game}
+						platform={this.state.plat}
+					/>
+					<div id="game-results">
+						{' '}
+						{this.state.isLoaded ? <LoadAni /> : <div>{this.state.gameItem} </div>}{' '}
+					</div>
+				</div>
+			</main>
 		);
 	}
 }

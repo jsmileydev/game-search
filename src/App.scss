@@ -9,6 +9,11 @@ body {
 	background: $black;
 }
 
+.submit {
+  color: $black;
+  font-size: .85em;
+}
+
 .App {
 	text-align: center;
   color: $white;
@@ -47,15 +52,34 @@ body {
     
   }
 
-	.container {
-		display: flex;
+  .flex-wrapper-lg {
+    display: flex;
     flex-direction: row;
+  }
+  .flex-search-lg {
+    flex-direction: column;
+    text-align: left;
+    width: 30vw;
+  }
+  .flex-results-lg {
+    width: 60vw;
+  }
+
+  #wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+	#search-container {
+		display: flex;
+    flex-direction: column;
     justify-content: center;
 		align-items: stretch;
-    height: 20em;
-    border-bottom: 1px solid $white;
+    width: 25vw;
+    //border-bottom: 1px solid $white;
     margin: 1em 3em;
-    padding: 2em 0;
+    text-align: left;
 
 		form {
       width: 35%;
@@ -63,18 +87,15 @@ body {
 			legend {
 				color: $white !important;
 				width: 80% !important;
-				margin: .75em auto;
+				//margin: .75em auto;
 				font-weight: bold;
-				padding-bottom: .75em;
+        padding-bottom: .75em;
 			}
 
 			.search {
-				margin: 1em auto !important;
-				color: $black;
-			}
-
-			.submit {
-				color: $black;
+				margin: .75em auto !important;
+        color: $black;
+        
 			}
 		}
 
@@ -83,33 +104,50 @@ body {
 			flex-direction: column;
 			justify-content: center;
 			align-items: stretch;
-			color: $black;
-			width: 5em;
+			//width: 5em;
 			height: 100%;
+      color: $black;
+      text-align: center;
 
-			h3 {
-				margin: 1em auto;
-				height: 3em;
-				width: 3em;
-				line-height: 3em;
+			h5 {
+				margin: 1em 0;
+				height: 2em;
+				width: 2em;
+				line-height: 2em;
 				background: $steam-blue;
-        background: linear-gradient(to bottom, rgba(0, 175, 239,0.2) 10%, rgba(0, 175, 239,1)), url('./images/icons8-pacman-50.png');
+        background: linear-gradient(to bottom, rgba(0, 175, 239,0.4) 10%, rgba(0, 175, 239,1)), url('./images/icons8-pacman-50.png');
         background-position: center;
         background-size: 50%;
-				border-radius: 1.5em;
+				border-radius: 1em;
 			}
 		}
-	}
+  }
+  
+
 
 	#game-results {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
 		text-align: left;
-		margin: 2em 4em;
-    padding-top: 2em;
-    #load-ani {
-      margin: 0 auto;
+    //margin: 2em 4em;
+    margin-right: 4em;
+    margin-top: 1em;
+    //padding-top: 2em;
+    #load-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 100vw;
+      z-index: 1;
+      background-color: rgba(0,0,0, 0.5);
+      #load-ani {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
     }
     #no-result {
       margin: 0 auto;
@@ -120,9 +158,12 @@ body {
       height: auto;
       align-items: center;
       margin-bottom: 1em;
-      span {
-        line-height: 1.5em;
-        margin-left: 1em;
+      .title-info {
+        padding-left: 1em;
+        span {
+          line-height: 1.5em;
+          margin-left: .75em;
+        }
       }
     }
 
@@ -141,8 +182,8 @@ body {
     }
     
     #title-result-container {
-      margin: 0 2em;
-      padding-left: 3em;
+      //margin: 0 2em;
+      //padding-left: 3em;
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;      
