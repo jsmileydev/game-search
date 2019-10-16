@@ -132,7 +132,7 @@ class ChickenCoop extends React.Component {
 
 	//Set state of platform to default value of input field ('pc') on initial load
 	componentDidMount() {
-		var platSearch = document.getElementById('search-plat-data').value;
+		var platSearch = document.getElementById('plat-drop').value;
 		this.setState({ plat: platSearch });
 	}
 
@@ -227,10 +227,10 @@ class ChickenCoop extends React.Component {
 					const gameItemData = (
 						<div id="title-result-container">
 							<div id="game-cover-title">
-								<img src={gameobj.result['image']} alt="game cover" id="game-cover pure-img" />
-								<p className="game-name">
+								<p id="game-name">
 									<strong>{gameobj.result['title']}</strong>
 								</p>
+								<img src={gameobj.result['image']} alt="game cover" id="game-cover pure-img" />
 							</div>
 							<div id="game-info">
 								<div className="data-result">

@@ -83,20 +83,23 @@ body {
 
 		form {
       width: 35%;
+      margin-bottom: 1em;
 
 			legend {
 				color: $white !important;
 				width: 80% !important;
 				//margin: .75em auto;
 				font-weight: bold;
-        padding-bottom: .75em;
+        padding-bottom: .5em;
 			}
 
 			.search {
 				margin: .75em auto !important;
         color: $black;
-        
-			}
+      }
+      #plat-drop {
+        color: $black;
+      }
 		}
 
 		#or {
@@ -173,12 +176,16 @@ body {
       padding-right: 1em;
       font-size: 1.5em;
       width: 30%;
-    }
-    img {
-      min-height: 120px;
-      max-height: 200px;
-      width: auto;
-      max-width: 100%;
+      #game-name {
+        margin-top: .5em;
+      }
+      #game-cover {
+        min-height: 120px;
+        max-height: 200px;
+        width: auto;
+        max-width: 100%;
+        margin-bottom: 1em;
+      }
     }
     
     #title-result-container {
