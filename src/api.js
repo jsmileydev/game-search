@@ -92,8 +92,10 @@ class ChickenCoop extends React.Component {
 							<div className="title-result" key={item.title + item.platform}>
 								<div className="title-result-btn">
 									<input
-										type="button"
-										className="submit title-submit button-success pure-button"
+										type="image"
+										src={require("./images/icons8-search-30.png")}
+										alt="search title"
+										className="title-submit button-success pure-button"
 										value="Search this game"
 										data-title={item.title}
 										data-plat={item.platform}
@@ -227,10 +229,26 @@ class ChickenCoop extends React.Component {
 					const gameItemData = (
 						<div id="title-result-container">
 							<div id="game-cover-title">
-								<p id="game-name">
-									<strong>{gameobj.result['title']}</strong>
-								</p>
-								<img src={gameobj.result['image']} alt="game cover" id="game-cover pure-img" />
+								<img src={gameobj.result['image']} alt="game cover" id="game-cover" className="pure-img" />
+								<div id="game-title">
+									<p id="game-name">
+										<strong>{gameobj.result['title']}</strong>
+									</p>
+									<p>
+										<span>
+											<strong>Metacritic Score: </strong>
+										</span>
+										<span id="game-score" className={scoreBg}>
+											{gameobj.result['score']}
+										</span>
+									</p>
+									<p>
+										<a href={metalink} alt="Metacritic review" id="game-review">
+											{' '}
+											View Full Metacritic Review
+										</a>
+									</p>
+								</div>								
 							</div>
 							<div id="game-info">
 								<div className="data-result">
@@ -300,6 +318,7 @@ class ChickenCoop extends React.Component {
 	render() {
 		return (
 			<main>
+			<p id="api-tag">Powered by Chicken Coop's Metacritic API</p>
 				<div id="head-ellipse" />
 				<header>
 					<div id="gameboy-head">
@@ -308,7 +327,6 @@ class ChickenCoop extends React.Component {
 							alt="gameboy-head"
 							className="pure-css"
 						/>
-						<p>Powered by Chicken Coop's Metacritic API</p>
 					</div>
 				</header>
 
