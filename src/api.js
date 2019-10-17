@@ -77,9 +77,17 @@ class ChickenCoop extends React.Component {
 						<span>Error: Can't read input</span>
 					</div>
 				);
+				const error = (
+					<div id="error-result">
+						<p>{gameobj.error['message']}</p>
+						<p>Please try again</p>
+					</div>
+				);
 
 				if (gameobj.result === 'No result') {
 					_this.setState({ gameItem: noResult });
+				} else if (gameobj.hasOwnProperty('error')) {
+					_this.setState({ gameItem: error });
 				} else {
 					//Use dynamicSort to group result object by title (otherwise seemingly random?)
 					gameobj.result = gameobj.result.sort(dynamicSort('title'));
@@ -214,9 +222,17 @@ class ChickenCoop extends React.Component {
 						<span>Please enter a correct game title and platform</span>
 					</div>
 				);
+				const error = (
+					<div id="error-result">
+						<p>{gameobj.error['message']}</p>
+						<p>Please try again</p>
+					</div>
+				);
 
 				if (gameobj.result === 'No result') {
 					_this.setState({ gameItem: noResult });
+				} else if (gameobj.hasOwnProperty('error')) {
+					_this.setState({ gameItem: error });
 				} else {
 					var scoreBg = '';
 					if (gameobj.result['score'] >= 75) {
@@ -236,7 +252,7 @@ class ChickenCoop extends React.Component {
 									</p>
 									<p>
 										<span>
-											<strong>Metacritic Score: </strong>
+											Metacritic Score: 
 										</span>
 										<span id="game-score" className={scoreBg}>
 											{gameobj.result['score']}

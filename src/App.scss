@@ -60,7 +60,6 @@ input {
     }
     
   }
-
   .flex-wrapper-lg {
     display: flex;
     flex-direction: row;
@@ -208,7 +207,31 @@ input {
       //padding-left: 3em;
       display: flex;
       flex-direction: row;
-      flex-wrap: wrap;    
+      flex-wrap: wrap;   
+      #game-score {
+        display: inline-block;
+        width: 1.75em;
+        height: 1.75em;
+        margin: .5em;
+        line-height: 1.75em;
+        text-align: center;
+        font-size: 1.1em;
+        letter-spacing: .1em;
+        font-weight: bold;
+        border-radius: 6px;
+      }  
+      .green-bg {
+        background-color: $good-green;
+      }
+      .yellow-bg {
+        background-color: $meh-yellow;
+      }
+      .red-bg {
+        background-color: $bad-red;
+      } 
+      a {
+        color: $white;
+      }  
       #game-info {
         margin-left: 2em;
         width: 60%;  
@@ -216,30 +239,6 @@ input {
         span,a {
           display: inline-block;
           margin-bottom: .75em;
-        }
-        a {
-          color: $white;
-        }  
-        #game-score {
-          display: inline-block;
-          width: 1.75em;
-          height: 1.75em;
-          margin: .5em;
-          line-height: 1.75em;
-          text-align: center;
-          font-size: 1.1em;
-          letter-spacing: .1em;
-          font-weight: bold;
-          border-radius: 6px;
-        }  
-        .green-bg {
-          background-color: $good-green;
-        }
-        .yellow-bg {
-          background-color: $meh-yellow;
-        }
-        .red-bg {
-          background-color: $bad-red;
         }
       }
     }
@@ -295,6 +294,20 @@ input {
         margin: 0 !important;
         padding-top: 1em !important;
         border-top: 1px solid $white !important;
+      }
+    }
+  }
+}
+@media only screen and (max-width: 739px) {
+  #wrapper {
+    flex-wrap: wrap;
+    #search-container {
+      flex-direction: row;
+      width: 100vw;
+      padding-bottom: 1em;
+      border-bottom: 1px solid $white;
+      form {
+        margin: 0 5vw;
       }
     }
   }

@@ -17,14 +17,6 @@ function SearchHome(props) {
 							onClick={props.submitTitle}
 							value="Submit Search"
 						/>
-						{/*<button 
-							form="title-form"
-							type="submit"
-							className="submit button-success button-small pure-button"
-							onClick={props.submitTitle}
-							>
-								<img src="./images/icons8-search-30.png" alt="search-icon-btn" />
-						</button>*/}
 					</div>
 				</fieldset>
 			</form>
@@ -86,8 +78,6 @@ function SearchHome(props) {
 				</fieldset>
 			</form>
 		</div>
-		/*<div id="game-results" />
-        </div>*/
 	);
 }
 
