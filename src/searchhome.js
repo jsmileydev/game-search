@@ -40,9 +40,10 @@ function SearchHome(props) {
 							type="text"
 							id="search-plat-data"
 							className="search"
+							onChange={props.inputPlatData}
 							placeholder="Example: pc"
 						/>
-						<select id="plat-drop" defaultValue="pc"
+						{/*<select id="plat-drop" defaultValue="pc"
 							onChange={props.inputPlatData}
 							required>
 							<option value="pc">PC</option>
@@ -65,7 +66,7 @@ function SearchHome(props) {
 							<option value="nintendo64">Nintendo 64</option>
 							<option value="gameboyadvance">Game Boy Advance</option>
 							<option value="dreamcast">Dreamcast</option>
-						</select>
+</select>*/}
 					</div>
 					<div>
 						<input

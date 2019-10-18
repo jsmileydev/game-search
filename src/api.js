@@ -77,16 +77,17 @@ class ChickenCoop extends React.Component {
 						<span>Error: Can't read input</span>
 					</div>
 				);
-				const error = (
-					<div id="error-result">
-						<p>{gameobj.error['message']}</p>
-						<p>Please try again</p>
-					</div>
-				);
+					const error = (
+						<div id="error-result">
+							<p>{'error' in gameobj ? gameobj.error['message'] : ''}</p>
+							<p>Please try again</p>
+						</div>
+					);
+				
 
 				if (gameobj.result === 'No result') {
 					_this.setState({ gameItem: noResult });
-				} else if (gameobj.hasOwnProperty('error')) {
+				} else if ('error' in gameobj) {
 					_this.setState({ gameItem: error });
 				} else {
 					//Use dynamicSort to group result object by title (otherwise seemingly random?)
@@ -142,8 +143,9 @@ class ChickenCoop extends React.Component {
 
 	//Set state of platform to default value of input field ('pc') on initial load
 	componentDidMount() {
-		var platSearch = document.getElementById('plat-drop').value;
+		var platSearch = document.getElementById('search-plat-data').value;
 		this.setState({ plat: platSearch });
+		console.log(platSearch);
 	}
 
 	//Take title and platform from input fields
@@ -224,14 +226,14 @@ class ChickenCoop extends React.Component {
 				);
 				const error = (
 					<div id="error-result">
-						<p>{gameobj.error['message']}</p>
+						<p>{'error' in gameobj ? gameobj.error['message'] : ''}</p>
 						<p>Please try again</p>
 					</div>
 				);
 
 				if (gameobj.result === 'No result') {
 					_this.setState({ gameItem: noResult });
-				} else if (gameobj.hasOwnProperty('error')) {
+				} else if ('error' in gameobj) {
 					_this.setState({ gameItem: error });
 				} else {
 					var scoreBg = '';
@@ -245,7 +247,7 @@ class ChickenCoop extends React.Component {
 					const gameItemData = (
 						<div id="title-result-container">
 							<div id="game-cover-title">
-								<img src={gameobj.result['image']} alt="game cover" id="game-cover" className="pure-img" />
+								<img src={gameobj.result['image']} alt="game cover" id="game-cover" />
 								<div id="game-title">
 									<p id="game-name">
 										<strong>{gameobj.result['title']}</strong>
@@ -268,17 +270,6 @@ class ChickenCoop extends React.Component {
 							</div>
 							<div id="game-info">
 								<div className="data-result">
-									<span>
-										<strong>Metacritic Score: </strong>
-									</span>
-									<span id="game-score" className={scoreBg}>
-										{gameobj.result['score']}
-									</span>
-									<a href={metalink} alt="Metacritic review" id="game-review">
-										{' '}
-										View Full Metacritic Review
-									</a>
-									<br />
 									<span className="data-key">
 										<strong>Description: </strong>
 									</span>&nbsp;

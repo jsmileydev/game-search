@@ -6,12 +6,15 @@ $meh-yellow: #fc3;
 $bad-red: #f00;
 
 body {
+  width: 100vw;
   background: $black;
   text-shadow: 0px 0px 1px rgba(0,0,0,0.75),1px 2px 1px rgba(0,0,0,0.5);
 }
 
 input {
-  box-shadow: inset 0 1px 3px #ddd, 0px 0px 1px rgba(0,0,0,0.75),1px 2px 1px rgba(0,0,0,0.5)
+  box-shadow: inset 0 1px 3px #ddd, 0px 0px 1px rgba(0,0,0,0.75),1px 2px 1px rgba(0,0,0,0.5);
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .submit {
@@ -38,8 +41,8 @@ input {
     height: 20em;
     background-color: $steam-blue;
     background: linear-gradient(to bottom, rgba(0, 175, 239,0.2) 10%, rgba(0, 175, 239,1)), url('./images/icons8-pacman-50.png');
-    border-bottom-left-radius: 50%;
-    border-bottom-right-radius: 50%;
+    //border-bottom-left-radius: 50%;
+    //border-bottom-right-radius: 50%;
     z-index: -5;
   }
 
@@ -96,14 +99,14 @@ input {
 
 			legend {
 				color: $white !important;
-				width: 80% !important;
+				width: 80%;
 				//margin: .75em auto;
 				font-weight: bold;
         padding-bottom: .5em;
 			}
 
 			.search {
-				margin: .75em auto !important;
+				margin: .75em 0 !important;
         color: $black;
       }
       #plat-drop {
@@ -188,17 +191,15 @@ input {
       padding-right: 1em;
       font-size: 1.5em;
       width: 25%;
-      margin: .5em;
+      margin: 1em;
       #game-name {
         margin: 0;
       }
-      #game-cover {
-        display: inline-block;
-        min-height: 120px;
-        max-height: 200px;
-        width: auto;
-        max-width: 100%;
-        margin: .5em 0;
+      img {
+        display: inline;
+        vertical-align: top;
+        object-fit: contain;
+        margin: 0 .5em;
       }
     }
     
@@ -207,12 +208,15 @@ input {
       //padding-left: 3em;
       display: flex;
       flex-direction: row;
-      flex-wrap: wrap;   
+      flex-wrap: wrap;
+      p {
+        margin: .25em 0;
+      }
       #game-score {
         display: inline-block;
         width: 1.75em;
         height: 1.75em;
-        margin: .5em;
+        margin-left: .5em;
         line-height: 1.75em;
         text-align: center;
         font-size: 1.1em;
@@ -274,15 +278,15 @@ input {
     #title-result-container {
       border-left: none !important;
       padding-left: 0 !important;
-      margin: 0 !important;
 
       #game-cover-title {
         width: auto;
         border-right: none !important;
         padding-right: 0 !important;
-        margin: 0 auto !important;
+        margin: 1em auto !important;
         display: flex;
         flex-direction: row;
+        align-self: flex-start;
         font-size: 1em;
         text-align: left !important;
         #game-title {
@@ -299,15 +303,40 @@ input {
   }
 }
 @media only screen and (max-width: 739px) {
+  #head-ellipse {
+    height: 19em !important;
+  }
+  header {
+    height: 6em !important;
+    #gameboy-head {
+      margin-top: .5em !important;
+    }
+  }
   #wrapper {
     flex-wrap: wrap;
     #search-container {
       flex-direction: row;
+      justify-content: space-around;
       width: 100vw;
       padding-bottom: 1em;
       border-bottom: 1px solid $white;
+      margin: 1em;
+      text-align: center;
       form {
-        margin: 0 5vw;
+        margin: 0;
+        width: 40vw;
+        
+
+        fieldset {
+          width: 40vw;
+          legend {
+            margin: 0 auto;
+          }
+          .search {
+            width: 100%;
+            text-align: center;
+          }
+        }
       }
     }
   }
