@@ -171,6 +171,7 @@ input {
       height: auto;
       align-items: center;
       margin-bottom: 1em;
+      padding: 0 1em;
       .title-submit {
         font-size: .15em;
         width: 35px;
@@ -180,9 +181,14 @@ input {
         padding-left: 1em;
         span {
           line-height: 1.5em;
-          margin-left: .75em;
+        }
+        .title-name, .title-platform {
+          //margin-left: .75em;
         }
       }
+    }
+    .title-result:hover {
+      background-color: rgb(80, 78, 78);
     }
 
     #game-cover-title {
@@ -318,7 +324,7 @@ input {
       flex-direction: row;
       justify-content: space-around;
       width: 100vw;
-      padding-bottom: 1em;
+      padding: 1em 0;
       border-bottom: 1px solid $white;
       margin: 1em;
       text-align: center;

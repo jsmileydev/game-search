@@ -24,13 +24,28 @@ class ChickenCoop extends React.Component {
 		this.inputPlatData = this.inputPlatData.bind(this);
 		this.submitData = this.submitData.bind(this);
 		this.searchTitle = this.searchTitle.bind(this);
+		this.handleKeyDownData = this.handleKeyDownData.bind(this);
+		this.handleKeyDownTitle = this.handleKeyDownTitle.bind(this);
 	}
 
 	//SEARCH FOR ALL GAMES RELATED TO INPUT
 
+	handleKeyDownData(e) {
+		if (e.key === 'Enter') {
+			this.submitData();
+		}
+	}
+
+	handleKeyDownTitle(e) {
+		if(e.key === 'Enter') {
+			this.submitTitle();
+		}
+	}
+
 	inputTitle(e) {
 		var search = e.target.value;
 		this.setState({ game: search });
+		console.log(this.state.game);
 	}
 
 	submitTitle() {
@@ -99,29 +114,18 @@ class ChickenCoop extends React.Component {
 					const ListItem = gameobj.result.map((item) => {
 						return (
 							<div className="title-result" key={item.title + item.platform}>
-								<div className="title-result-btn">
+								<div className="title-result-btn"  >
 									<input
 										type="image"
 										src={require("./images/icons8-search-30.png")}
 										alt="search title"
 										className="title-submit button-success pure-button"
 										value="Search this game"
-										data-title={item.title}
-										data-plat={item.platform}
-										onMouseOver={_this.searchTitle}
-										onClick={_this.submitData}
 									/>
 								</div>
 								<div className="title-info">
-									<span className="title-key">
-										<strong>Title:</strong>
-									</span>
-									<span className="title-name">{item.title}</span>
-									<br />
-									<span className="title-key">
-										<strong>Platform:</strong>
-									</span>
-									<span className="title-platform">{item.platform}</span>
+									<span className="title-name" data-title={item.title} data-plat={item.platform} onMouseOver={_this.searchTitle}	onClick={_this.submitData}>{item.title}
+									<br />{item.platform}</span>
 								</div>
 							</div>
 						);
@@ -165,14 +169,17 @@ class ChickenCoop extends React.Component {
 	//FROM LIST OF TITLE RESULTS, SEARCH FOR DATA ON ONE
 
 	searchTitle(e) {
+		e.preventDefault();
 		var newName = e.target.getAttribute('data-title');
 		var newPlatform = e.target.getAttribute('data-plat');
-		this.setState({
-			game: newName,
-			plat: newPlatform
-		});
-		console.log(this.state.game, this.state.plat);
-		console.log(newName, newPlatform);
+		if (newPlatform !== this.state.plat || newName !== this.state.game) {
+			this.setState({
+				game: newName,
+				plat: newPlatform
+			});
+		}
+		console.log('Element: ' + newName, newPlatform);
+		console.log('State:' + this.state.game, this.state.plat);
 	}
 
 	submitData() {
@@ -344,6 +351,8 @@ class ChickenCoop extends React.Component {
 						inputPlatData={this.inputPlatData}
 						submitTitle={this.submitTitle}
 						submitData={this.submitData}
+						handleKeyDownData={this.handleKeyDownData}
+						handleKeyDownTitle={this.handleKeyDownTitle}
 						game={this.state.game}
 						platform={this.state.plat}
 					/>

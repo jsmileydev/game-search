@@ -3,12 +3,12 @@ import React from 'react';
 function SearchHome(props) {
 	return (
 		<div id="search-container">
-			<form className="pure-form pure-form-stacked column" id="title-form">
+			<form className="pure-form pure-form-stacked column" id="title-form" >
 				<fieldset>
 					<legend>Top 10 Related Games</legend>
 					<div>
-						<label htmlFor="search-title">Enter a search term: </label>
-						<input type="text" id="search-title" className="search" onChange={props.inputTitle} required />
+						<label htmlFor="search-title">Search games: </label>
+						<input type="text" id="search-title" className="search" onChange={props.inputTitle} onKeyPress={props.handleKeyDownTitle} required />
 					</div>
 					<div>
 						<input
@@ -33,15 +33,18 @@ function SearchHome(props) {
 							id="search-title-data"
 							className="search"
 							onChange={props.inputTitleData}
+							onKeyPress={props.handleKeyDownData}
 							required
 						/>
-						<label htmlFor="search-plat-data">Select a platform: </label>
+						<label htmlFor="search-plat-data">Enter a platform (required): </label>
 						<input
 							type="text"
 							id="search-plat-data"
 							className="search"
 							onChange={props.inputPlatData}
-							placeholder="Example: pc"
+							onKeyPress={props.handleKeyDownData}
+							placeholder="Required"
+							required
 						/>
 						{/*<select id="plat-drop" defaultValue="pc"
 							onChange={props.inputPlatData}
@@ -68,14 +71,14 @@ function SearchHome(props) {
 							<option value="dreamcast">Dreamcast</option>
 </select>*/}
 					</div>
-					<div>
+					{/*<div>
 						<input
 							type="button"
 							className="submit button-success pure-button"
 							onClick={props.submitData}
 							value="Submit Search"
 						/>
-					</div>
+					</div>*/}
 				</fieldset>
 			</form>
 		</div>
