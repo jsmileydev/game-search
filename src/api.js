@@ -117,14 +117,14 @@ class ChickenCoop extends React.Component {
 								<div className="title-result-btn"  >
 									<input
 										type="image"
-										src={require("./images/icons8-search-30.png")}
+										src={require("./images/icons8-search-50.png")}
 										alt="search title"
 										className="title-submit button-success pure-button"
-										value="Search this game"
+										value="Search this game" data-title={item.title} data-plat={item.platform} onMouseOver={_this.searchTitle}	onClick={_this.submitData}
 									/>
 								</div>
 								<div className="title-info">
-									<span className="title-name" data-title={item.title} data-plat={item.platform} onMouseOver={_this.searchTitle}	onClick={_this.submitData}>{item.title}
+									<span className="title-name">{item.title}
 									<br />{item.platform}</span>
 								</div>
 							</div>
@@ -180,6 +180,11 @@ class ChickenCoop extends React.Component {
 		}
 		console.log('Element: ' + newName, newPlatform);
 		console.log('State:' + this.state.game, this.state.plat);
+	}
+
+	shouldComponentUpdate(nextProps) {
+		const differentGame = this.state.game !== nextProps.game;
+		return differentGame;
 	}
 
 	submitData() {
@@ -358,7 +363,7 @@ class ChickenCoop extends React.Component {
 					/>
 					<div id="game-results">
 						{' '}
-						{this.state.isLoaded ? <LoadAni /> : <div>{this.state.gameItem} </div>}{' '}
+						{this.state.isLoaded ? <LoadAni /> : <div>{this.state.gameItem}</div> }{' '}
 					</div>
 				</div>
 			</main>

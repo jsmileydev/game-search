@@ -145,8 +145,12 @@ input {
     flex-direction: row;
     flex-wrap: wrap;
     text-align: left !important;
+    width: 100%;
     margin: 1em 3em;
-    //padding-top: 2em;
+    > div {
+      width: 75%;
+      margin: 0 auto;
+    }
     #load-overlay {
       position: fixed;
       top: 0;
@@ -171,24 +175,38 @@ input {
       height: auto;
       align-items: center;
       margin-bottom: 1em;
-      padding: 0 1em;
-      .title-submit {
-        font-size: .15em;
-        width: 35px;
-        padding: 5px;
+      overflow: hidden;
+      .title-result-btn {
+        height: 3.5em;
+        width: 0;
+        transition: 0.2s linear;
+        .title-submit {
+          font-size: .15em;
+          height: 100%;
+          padding: 1em;
+          border-radius: 0;
+          background-color: $steam-blue;
+          transition: 0.2s linear;
+        }
       }
+      
       .title-info {
-        padding-left: 1em;
+        padding: .25em 1em;
         span {
           line-height: 1.5em;
         }
-        .title-name, .title-platform {
-          //margin-left: .75em;
-        }
       }
     }
-    .title-result:hover {
+    .title-result:nth-child(odd) {
       background-color: rgb(80, 78, 78);
+    }
+    .title-result:hover {
+      .title-result-btn {
+        width: 3em;
+        .title-submit {
+          font-size: .5em;
+        }
+      }
     }
 
     #game-cover-title {
