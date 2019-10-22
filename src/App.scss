@@ -298,6 +298,18 @@ input {
   }
   #game-results {
     padding-top: 0 !important;
+    > div {
+      width: 100% !important;
+      margin: 0 auto;
+    }
+    .title-result-focus {
+      .title-result-btn-focus {
+        width: 3em;
+        .title-submit-focus {
+          font-size: .5em;
+        }
+      }
+    }
     
     #title-result-container {
       border-left: none !important;
@@ -362,6 +374,9 @@ input {
           }
         }
       }
+    }
+    #game-results {
+      margin: 1em 2em !important;
     }
   }
 }

@@ -16,7 +16,8 @@ class ChickenCoop extends React.Component {
 			plat: 'pc',
 			isLoaded: null,
 			results: '',
-			gameItem: ''
+			gameItem: '',
+			active: false
 		};
 		this.inputTitle = this.inputTitle.bind(this);
 		this.submitTitle = this.submitTitle.bind(this);
@@ -26,6 +27,13 @@ class ChickenCoop extends React.Component {
 		this.searchTitle = this.searchTitle.bind(this);
 		this.handleKeyDownData = this.handleKeyDownData.bind(this);
 		this.handleKeyDownTitle = this.handleKeyDownTitle.bind(this);
+		this.toggleClass = this.toggleClass.bind(this);
+	}
+
+	toggleClass() {
+		const toggleActive = !this.state.active;
+		this.setState({active: toggleActive});
+		console.log(this.state.active);
 	}
 
 	//SEARCH FOR ALL GAMES RELATED TO INPUT
@@ -92,13 +100,12 @@ class ChickenCoop extends React.Component {
 						<span>Error: Can't read input</span>
 					</div>
 				);
-					const error = (
-						<div id="error-result">
-							<p>{'error' in gameobj ? gameobj.error['message'] : ''}</p>
-							<p>Please try again</p>
-						</div>
-					);
-				
+				const error = (
+					<div id="error-result">
+						<p>{'error' in gameobj ? gameobj.error['message'] : ''}</p>
+						<p>Please try again</p>
+					</div>
+				);
 
 				if (gameobj.result === 'No result') {
 					_this.setState({ gameItem: noResult });
@@ -113,13 +120,13 @@ class ChickenCoop extends React.Component {
 
 					const ListItem = gameobj.result.map((item) => {
 						return (
-							<div className="title-result" key={item.title + item.platform}>
-								<div className="title-result-btn"  >
+							<div className={_this.state.active ? 'title-result title-result-focus' : 'title-result'} key={item.title + item.platform} onClick={_this.toggleClass}>
+								<div className={_this.state.active ? 'title-result-btn title-result-btn-focus' : 'title-result-btn'}  >
 									<input
 										type="image"
 										src={require("./images/icons8-search-50.png")}
 										alt="search title"
-										className="title-submit button-success pure-button"
+										className={_this.state.active ? 'title-submit title-submit-focus' : 'title-submit'}
 										value="Search this game" data-title={item.title} data-plat={item.platform} onMouseOver={_this.searchTitle}	onClick={_this.submitData}
 									/>
 								</div>
@@ -183,8 +190,8 @@ class ChickenCoop extends React.Component {
 	}
 
 	shouldComponentUpdate(nextProps) {
-		const differentGame = this.state.game !== nextProps.game;
-		return differentGame;
+		const loadUpdate = this.state.isLoaded !== nextProps.isLoaded;
+		return loadUpdate;
 	}
 
 	submitData() {
