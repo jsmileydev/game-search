@@ -25,10 +25,12 @@ class ChickenCoop extends React.Component {
 		this.inputPlatData = this.inputPlatData.bind(this);
 		this.submitData = this.submitData.bind(this);
 		this.searchTitle = this.searchTitle.bind(this);
-		this.handleKeyDownData = this.handleKeyDownData.bind(this);
 		this.handleKeyDownTitle = this.handleKeyDownTitle.bind(this);
+		this.handleKeyDownData = this.handleKeyDownData.bind(this);
 		this.toggleClass = this.toggleClass.bind(this);
 	}
+
+	//Reusable function for toggling classes
 
 	toggleClass() {
 		const toggleActive = !this.state.active;
@@ -38,23 +40,31 @@ class ChickenCoop extends React.Component {
 
 	//SEARCH FOR ALL GAMES RELATED TO INPUT
 
+	//Submit form using enter key
+
+	handleKeyDownTitle(e) {
+		if(e.key === 'Enter') {
+			e.preventDefault();
+			this.submitTitle();
+		}
+	}
+
 	handleKeyDownData(e) {
 		if (e.key === 'Enter') {
+			e.preventDefault();
 			this.submitData();
 		}
 	}
 
-	handleKeyDownTitle(e) {
-		if(e.key === 'Enter') {
-			this.submitTitle();
-		}
-	}
+	//Take search value from input field
 
 	inputTitle(e) {
 		var search = e.target.value;
 		this.setState({ game: search });
 		console.log(this.state.game);
 	}
+
+	//API search function
 
 	submitTitle() {
 		//Turn on loading animation and convert input to readable data
@@ -94,6 +104,8 @@ class ChickenCoop extends React.Component {
 
 				//Convert responseText string to useable object
 				var gameobj = JSON.parse(this.responseText);
+
+				//Create no result, server error, and result div
 
 				const noResult = (
 					<div id="no-result">
@@ -173,7 +185,7 @@ class ChickenCoop extends React.Component {
 		console.log(platSearch);
 	}
 
-	//FROM LIST OF TITLE RESULTS, SEARCH FOR DATA ON ONE
+	//From list of title results, search for data from one, only setting state if the title or platform doesn't match previous state
 
 	searchTitle(e) {
 		e.preventDefault();
@@ -185,14 +197,17 @@ class ChickenCoop extends React.Component {
 				plat: newPlatform
 			});
 		}
-		console.log('Element: ' + newName, newPlatform);
-		console.log('State:' + this.state.game, this.state.plat);
+		console.log(newName, newPlatform);
 	}
+
+	//Re-render component only if isLoaded has changed, which is during the search process--not every time the game and platform state changes during input
 
 	shouldComponentUpdate(nextProps) {
 		const loadUpdate = this.state.isLoaded !== nextProps.isLoaded;
 		return loadUpdate;
 	}
+
+	//Search API function
 
 	submitData() {
 		//Turn on loading animation and convert input to readable data for database request
@@ -230,13 +245,15 @@ class ChickenCoop extends React.Component {
 				//Convert responseText string to useable object
 				var gameobj = JSON.parse(this.responseText);
 				console.log(gameobj.result);
+
+				//Create no result, server error, and result div
+
 				if (gameobj.result === 'No result') {
 					console.log('Incorrect game title');
 				}
 				console.log(
 					'https://www.metacritic.com/game/' + plat.replace(/\s/g, '-') + '/' + title.replace(/\s/g, '-')
 				);
-				//Create result and no result div
 
 				const noResult = (
 					<div id="no-result">
@@ -363,8 +380,8 @@ class ChickenCoop extends React.Component {
 						inputPlatData={this.inputPlatData}
 						submitTitle={this.submitTitle}
 						submitData={this.submitData}
-						handleKeyDownData={this.handleKeyDownData}
 						handleKeyDownTitle={this.handleKeyDownTitle}
+						handleKeyDownData={this.handleKeyDownData}
 						game={this.state.game}
 						platform={this.state.plat}
 					/>

@@ -3,6 +3,7 @@ import React from 'react';
 function SearchHome(props) {
 	return (
 		<div id="search-container">
+			{/*TITLE LIST SEARCH*/}
 			<form className="pure-form pure-form-stacked column" id="title-form" >
 				<fieldset>
 					<legend>Top 10 Related Games</legend>
@@ -10,6 +11,7 @@ function SearchHome(props) {
 						<label htmlFor="search-title">Search games: </label>
 						<input type="text" id="search-title" className="search" onChange={props.inputTitle} onKeyPress={props.handleKeyDownTitle} required />
 					</div>
+					{/*
 					<div>
 						<input
 							type="button"
@@ -17,12 +19,13 @@ function SearchHome(props) {
 							onClick={props.submitTitle}
 							value="Submit Search"
 						/>
-					</div>
+					</div>*/}
 				</fieldset>
 			</form>
 			{/*<div id="or" className="column">
 				<h5>OR</h5>
 	</div>*/}
+			{/*GAME DATA SEARCH*/}
 			<form className="pure-form pure-form-stacked column">
 				<fieldset>
 					<legend>Search By Name</legend>
