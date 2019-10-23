@@ -11,15 +11,6 @@ function SearchHome(props) {
 						<label htmlFor="search-title">Search games: </label>
 						<input type="text" id="search-title" className="search" onChange={props.inputTitle} onKeyPress={props.handleKeyDownTitle} required />
 					</div>
-					{/*
-					<div>
-						<input
-							type="button"
-							className="submit button-success button-small pure-button"
-							onClick={props.submitTitle}
-							value="Submit Search"
-						/>
-					</div>*/}
 				</fieldset>
 			</form>
 			{/*<div id="or" className="column">
@@ -74,14 +65,6 @@ function SearchHome(props) {
 							<option value="dreamcast">Dreamcast</option>
 </select>*/}
 					</div>
-					{/*<div>
-						<input
-							type="button"
-							className="submit button-success pure-button"
-							onClick={props.submitData}
-							value="Submit Search"
-						/>
-					</div>*/}
 				</fieldset>
 			</form>
 		</div>
