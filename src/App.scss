@@ -136,32 +136,12 @@ input {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-<<<<<<< HEAD
-		text-align: left;
-		margin: 2em 4em;
-    padding-top: 2em;
-    #load-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 100vh;
-      width: 100vw;
-      z-index: 1;
-      background-color: rgba(0,0,0, 0.5);
-      #load-ani {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-      }
-=======
     text-align: left !important;
     width: 100%;
     margin: 1em 3em;
     > div {
       width: 75%;
       margin: 0 auto;
->>>>>>> layout
     }
     #load-overlay {
       position: fixed;

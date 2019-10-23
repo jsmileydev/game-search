@@ -4,14 +4,8 @@ import ReactLoading from 'react-loading';
 
 const LoadAni = ({ type, color }) => (
 	<div id="load-overlay">
-<<<<<<< HEAD
-		<ReactLoading type={'bubbles'} color={'rgb(233, 232, 232)'} height={'10%'} width={'10%'} id="load-ani" />
-	</div>
-	
-=======
 	<ReactLoading type={'bubbles'} color={'rgb(233, 232, 232)'} height={'10%'} width={'10%'} id="load-ani" />
 	</div>
->>>>>>> layout
 );
 
 class ChickenCoop extends React.Component {
