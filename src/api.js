@@ -4,9 +4,14 @@ import ReactLoading from 'react-loading';
 
 const LoadAni = ({ type, color }) => (
 	<div id="load-overlay">
+<<<<<<< HEAD
 		<ReactLoading type={'bubbles'} color={'rgb(233, 232, 232)'} height={'10%'} width={'10%'} id="load-ani" />
 	</div>
 	
+=======
+	<ReactLoading type={'bubbles'} color={'rgb(233, 232, 232)'} height={'10%'} width={'10%'} id="load-ani" />
+	</div>
+>>>>>>> layout
 );
 
 class ChickenCoop extends React.Component {
@@ -17,7 +22,8 @@ class ChickenCoop extends React.Component {
 			plat: 'pc',
 			isLoaded: null,
 			results: '',
-			gameItem: ''
+			gameItem: '',
+			active: false
 		};
 		this.inputTitle = this.inputTitle.bind(this);
 		this.submitTitle = this.submitTitle.bind(this);
@@ -25,14 +31,46 @@ class ChickenCoop extends React.Component {
 		this.inputPlatData = this.inputPlatData.bind(this);
 		this.submitData = this.submitData.bind(this);
 		this.searchTitle = this.searchTitle.bind(this);
+		this.handleKeyDownTitle = this.handleKeyDownTitle.bind(this);
+		this.handleKeyDownData = this.handleKeyDownData.bind(this);
+		this.toggleClass = this.toggleClass.bind(this);
+	}
+
+	//Reusable function for toggling classes
+
+	toggleClass() {
+		const toggleActive = !this.state.active;
+		this.setState({active: toggleActive});
+		console.log(this.state.active);
 	}
 
 	//SEARCH FOR ALL GAMES RELATED TO INPUT
 
+	//Submit form using enter key
+
+	handleKeyDownTitle(e) {
+		if(e.key === 'Enter') {
+			e.preventDefault();
+			this.submitTitle();
+		}
+	}
+
+	handleKeyDownData(e) {
+		if (e.key === 'Enter') {
+			e.preventDefault();
+			this.submitData();
+		}
+	}
+
+	//Take search value from input field
+
 	inputTitle(e) {
 		var search = e.target.value;
 		this.setState({ game: search });
+		console.log(this.state.game);
 	}
+
+	//API search function
 
 	submitTitle() {
 		//Turn on loading animation and convert input to readable data
@@ -73,14 +111,24 @@ class ChickenCoop extends React.Component {
 				//Convert responseText string to useable object
 				var gameobj = JSON.parse(this.responseText);
 
+				//Create no result, server error, and result div
+
 				const noResult = (
 					<div id="no-result">
 						<span>Error: Can't read input</span>
 					</div>
 				);
+				const error = (
+					<div id="error-result">
+						<p>{'error' in gameobj ? gameobj.error['message'] : ''}</p>
+						<p>Please try again</p>
+					</div>
+				);
 
 				if (gameobj.result === 'No result') {
 					_this.setState({ gameItem: noResult });
+				} else if ('error' in gameobj) {
+					_this.setState({ gameItem: error });
 				} else {
 					//Use dynamicSort to group result object by title (otherwise seemingly random?)
 					gameobj.result = gameobj.result.sort(dynamicSort('title'));
@@ -90,35 +138,23 @@ class ChickenCoop extends React.Component {
 
 					const ListItem = gameobj.result.map((item) => {
 						return (
-							<div className="title-result" key={item.title + item.platform}>
-								<div className="title-result-btn">
+							<div className={_this.state.active ? 'title-result title-result-focus' : 'title-result'} key={item.title + item.platform} onClick={_this.toggleClass}>
+								<div className={_this.state.active ? 'title-result-btn title-result-btn-focus' : 'title-result-btn'}  >
 									<input
-										type="button"
-										className="submit title-submit button-success pure-button"
-										value="Search this game"
-										data-title={item.title}
-										data-plat={item.platform}
-										onMouseOver={_this.searchTitle}
-										onClick={_this.submitData}
+										type="image"
+										src={require("./images/icons8-search-50.png")}
+										alt="search title"
+										className={_this.state.active ? 'title-submit title-submit-focus' : 'title-submit'}
+										value="Search this game" data-title={item.title} data-plat={item.platform} onMouseOver={_this.searchTitle}	onClick={_this.submitData}
 									/>
 								</div>
 								<div className="title-info">
-									<span className="title-key">
-										<strong>Title:</strong>
-									</span>
-									<span className="title-name">{item.title}</span>
-									<br />
-									<span className="title-key">
-										<strong>Platform:</strong>
-									</span>
-									<span className="title-platform">{item.platform}</span>
+									<span className="title-name">{item.title}
+									<br />{item.platform}</span>
 								</div>
 							</div>
 						);
 					});
-					
-					
-					
 
 					_this.setState({ gameItem: ListItem });
 				}
@@ -138,6 +174,7 @@ class ChickenCoop extends React.Component {
 	componentDidMount() {
 		var platSearch = document.getElementById('search-plat-data').value;
 		this.setState({ plat: platSearch });
+		console.log(platSearch);
 	}
 
 	//Take title and platform from input fields
@@ -154,18 +191,29 @@ class ChickenCoop extends React.Component {
 		console.log(platSearch);
 	}
 
-	//FROM LIST OF TITLE RESULTS, SEARCH FOR DATA ON ONE
+	//From list of title results, search for data from one, only setting state if the title or platform doesn't match previous state
 
 	searchTitle(e) {
+		e.preventDefault();
 		var newName = e.target.getAttribute('data-title');
 		var newPlatform = e.target.getAttribute('data-plat');
-		this.setState({
-			game: newName,
-			plat: newPlatform
-		});
-		console.log(this.state.game, this.state.plat);
+		if (newPlatform !== this.state.plat || newName !== this.state.game) {
+			this.setState({
+				game: newName,
+				plat: newPlatform
+			});
+		}
 		console.log(newName, newPlatform);
 	}
+
+	//Re-render component only if isLoaded has changed, which is during the search process--not every time the game and platform state changes during input
+
+	shouldComponentUpdate(nextProps) {
+		const loadUpdate = this.state.isLoaded !== nextProps.isLoaded;
+		return loadUpdate;
+	}
+
+	//Search API function
 
 	submitData() {
 		//Turn on loading animation and convert input to readable data for database request
@@ -203,24 +251,34 @@ class ChickenCoop extends React.Component {
 				//Convert responseText string to useable object
 				var gameobj = JSON.parse(this.responseText);
 				console.log(gameobj.result);
+
+				//Create no result, server error, and result div
+
 				if (gameobj.result === 'No result') {
 					console.log('Incorrect game title');
 				}
 				console.log(
 					'https://www.metacritic.com/game/' + plat.replace(/\s/g, '-') + '/' + title.replace(/\s/g, '-')
 				);
-				//Create result and no result div
 
 				const noResult = (
 					<div id="no-result">
 						<span>Please enter a correct game title and platform</span>
 					</div>
 				);
+				const error = (
+					<div id="error-result">
+						<p>{'error' in gameobj ? gameobj.error['message'] : ''}</p>
+						<p>Please try again</p>
+					</div>
+				);
 
 				if (gameobj.result === 'No result') {
 					_this.setState({ gameItem: noResult });
-				} else {			
-					var scoreBg ='';
+				} else if ('error' in gameobj) {
+					_this.setState({ gameItem: error });
+				} else {
+					var scoreBg = '';
 					if (gameobj.result['score'] >= 75) {
 						scoreBg = 'green-bg';
 					} else if (gameobj.result['score'] >= 50) {
@@ -231,24 +289,29 @@ class ChickenCoop extends React.Component {
 					const gameItemData = (
 						<div id="title-result-container">
 							<div id="game-cover-title">
-								<img src={gameobj.result['image']} alt="game cover" id="game-cover pure-img" />
-								<p className="game-name">
-									<strong>{gameobj.result['title']}</strong>
-								</p>
+								<img src={gameobj.result['image']} alt="game cover" id="game-cover" />
+								<div id="game-title">
+									<p id="game-name">
+										<strong>{gameobj.result['title']}</strong>
+									</p>
+									<p>
+										<span>
+											Metacritic Score: 
+										</span>
+										<span id="game-score" className={scoreBg}>
+											{gameobj.result['score']}
+										</span>
+									</p>
+									<p>
+										<a href={metalink} alt="Metacritic review" id="game-review">
+											{' '}
+											View Full Metacritic Review
+										</a>
+									</p>
+								</div>								
 							</div>
 							<div id="game-info">
 								<div className="data-result">
-									<span>
-										<strong>Metacritic Score: </strong>
-									</span>
-									<span id="game-score" className={scoreBg}>
-										{gameobj.result['score']}
-									</span>
-									<a href={metalink} alt="Metacritic review" id="game-review">
-										{' '}
-										View Full Metacritic Review
-									</a>
-									<br />
 									<span className="data-key">
 										<strong>Description: </strong>
 									</span>&nbsp;
@@ -288,7 +351,7 @@ class ChickenCoop extends React.Component {
 								</div>
 							</div>
 						</div>
-					);	
+					);
 					_this.setState({ gameItem: gameItemData });
 				}
 			}
@@ -303,7 +366,8 @@ class ChickenCoop extends React.Component {
 
 	render() {
 		return (
-			<div>
+			<main>
+			<p id="api-tag">Powered by Chicken Coop's Metacritic API</p>
 				<div id="head-ellipse" />
 				<header>
 					<div id="gameboy-head">
@@ -312,20 +376,27 @@ class ChickenCoop extends React.Component {
 							alt="gameboy-head"
 							className="pure-css"
 						/>
-						<p>Powered by Chicken Coop's Metacritic API</p>
 					</div>
 				</header>
-				<SearchHome
-					inputTitle={this.inputTitle}
-					inputTitleData={this.inputTitleData}
-					inputPlatData={this.inputPlatData}
-					submitTitle={this.submitTitle}
-					submitData={this.submitData}
-					game={this.state.game}
-					platform={this.state.plat}
-				/>
-				<div id="game-results"> {this.state.isLoaded ? <LoadAni /> : <div>{this.state.gameItem} </div>} </div>
-			</div>
+
+				<div id="wrapper">
+					<SearchHome
+						inputTitle={this.inputTitle}
+						inputTitleData={this.inputTitleData}
+						inputPlatData={this.inputPlatData}
+						submitTitle={this.submitTitle}
+						submitData={this.submitData}
+						handleKeyDownTitle={this.handleKeyDownTitle}
+						handleKeyDownData={this.handleKeyDownData}
+						game={this.state.game}
+						platform={this.state.plat}
+					/>
+					<div id="game-results">
+						{' '}
+						{this.state.isLoaded ? <LoadAni /> : <div>{this.state.gameItem}</div> }{' '}
+					</div>
+				</div>
+			</main>
 		);
 	}
 }
