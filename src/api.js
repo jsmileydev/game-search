@@ -17,7 +17,7 @@ class ChickenCoop extends React.Component {
 			isLoaded: null,
 			results: '',
 			gameItem: <div id="display">
-						<p id="api-tag">Powered by Chicken Coop's Metacritic API</p>
+						<p id="api-tag"><a href="https://rapidapi.com/valkiki/api/chicken-coop" alt="Chicken Coop API">Powered by Chicken Coop's Metacritic API</a></p>
 						<img src={require("./images/consolering-100.png")} alt="console logo ring" id="console-ring" width="160" height="160"/>
 					</div>,
 			active: false
@@ -368,13 +368,6 @@ class ChickenCoop extends React.Component {
 				<header>
 					<div id="gameboy-head">
 						<h1><img src={require('./images/icons8-game-controller-24.png')} alt="controller logo"/> Game Database Search</h1>
-						{/*<img
-							src={require('./images/icons8-visual-game-boy-768.png')}
-							alt="gameboy-head"
-							className="pure-css"
-							width="40%"
-							height="75%"
-						/>*/}
 					</div>
 				</header>
 

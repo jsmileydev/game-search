@@ -13,10 +13,6 @@ function SearchHome(props) {
 					</div>
 				</fieldset>
 			</form>
-			{/*<div id="or" className="column">
-				<h5>OR</h5>
-	</div>*/}
-			{/*GAME DATA SEARCH*/}
 			<form className="pure-form pure-form-stacked column">
 				<fieldset>
 					<legend>Search By Name</legend>
@@ -40,7 +36,8 @@ function SearchHome(props) {
 							placeholder="Required"
 							required
 						/>
-						{/*<select id="plat-drop" defaultValue="pc"
+						{/*Select platform from dropdown to reduce input errors?
+						<select id="plat-drop" defaultValue="pc"
 							onChange={props.inputPlatData}
 							required>
 							<option value="pc">PC</option>

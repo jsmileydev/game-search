@@ -19,6 +19,9 @@ input {
   max-width: 100%;
   box-sizing: border-box;
 }
+a {
+  color: $white;
+}  
 
 .submit {
   color: $black;
@@ -29,13 +32,6 @@ input {
 	text-align: center;
   color: $white;
   overflow-x: hidden;
-  /*#api-tag {
-    position: absolute;
-    font-size: .75em;
-    margin: 0;
-    top: .25em;
-    right: .25em;
-  }*/
 
   //HEADER
   
@@ -95,7 +91,6 @@ input {
 			legend {
 				color: $white !important;
 				width: 80%;
-				//margin: .75em auto;
 				font-weight: bold;
         padding-bottom: .5em;
 			}
@@ -263,9 +258,6 @@ input {
       .red-bg {
         background-color: $bad-red;
       } 
-      a {
-        color: $white;
-      }  
       #game-info {
         margin-left: 2em;
         width: 60%;  
@@ -284,9 +276,6 @@ input {
     text-align: left;
     font-size: .65em;
     text-align: right;
-    a {
-      color: $white;
-    }
   }
 }
 
@@ -361,8 +350,6 @@ input {
       font-size: .85em;
       vertical-align: middle;
       text-align: center;
-      h1 {
-      }
     }
   }
   #wrapper {
