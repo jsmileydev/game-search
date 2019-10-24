@@ -16,7 +16,10 @@ class ChickenCoop extends React.Component {
 			plat: 'pc',
 			isLoaded: null,
 			results: '',
-			gameItem: '',
+			gameItem: <div id="display">
+						<p id="api-tag">Powered by Chicken Coop's Metacritic API</p>
+						<img src={require("./images/consolering-100.png")} alt="console logo ring" id="console-ring" width="160" height="160"/>
+					</div>,
 			active: false
 		};
 		this.inputTitle = this.inputTitle.bind(this);
@@ -361,15 +364,17 @@ class ChickenCoop extends React.Component {
 	render() {
 		return (
 			<main>
-			<p id="api-tag">Powered by Chicken Coop's Metacritic API</p>
 				<div id="head-ellipse" />
 				<header>
 					<div id="gameboy-head">
-						<img
+						<h1><img src={require('./images/icons8-game-controller-24.png')} alt="controller logo"/> Game Database Search</h1>
+						{/*<img
 							src={require('./images/icons8-visual-game-boy-768.png')}
 							alt="gameboy-head"
 							className="pure-css"
-						/>
+							width="40%"
+							height="75%"
+						/>*/}
 					</div>
 				</header>
 
@@ -390,6 +395,7 @@ class ChickenCoop extends React.Component {
 						{this.state.isLoaded ? <LoadAni /> : <div>{this.state.gameItem}</div> }{' '}
 					</div>
 				</div>
+				<footer><a href="https://icons8.com/" alt="Icons by Icons8">Icons by Icons8</a> </footer>
 			</main>
 		);
 	}

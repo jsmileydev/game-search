@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Nova+Square|Squada+One|Inconsolata:400,700|Open+Sans&display=swap');
 $black: rgb(43, 42, 42);
 $white: rgb(233, 232, 232);
 $steam-blue: rgb(0, 175, 239);
@@ -7,8 +8,10 @@ $bad-red: #f00;
 
 body {
   width: 100vw;
+  height: 100vh;
   background: $black;
   text-shadow: 0px 0px 1px rgba(0,0,0,0.75),1px 2px 1px rgba(0,0,0,0.5);
+  font-family: 'Open Sans', sans-serif;
 }
 
 input {
@@ -25,43 +28,41 @@ input {
 .App {
 	text-align: center;
   color: $white;
-  #api-tag {
+  overflow-x: hidden;
+  /*#api-tag {
     position: absolute;
     font-size: .75em;
     margin: 0;
     top: .25em;
     right: .25em;
-  }
+  }*/
 
   //HEADER
   
   #head-ellipse {
     position: absolute;
-    top: -10em;
+    top: -2em;
     left: 0;
     width: 100%;
-    height: 20em;
+    height: 7em;
     background-color: $steam-blue;
-    background: linear-gradient(to bottom, rgba(0, 175, 239,0.2) 10%, rgba(0, 175, 239,1)), url('./images/icons8-pacman-50.png');
-    //border-bottom-left-radius: 50%;
-    //border-bottom-right-radius: 50%;
+    background: linear-gradient(to bottom, rgba(0, 175, 239,0.1) 10%, rgba(0, 175, 239,0.8)), url('./images/icons8-pacman-50.png');
     z-index: -5;
   }
 
   header {
-    height: 8em;
+    height: 3em;
     width: 75%;
-    margin: 0 auto;
-    margin-bottom: 2em;
+    margin: 1em 3em;
     color: $black;
+    text-align: left;
     #gameboy-head {
-      height: 10em;
-      margin: 0 auto;
-      margin-top: 1em;
-      img {
-        max-width: 80%;
-        max-height: 80%;
-      }
+      height: 7em;
+      margin: 0;
+      text-shadow: none;
+      color: $white;
+      font-family: 'Nova Square', cursive;
+      letter-spacing: .05em;
     }    
   }
 
@@ -70,7 +71,10 @@ input {
   #wrapper {
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
+    align-items: center;
+    #display {
+      text-align: center;
+    }
   }
 
   //SEARCH SECTION
@@ -81,8 +85,7 @@ input {
     justify-content: center;
 		align-items: stretch;
     width: 25vw;
-    //border-bottom: 1px solid $white;
-    margin: 1em 3em;
+    margin: 2em 3em;
     text-align: left;
 
 		form {
@@ -146,6 +149,10 @@ input {
     > div {
       width: 75%;
       margin: 0 auto;
+    }
+    #console-ring {
+      display: block;
+      margin: 2em auto;
     }
     #load-overlay {
       position: fixed;
@@ -269,7 +276,18 @@ input {
         }
       }
     }
-	}
+  }
+  
+  footer {
+    width: 90%;
+    margin: 0 auto;
+    text-align: left;
+    font-size: .65em;
+    text-align: right;
+    a {
+      color: $white;
+    }
+  }
 }
 
 @media only screen and (max-width: 1280px) {
@@ -335,13 +353,16 @@ input {
   }
 }
 @media only screen and (max-width: 739px) {
-  #head-ellipse {
-    height: 19em !important;
-  }
   header {
-    height: 6em !important;
+    height: 3em !important;
+    width: 100% !important;
+    margin: 1em auto !important;
     #gameboy-head {
-      margin-top: .5em !important;
+      font-size: .85em;
+      vertical-align: middle;
+      text-align: center;
+      h1 {
+      }
     }
   }
   #wrapper {
