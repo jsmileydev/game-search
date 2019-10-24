@@ -6,6 +6,10 @@ Search for top ten games related to the search input
 
 Search for detailed information on a single game result
 
+### Demo: 
+
+[Live Demo](https://game-search.netlify.com/)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

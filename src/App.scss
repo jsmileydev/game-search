@@ -67,9 +67,12 @@ a {
   #wrapper {
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: flex-start;
     #display {
       text-align: center;
+      p {
+        margin: 0;
+      }
     }
   }
 
@@ -140,7 +143,7 @@ a {
     flex-wrap: wrap;
     text-align: left !important;
     width: 100%;
-    margin: 1em 3em;
+    margin: 2em 3em;
     > div {
       width: 75%;
       margin: 0 auto;
