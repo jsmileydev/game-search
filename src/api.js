@@ -49,6 +49,7 @@ class ChickenCoop extends React.Component {
 		if(e.key === 'Enter') {
 			e.preventDefault();
 			this.submitTitle();
+			document.getElementById('search-title').blur();
 		}
 	}
 
@@ -56,6 +57,8 @@ class ChickenCoop extends React.Component {
 		if (e.key === 'Enter') {
 			e.preventDefault();
 			this.submitData();
+			document.getElementById('search-title-data').blur();
+			document.getElementById('search-plat-data').blur();
 		}
 	}
 
