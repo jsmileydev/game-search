@@ -7,381 +7,347 @@ $meh-yellow: #fc3;
 $bad-red: #f00;
 
 body {
-  width: 100vw;
-  height: 100vh;
-  background: $black;
-  text-shadow: 0px 0px 1px rgba(0,0,0,0.75),1px 2px 1px rgba(0,0,0,0.5);
-  font-family: 'Open Sans', sans-serif;
-}
-
-input {
-  box-shadow: inset 0 1px 3px #ddd, 0px 0px 1px rgba(0,0,0,0.75),1px 2px 1px rgba(0,0,0,0.5);
-  max-width: 100%;
-  box-sizing: border-box;
-}
-a {
-  color: $white;
-}  
-
-.submit {
-  color: $black;
-  font-size: .85em;
+	width: 100vw;
+	height: 100vh;
+	background: $black;
+	text-shadow: 0px 0px 1px rgba(0, 0, 0, 0.75), 1px 2px 1px rgba(0, 0, 0, 0.5);
+	font-family: 'Open Sans', sans-serif;
 }
 
 .App {
-	text-align: center;
-  color: $white;
+	color: $white;
   overflow-x: hidden;
+  
+  main {
+    height: 100vh;
+  }
+
+	input {
+		box-shadow: inset 0 1px 3px #ddd, 0px 0px 1px rgba(0, 0, 0, 0.75), 1px 2px 1px rgba(0, 0, 0, 0.5);
+		max-width: 100%;
+		box-sizing: border-box;
+	}
+	a {
+		color: $white;
+	}
+
+	.submit {
+		color: $black;
+		font-size: .85em;
+	}
 
   //HEADER
-  
-  #head-ellipse {
-    position: absolute;
-    top: -2em;
-    left: 0;
-    width: 100%;
-    height: 7em;
-    background-color: $steam-blue;
-    background: linear-gradient(to bottom, rgba(0, 175, 239,0.1) 10%, rgba(0, 175, 239,0.8)), url('./images/icons8-pacman-50.png');
-    z-index: -5;
-  }
 
-  header {
-    height: 3em;
-    width: 75%;
-    margin: 1em 3em;
-    color: $black;
-    text-align: left;
-    #gameboy-head {
-      height: 7em;
+	header {
+		height: 5em;
+		width: 100%;
+		color: $black;
+		background-color: $steam-blue;
+		background: linear-gradient(to bottom, rgba(0, 175, 239, 0.1) 10%, rgba(0, 175, 239, 0.8)),
+      url('./images/icons8-pacman-50.png');
+      
+		text-align: left;
+		#gameboy-head {
+			height: 5em;
       margin: 0;
-      text-shadow: none;
-      color: $white;
-      font-family: 'Nova Square', cursive;
+      padding-left: 3vw;
+			text-shadow: none;
+			color: $white;
+			font-family: 'Nova Square', cursive;
       letter-spacing: .05em;
-    }    
-  }
-
-  //MAIN WRAPPER
-
-  #wrapper {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    #display {
-      text-align: center;
-      p {
+      line-height: 5em;
+      h1 {
         margin: 0;
       }
-    }
-  }
+		}
+	}
 
-  //SEARCH SECTION
+	//MAIN WRAPPER
 
-	#search-container {
+	#wrapper {
 		display: flex;
-    flex-direction: column;
-    justify-content: center;
-		align-items: stretch;
-    width: 25vw;
-    margin: 2em 3em;
-    text-align: left;
-
-		form {
-      width: 35%;
-      margin-bottom: 1em;
-      font-size: .9em;
-			legend {
-				color: $white !important;
-				width: 80%;
-				font-weight: bold;
-        padding-bottom: .5em;
+		flex-direction: row;
+		align-items: flex-start;
+		#display {
+			text-align: center;
+			p {
+				margin: 0;
 			}
-			.search {
-				margin: .75em 0 !important;
-        color: $black;
-      }
-      #search-title, #search-plat-data {
-        background-image: url(./images/icons8-search-30.png);
-        background-repeat: no-repeat;
-        background-size: 1.75em;
-        background-position: 97% 50%;
-      } 
-      #plat-drop {
-        color: $black;
-      }
-    }
-    
-    /*OR ICON STYLE*/
-		#or {
+		}
+
+		//SEARCH SECTION
+
+		#search-container {
 			display: flex;
 			flex-direction: column;
 			justify-content: center;
 			align-items: stretch;
-			height: 100%;
-      color: $black;
-      text-align: center;
-			h5 {
-				margin: 1em 0;
-				height: 2em;
-				width: 2em;
-				line-height: 2em;
-				background: $steam-blue;
-        background: linear-gradient(to bottom, rgba(0, 175, 239,0.4) 10%, rgba(0, 175, 239,1)), url('./images/icons8-pacman-50.png');
-        background-position: center;
-        background-size: 50%;
-				border-radius: 1em;
+			width: 25vw;
+			margin: 2em 5vw 2em 8vw;
+			text-align: left;
+
+			form {
+				width: 35%;
+				margin-bottom: 1em;
+				font-size: .9em;
+				legend {
+					color: $white !important;
+					width: 80%;
+					font-weight: bold;
+					padding-bottom: .5em;
+				}
+				.search {
+					margin: .75em 0 !important;
+					color: $black;
+				}
+				#search-title,
+				#search-plat-data {
+					background-image: url(./images/icons8-search-30.png);
+					background-repeat: no-repeat;
+					background-size: 1.75em;
+					background-position: 97% 50%;
+				}
+				#plat-drop {
+					color: $black;
+				}
 			}
 		}
-  }
-  
-  //RESULT SECTION
 
-	#game-results {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    text-align: left !important;
-    width: 100%;
-    margin: 2em 3em;
-    > div {
-      width: 75%;
-      margin: 0 auto;
-    }
-    #console-ring {
-      display: block;
-      margin: 2em auto;
-    }
-    #load-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 100vh;
-      width: 100vw;
-      z-index: 1;
-      background-color: rgba(0,0,0, 0.5);
-      #load-ani {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-      }
-    }
-    #no-result {
-      margin: 0 auto;
-    }
+		//RESULT SECTION
 
-    //LIST OF TITLE RESULTS
+		#game-results {
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			text-align: left !important;
+			width: 100%;
+			margin: 2em 8vw 2em 5vw;
+			> div {
+				width: 75%;
+				margin: 0 auto;
+			}
+			#console-ring {
+				display: block;
+				margin: 2em auto;
+			}
+			#load-overlay {
+				position: fixed;
+				top: 0;
+				left: 0;
+				height: 100vh;
+				width: 100vw;
+				z-index: 1;
+				background-color: rgba(0, 0, 0, 0.5);
+				#load-ani {
+					position: absolute;
+					top: 50%;
+					left: 50%;
+					transform: translate(-50%, -50%);
+				}
+			}
+			#no-result {
+				margin: 0 auto;
+			}
 
-    .title-result {
-      display: flex;
-      flex-direction: row;
-      height: auto;
-      align-items: center;
-      margin-bottom: 1em;
-      overflow: hidden;
-      .title-result-btn {
-        height: 3.5em;
-        width: 0;
-        transition: 0.2s linear;
-        .title-submit {
-          font-size: .15em;
-          height: 100%;
-          padding: 1em;
-          border-radius: 0;
-          background-color: $steam-blue;
-          transition: 0.2s linear;
-        }
-      }      
-      .title-info {
-        padding: .25em 1em;
-        span {
-          line-height: 1.5em;
-        }
-      }
-    }
-    .title-result:nth-child(odd) {
-      background-color: rgb(80, 78, 78);
-    }
-    .title-result:hover {
-      .title-result-btn {
-        width: 3em;
-        .title-submit {
-          font-size: .5em;
-        }
-      }
-    }
+			//LIST OF TITLE RESULTS
 
-    //GAME DATA RESULTS 
+			.title-result {
+				display: flex;
+				flex-direction: row;
+				height: auto;
+				align-items: center;
+				margin-bottom: 1em;
+				overflow: hidden;
+				.title-result-btn {
+					height: 3.5em;
+					width: 0;
+					transition: 0.2s linear;
+					.title-submit {
+						font-size: .15em;
+						height: 100%;
+						padding: 1em;
+						border-radius: 0;
+						background-color: $steam-blue;
+						transition: 0.2s linear;
+					}
+				}
+				.title-info {
+					padding: .25em 1em;
+					span {
+						line-height: 1.5em;
+					}
+				}
+			}
+			.title-result:nth-child(odd) {
+				background-color: rgb(80, 78, 78);
+			}
+			.title-result:hover {
+				.title-result-btn {
+					width: 3em;
+					.title-submit {
+						font-size: .5em;
+					}
+				}
+			}
 
-    #game-cover-title {
-      text-align: right;
-      border-right: 1px solid $white;
-      padding-right: 1em;
-      font-size: 1.5em;
-      width: 25%;
-      margin: 1em;
-      #game-name {
-        margin: 0;
-      }
-      img {
-        display: inline;
-        vertical-align: top;
-        object-fit: contain;
-        margin: 0 .5em;
-      }
-    }
-    
-    #title-result-container {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      p {
-        margin: .25em 0;
-      }
-      #game-score {
-        display: inline-block;
-        width: 1.75em;
-        height: 1.75em;
-        margin-left: .5em;
-        line-height: 1.75em;
-        text-align: center;
-        font-size: 1.1em;
-        letter-spacing: .1em;
-        font-weight: bold;
-        border-radius: 6px;
-      }  
-      //Rating bg coloring
-      .green-bg {
-        background-color: $good-green;
-      }
-      .yellow-bg {
-        background-color: $meh-yellow;
-      }
-      .red-bg {
-        background-color: $bad-red;
-      } 
-      #game-info {
-        margin-left: 2em;
-        width: 60%;  
-        text-align: left;  
-        span,a {
-          display: inline-block;
-          margin-bottom: .75em;
-        }
-      }
-    }
-  }
-  
-  footer {
-    width: 90%;
-    margin: 0 auto;
-    text-align: left;
-    font-size: .65em;
-    text-align: right;
-  }
+			//GAME DATA RESULTS
+
+			#game-cover-title {
+				text-align: right;
+				border-right: 1px solid $white;
+				padding-right: 1em;
+				font-size: 1.5em;
+				width: 25%;
+				margin: 1em;
+				#game-name {
+					margin: 0;
+				}
+				img {
+					display: inline;
+					vertical-align: top;
+					object-fit: contain;
+					margin: 0 .5em;
+				}
+			}
+
+			#title-result-container {
+				display: flex;
+				flex-direction: row;
+				flex-wrap: wrap;
+				p {
+					margin: .25em 0;
+				}
+				#game-score {
+					display: inline-block;
+					width: 1.75em;
+					height: 1.75em;
+					margin-left: .5em;
+					line-height: 1.75em;
+					text-align: center;
+					font-size: 1.1em;
+					letter-spacing: .1em;
+					font-weight: bold;
+					border-radius: 6px;
+				}
+				//Rating bg coloring
+				.green-bg {
+					background-color: $good-green;
+				}
+				.yellow-bg {
+					background-color: $meh-yellow;
+				}
+				.red-bg {
+					background-color: $bad-red;
+				}
+				#game-info {
+					margin-left: 2em;
+					width: 60%;
+					text-align: left;
+					span,
+					a {
+						display: inline-block;
+						margin-bottom: .75em;
+					}
+				}
+			}
+		}
+	}
+
+	footer {
+		width: 90%;
+		margin: 0 auto;
+		text-align: left;
+		font-size: .65em;
+		text-align: right;
+	}
 }
+
+//SMALL SCREEN AND TABLET
 
 @media only screen and (max-width: 1280px) {
-  header {
-    #gameboy-head {
-      height: 5em;
-      margin: 1em auto;  
-      img {
-        max-width: 100%;
-        max-height: 100%;
-      }
-    }
-    p {
-      font-size: .75em;
-    }
-  }    
-	.container {
+	#search-container {
 		flex-direction: column !important;
-    height: auto !important;
-    padding-top: 1em !important;
-		.column {
+		height: auto !important;
+		form {
 			width: 100% !important;
 		}
-  }
-  #game-results {
-    padding-top: 0 !important;
-    > div {
-      width: 100% !important;
-      margin: 0 auto;
-    }
-    .title-result-focus {
-      .title-result-btn-focus {
-        width: 3em;
-        .title-submit-focus {
-          font-size: .5em;
-        }
-      }
-    }    
-    #title-result-container {
-      border-left: none !important;
-      padding-left: 0 !important;
-      #game-cover-title {
-        width: auto;
-        border-right: none !important;
-        padding-right: 0 !important;
-        margin: 1em auto !important;
-        display: flex;
-        flex-direction: row;
-        align-self: flex-start;
-        font-size: 1em;
-        text-align: left !important;
-        #game-title {
-          margin: .5em;
-        }
-      }
-      #game-info {
-        width: 100% !important;
-        margin: 0 !important;
-        padding-top: 1em !important;
-        border-top: 1px solid $white !important;
-      }
-    }
-  }
+	}
+	#game-results {
+		padding-top: 0 !important;
+		> div {
+			width: 100% !important;
+			margin: 0 auto;
+		}
+		.title-result-focus {
+			.title-result-btn-focus {
+				width: 3em;
+				.title-submit-focus {
+					font-size: .5em;
+				}
+			}
+		}
+		#title-result-container {
+			border-left: none !important;
+			padding-left: 0 !important;
+			#game-cover-title {
+				width: auto;
+				border-right: none !important;
+				padding-right: 0 !important;
+				margin: 1em auto !important;
+				display: flex;
+				flex-direction: row;
+				align-self: flex-start;
+				font-size: 1em;
+				text-align: left !important;
+				#game-title {
+					margin: .5em;
+				}
+			}
+			#game-info {
+				width: 100% !important;
+				margin: 0 !important;
+				padding-top: 1em !important;
+				border-top: 1px solid $white !important;
+			}
+		}
+	}
 }
+
+//SMALL SCREEN AND MOBILE
+
 @media only screen and (max-width: 739px) {
-  header {
-    height: 3em !important;
-    width: 100% !important;
-    margin: 1em auto !important;
     #gameboy-head {
-      font-size: .85em;
-      vertical-align: middle;
-      text-align: center;
+      padding: 0 !important;
+      text-align: center !important;
+      font-size: .75em;
     }
-  }
-  #wrapper {
-    flex-wrap: wrap;
-    #search-container {
-      flex-direction: row;
-      justify-content: space-around;
-      width: 100vw;
-      padding: 1em 0;
-      border-bottom: 1px solid $white;
-      margin: 1em;
-      text-align: center;
-      form {
-        margin: 0;
-        width: 40vw;
-        fieldset {
-          width: 40vw;
-          legend {
-            margin: 0 auto;
-          }
-          .search {
-            width: 100%;
-            text-align: center;
-          }
-        }
-      }
-    }
-    #game-results {
-      margin: 1em 2em !important;
-    }
-  }
+	#wrapper {
+		flex-wrap: wrap;
+		#search-container {
+			flex-direction: row !important;
+			justify-content: space-around !important;
+			width: 100vw !important;
+			padding: 1em 0 !important;
+			border-bottom: 1px solid $white;
+			margin: 1em !important;
+			text-align: center !important;
+			form {
+				margin: 0;
+				width: 40vw !important;
+				fieldset {
+					width: 40vw;
+					legend {
+						margin: 0 auto;
+					}
+					.search {
+						width: 100%;
+						text-align: center;
+					}
+				}
+			}
+		}
+		#game-results {
+			margin: 1em 2em !important;
+		}
+	}
 }

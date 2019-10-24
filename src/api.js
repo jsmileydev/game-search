@@ -364,7 +364,6 @@ class ChickenCoop extends React.Component {
 	render() {
 		return (
 			<main>
-				<div id="head-ellipse" />
 				<header>
 					<div id="gameboy-head">
 						<h1><img src={require('./images/icons8-game-controller-24.png')} alt="controller logo"/> Game Database Search</h1>

@@ -26,14 +26,13 @@ function SearchHome(props) {
 							onKeyPress={props.handleKeyDownData}
 							required
 						/>
-						<label htmlFor="search-plat-data">Enter a platform (required): </label>
+						<label htmlFor="search-plat-data">And a platform (required): </label>
 						<input
 							type="text"
 							id="search-plat-data"
 							className="search"
 							onChange={props.inputPlatData}
 							onKeyPress={props.handleKeyDownData}
-							placeholder="Required"
 							required
 						/>
 						{/*Select platform from dropdown to reduce input errors?
