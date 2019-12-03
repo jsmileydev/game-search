@@ -220,7 +220,7 @@ class ChickenCoop extends React.Component {
 		this.setState({ isLoaded: true });
 		console.log(this.state.game, this.state.plat);
 		var data = null;
-		var title = this.state.game.replace(':', '').toLowerCase();
+		var title = this.state.game.replace(':', '').trim().toLowerCase();
 		var plat = this.state.plat
 			.toLowerCase()
 			.trim()
