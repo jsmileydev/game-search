@@ -7,30 +7,30 @@ $meh-yellow: #fc3;
 $bad-red: #f00;
 
 body {
-  position: relative;
+	position: relative;
 	width: 100vw;
-  height: 100%;
-  min-height: 100vh;
-  overflow-x: hidden;
+	height: 100%;
+	min-height: 100vh;
+	overflow-x: hidden;
 	background: $black;
 	text-shadow: 0px 0px 1px rgba(0, 0, 0, 0.75), 1px 2px 1px rgba(0, 0, 0, 0.5);
 	font-family: 'Open Sans', sans-serif;
 }
-body::after{ 
-  content:''; 
-  display:block; 
-  height: 5em; 
+body::after {
+	content: '';
+	display: block;
+	height: 5em;
 }
 
 #root {
-  height: 100%;
-  min-height: 100%;
+	height: 100%;
+	min-height: 100%;
 }
 
 .App {
-  color: $white;
-  height: 100%;
-  min-height: 100%;
+	color: $white;
+	height: 100%;
+	min-height: 100%;
 
 	input {
 		box-shadow: inset 0 1px 3px #ddd, 0px 0px 1px rgba(0, 0, 0, 0.75), 1px 2px 1px rgba(0, 0, 0, 0.5);
@@ -41,12 +41,16 @@ body::after{
 		color: $white;
 	}
 
+	main {
+		height: calc(100vh - 10em);
+	}
+
 	.submit {
 		color: $black;
 		font-size: .85em;
 	}
 
-  //HEADER
+	//HEADER
 
 	header {
 		height: 5em;
@@ -54,21 +58,21 @@ body::after{
 		color: $black;
 		background-color: $steam-blue;
 		background: linear-gradient(to bottom, rgba(0, 175, 239, 0.1) 10%, rgba(0, 175, 239, 0.8)),
-      url('./images/icons8-pacman-50.png');
-      
+			url('./images/icons8-pacman-50.png');
+
 		text-align: left;
 		#gameboy-head {
 			height: 5em;
-      margin: 0;
-      padding-left: 3vw;
+			margin: 0;
+			padding-left: 3vw;
 			text-shadow: none;
 			color: $white;
 			font-family: 'Nova Square', cursive;
-      letter-spacing: .05em;
-      line-height: 5em;
-      h1 {
-        margin: 0;
-      }
+			letter-spacing: .05em;
+			line-height: 5em;
+			h1 {
+				margin: 0;
+			}
 		}
 	}
 
@@ -78,6 +82,7 @@ body::after{
 		display: flex;
 		flex-direction: row;
 		align-items: flex-start;
+		height: 100%;
 		#display {
 			text-align: center;
 			p {
@@ -93,7 +98,7 @@ body::after{
 			justify-content: center;
 			align-items: stretch;
 			width: 25vw;
-			margin: 2em 5vw 2em 8vw;
+			padding: 2em 5vw 2em 8vw;
 			text-align: left;
 
 			form {
@@ -126,13 +131,17 @@ body::after{
 		//RESULT SECTION
 
 		#game-results {
+			box-sizing: border-box;
 			display: flex;
 			flex-direction: row;
 			flex-wrap: wrap;
 			text-align: left !important;
+			height: 100%;
 			width: 100%;
-			margin: 2em 8vw 2em 5vw;
+			padding: 2em 8vw 2em 5vw;
 			> div {
+				overflow-y: auto;
+				height: 100%;
 				width: 75%;
 				margin: 0 auto;
 			}
@@ -210,7 +219,7 @@ body::after{
 				margin: 1em;
 				#game-name {
 					margin: 0;
-          font-size: 1.5em;
+					font-size: 1.5em;
 				}
 				img {
 					display: inline;
@@ -264,24 +273,27 @@ body::after{
 	}
 
 	footer {
-    position:absolute; 
-    bottom:0; 
-    height: 5em;
-    width: 100%;
-    z-index: -3;
+		position: sticky;
+		bottom: 0;
+		height: 5em;
+		width: 100%;
+		z-index: 3;
 		background-color: $steam-blue;
 		background: linear-gradient(to bottom, rgba(0, 175, 239, 0.1) 10%, rgba(0, 175, 239, 0.8)),
-      url('./images/icons8-pacman-50.png');
+			url('./images/icons8-pacman-50.png');
 		text-align: left;
-    font-size: .85em;
-    line-height: 5em;
-    padding-left: 2em;
+		font-size: .85em;
+		line-height: 5em;
+		padding-left: 2em;
 	}
 }
 
 //SMALL SCREEN AND TABLET
 
 @media only screen and (max-width: 1280px) {
+	main {
+		height: auto !important;
+	}
 	#search-container {
 		flex-direction: column !important;
 		height: auto !important;
@@ -290,7 +302,6 @@ body::after{
 		}
 	}
 	#game-results {
-		padding-top: 0 !important;
 		> div {
 			width: 100% !important;
 			margin: 0 auto;
@@ -328,16 +339,19 @@ body::after{
 			}
 		}
 	}
+	footer {
+		position: relative !important;
+	}
 }
 
 //SMALL SCREEN AND MOBILE
 
 @media only screen and (max-width: 739px) {
-    #gameboy-head {
-      padding: 0 !important;
-      text-align: center !important;
-      font-size: .75em;
-    }
+	#gameboy-head {
+		padding: 0 !important;
+		text-align: center !important;
+		font-size: .75em;
+	}
 	#wrapper {
 		flex-wrap: wrap;
 		#search-container {
@@ -346,8 +360,8 @@ body::after{
 			width: 100vw !important;
 			padding: 1em 0 !important;
 			border-bottom: 1px solid $white;
-      margin: 1em !important;
-      margin-bottom: 0 !important;
+			margin: 1em !important;
+			margin-bottom: 0 !important;
 			text-align: center !important;
 			form {
 				margin: 0;
@@ -363,9 +377,6 @@ body::after{
 					}
 				}
 			}
-		}
-		#game-results {
-			margin: 1em 2em !important;
 		}
 	}
 }

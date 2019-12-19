@@ -390,6 +390,8 @@ class ChickenCoop extends React.Component {
 						{this.state.isLoaded ? <LoadAni /> : <div>{this.state.gameItem}</div> }{' '}
 					</div>
 				</div>
+				
+				<footer><a href="https://icons8.com/" alt="Icons by Icons8">Icons by Icons8</a> </footer>
 			</main>
 		);
 	}
