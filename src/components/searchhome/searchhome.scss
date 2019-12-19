@@ -1,0 +1,45 @@
+
+$black: rgb(43, 42, 42);
+$white: rgb(233, 232, 232);
+$steam-blue: rgb(0, 175, 239);
+$good-green: #6c3;
+$meh-yellow: #fc3;
+$bad-red: #f00;
+
+		//SEARCH SECTION
+
+		#search-container {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: stretch;
+			width: 25vw;
+			padding: 2em 5vw 2em 8vw;
+			text-align: left;
+
+			form {
+				width: 35%;
+				margin-bottom: 1em;
+				font-size: .9em;
+				legend {
+					color: $white !important;
+					width: 80%;
+					font-weight: bold;
+					padding-bottom: .5em;
+				}
+				.search {
+					margin: .75em 0 !important;
+					color: $black;
+				}
+				#search-title,
+				#search-plat-data {
+					background-image: url(./icons8-search-30.png);
+					background-repeat: no-repeat;
+					background-size: 1.75em;
+					background-position: 97% 50%;
+				}
+				#plat-drop {
+					color: $black;
+				}
+			}
+		}

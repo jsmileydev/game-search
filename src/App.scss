@@ -58,7 +58,7 @@ body::after {
 		color: $black;
 		background-color: $steam-blue;
 		background: linear-gradient(to bottom, rgba(0, 175, 239, 0.1) 10%, rgba(0, 175, 239, 0.8)),
-			url('./images/icons8-pacman-50.png');
+			url('./components/images/icons8-pacman-50.png');
 
 		text-align: left;
 		#gameboy-head {
@@ -83,14 +83,8 @@ body::after {
 		flex-direction: row;
 		align-items: flex-start;
 		height: 100%;
-		#display {
-			text-align: center;
-			p {
-				margin: 0;
-			}
-		}
 
-		//SEARCH SECTION
+		/*SEARCH SECTION
 
 		#search-container {
 			display: flex;
@@ -117,7 +111,7 @@ body::after {
 				}
 				#search-title,
 				#search-plat-data {
-					background-image: url(./images/icons8-search-30.png);
+					background-image: url(./components/images/icons8-search-30.png);
 					background-repeat: no-repeat;
 					background-size: 1.75em;
 					background-position: 97% 50%;
@@ -126,7 +120,7 @@ body::after {
 					color: $black;
 				}
 			}
-		}
+		}*/
 
 		//RESULT SECTION
 
@@ -280,7 +274,7 @@ body::after {
 		z-index: 3;
 		background-color: $steam-blue;
 		background: linear-gradient(to bottom, rgba(0, 175, 239, 0.1) 10%, rgba(0, 175, 239, 0.8)),
-			url('./images/icons8-pacman-50.png');
+			url('./components/images/icons8-pacman-50.png');
 		text-align: left;
 		font-size: .85em;
 		line-height: 5em;

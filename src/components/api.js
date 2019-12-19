@@ -1,12 +1,7 @@
 import React from 'react';
-import SearchHome from './searchhome';
-import ReactLoading from 'react-loading';
-
-const LoadAni = ({ type, color }) => (
-	<div id="load-overlay">
-	<ReactLoading type={'bubbles'} color={'rgb(233, 232, 232)'} height={'10%'} width={'10%'} id="load-ani" />
-	</div>
-);
+import SearchHome from './searchhome/searchhome';
+import LoadAni from './loadani';
+import ResultHome from './resulthome/resulthome';
 
 class ChickenCoop extends React.Component {
 	constructor() {
@@ -16,10 +11,7 @@ class ChickenCoop extends React.Component {
 			plat: 'pc',
 			isLoaded: null,
 			results: '',
-			gameItem: <div id="display">
-						<p id="api-tag"><a href="https://rapidapi.com/valkiki/api/chicken-coop" alt="Chicken Coop API">Powered by Chicken Coop's Metacritic API</a></p>
-						<img src={require("./images/consolering-100.png")} alt="console logo ring" id="console-ring" width="160" height="160"/>
-					</div>,
+			gameItem: <ResultHome/>,
 			active: false
 		};
 		this.inputTitle = this.inputTitle.bind(this);
