@@ -1,5 +1,5 @@
 import React from 'react';
-import ChickenCoop from './api';
+import ChickenCoop from './components/api';
 import './App.scss';
 import 'normalize.css';
 
