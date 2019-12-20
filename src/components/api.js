@@ -132,19 +132,25 @@ class ChickenCoop extends React.Component {
 
 					const ListItem = gameobj.result.map((item) => {
 						return (
-							<div className={_this.state.active ? 'title-result title-result-focus' : 'title-result'} key={item.title + item.platform} onClick={_this.toggleClass}>
-								<div className={_this.state.active ? 'title-result-btn title-result-btn-focus' : 'title-result-btn'}  >
+							<div 
+							className="title-result" 
+							key={item.title + item.platform} 
+							onMouseOver={_this.searchTitle}	
+							onClick={_this.submitData}
+							data-title={item.title} 
+							data-plat={item.platform} >
+								<div className="title-result-btn" data-title={item.title} data-plat={item.platform} >
 									<input
 										type="image"
 										src={require("./images/icons8-search-50.png")}
 										alt="search title"
-										className={_this.state.active ? 'title-submit title-submit-focus' : 'title-submit'}
-										value="Search this game" data-title={item.title} data-plat={item.platform} onMouseOver={_this.searchTitle}	onClick={_this.submitData}
+										className="title-submit"
+										value="Search this game" data-title={item.title} data-plat={item.platform}
 									/>
 								</div>
-								<div className="title-info">
-									<span className="title-name">{item.title}
-									<br />{item.platform}</span>
+								<div className="title-info" data-title={item.title} data-plat={item.platform} >
+									<span className="title-name" data-title={item.title} data-plat={item.platform} ></span>{item.title}
+									<br /><span className="title-plat" data-title={item.title} data-plat={item.platform} >{item.platform}</span>
 								</div>
 							</div>
 						);
@@ -187,10 +193,9 @@ class ChickenCoop extends React.Component {
 
 	//From list of title results, search for data from one, only setting state if the title or platform doesn't match previous state
 
-	searchTitle(e) {
-		e.preventDefault();
-		var newName = e.target.getAttribute('data-title');
-		var newPlatform = e.target.getAttribute('data-plat');
+	searchTitle(item, e) {
+		var newName = item.target.getAttribute('data-title');
+		var newPlatform = item.target.getAttribute('data-plat');
 		if (newPlatform !== this.state.plat || newName !== this.state.game) {
 			this.setState({
 				game: newName,

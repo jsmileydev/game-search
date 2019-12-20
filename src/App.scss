@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Nova+Square|Squada+One|Inconsolata:400,700|Open+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Nova+Square|Squada+One|Inconsolata:400,700|Open+Sans:400,700,800&display=swap');
 $black: rgb(43, 42, 42);
 $white: rgb(233, 232, 232);
 $steam-blue: rgb(0, 175, 239);
@@ -111,6 +111,9 @@ body::after {
 					span {
 						line-height: 1.5em;
 					}
+					.title-plat {
+						font-size: .8em;
+					}
 				}
 			}
 			.title-result:nth-child(odd) {
@@ -178,10 +181,13 @@ body::after {
 					margin-left: 2em;
 					width: 60%;
 					text-align: left;
-					span,
-					a {
+					span {
 						display: inline-block;
-						margin-bottom: .75em;
+						line-height: 1.5em;
+						margin-bottom: .5em;
+						strong {
+							font-weight: 700;
+						}
 					}
 				}
 			}
@@ -201,14 +207,6 @@ body::after {
 		> div {
 			width: 100% !important;
 			margin: 0 auto;
-		}
-		.title-result-focus {
-			.title-result-btn-focus {
-				width: 3em;
-				.title-submit-focus {
-					font-size: .5em;
-				}
-			}
 		}
 		#title-result-container {
 			border-left: none !important;
