@@ -1,7 +1,9 @@
 import React from 'react';
 import SearchHome from './searchhome/searchhome';
-import LoadAni from './loadani';
+import Header from './header/header';
+import LoadAni from './loadani/loadani';
 import ResultHome from './resulthome/resulthome';
+import Footer from './footer/footer';
 
 class ChickenCoop extends React.Component {
 	constructor() {
@@ -359,11 +361,7 @@ class ChickenCoop extends React.Component {
 	render() {
 		return (
 			<main>
-				<header>
-					<div id="gameboy-head">
-						<h1><img src={require('./images/icons8-game-controller-24.png')} alt="controller logo"/> Game Database Search</h1>
-					</div>
-				</header>
+				<Header />
 
 				<div id="wrapper">
 					<SearchHome
@@ -383,7 +381,7 @@ class ChickenCoop extends React.Component {
 					</div>
 				</div>
 				
-				<footer><a href="https://icons8.com/" alt="Icons by Icons8">Icons by Icons8</a> </footer>
+				<Footer />
 			</main>
 		);
 	}

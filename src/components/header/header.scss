@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css?family=Nova+Square|Squada+One|Inconsolata:400,700|Open+Sans&display=swap');
+$black: rgb(43, 42, 42);
+$white: rgb(233, 232, 232);
+$steam-blue: rgb(0, 175, 239);
+
+//HEADER
+
+header {
+    height: 5em;
+    width: 100%;
+    color: $black;
+    background-color: $steam-blue;
+    background: linear-gradient(to bottom, rgba(0, 175, 239, 0.1) 10%, rgba(0, 175, 239, 0.8)),
+        url('./icons8-pacman-50.png');
+
+    text-align: left;
+    #gameboy-head {
+        height: 5em;
+        margin: 0;
+        padding-left: 3vw;
+        text-shadow: none;
+        color: $white;
+        font-family: 'Nova Square', cursive;
+        letter-spacing: .05em;
+        line-height: 5em;
+        h1 {
+            margin: 0;
+        }
+    }
+}
+
+@media only screen and (max-width: 739px) {
+    header {
+        #gameboy-head {
+            padding: 0 !important;
+            text-align: center !important;
+            font-size: .75em;
+        }
+    }
+}

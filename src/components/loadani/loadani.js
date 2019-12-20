@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactLoading from 'react-loading';
+import './loadani.scss';
 
 const LoadAni = ({ type, color }) => (
 	<div id="load-overlay">
