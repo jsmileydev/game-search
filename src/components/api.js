@@ -366,7 +366,6 @@ class ChickenCoop extends React.Component {
 	render() {
 		return (
 			<main>
-				<Header />
 
 				<div id="wrapper">
 					<SearchHome
@@ -386,7 +385,6 @@ class ChickenCoop extends React.Component {
 					</div>
 				</div>
 				
-				<Footer />
 			</main>
 		);
 	}
