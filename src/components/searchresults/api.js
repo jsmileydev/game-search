@@ -1,9 +1,8 @@
 import React from 'react';
-import SearchHome from './searchhome/searchhome';
-import Header from './header/header';
-import LoadAni from './loadani/loadani';
-import ResultHome from './resulthome/resulthome';
-import Footer from './footer/footer';
+import SearchHome from '../searchhome/searchhome';
+import LoadAni from '../loadani/loadani';
+import ResultHome from '../resulthome/resulthome';
+import './api.scss';
 
 class ChickenCoop extends React.Component {
 	constructor() {
@@ -142,7 +141,7 @@ class ChickenCoop extends React.Component {
 								<div className="title-result-btn" data-title={item.title} data-plat={item.platform} >
 									<input
 										type="image"
-										src={require("./images/icons8-search-50.png")}
+										src={require("../images/icons8-search-50.png")}
 										alt="search title"
 										className="title-submit"
 										value="Search this game" data-title={item.title} data-plat={item.platform}

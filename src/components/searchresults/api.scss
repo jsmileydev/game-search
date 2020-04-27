@@ -1,0 +1,209 @@
+$black: rgb(43, 42, 42);
+$white: rgb(233, 232, 232);
+$steam-blue: rgb(0, 175, 239);
+$good-green: #6c3;
+$meh-yellow: #fc3;
+$bad-red: #f00;
+
+main {
+	height: calc(100vh - 10em);
+}
+
+.submit {
+	color: $black;
+	font-size: .85em;
+}
+
+//MAIN WRAPPER
+
+#wrapper {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	height: 100%;
+
+	//RESULT SECTION
+
+	#game-results {
+		box-sizing: border-box;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		text-align: left;
+		height: 100%;
+		width: 100%;
+		padding: 2em 8vw 2em 5vw;
+		> div {
+			overflow-y: auto;
+			height: 100%;
+			width: 100%;
+			margin: 0 auto;
+		}
+
+		#console-ring {
+			display: block;
+			margin: 2em auto;
+		}
+
+		#no-result {
+			margin: 0 auto;
+		}
+
+		//LIST OF TITLE RESULTS
+
+		.title-result {
+			display: flex;
+			flex-direction: row;
+			height: auto;
+			align-items: center;
+			margin-bottom: 1em;
+			overflow: hidden;
+			.title-result-btn {
+				height: 3.5em;
+				width: 0;
+				transition: 0.2s linear;
+				.title-submit {
+					font-size: .15em;
+					height: 100%;
+					padding: 1em;
+					border-radius: 0;
+					background-color: $steam-blue;
+					transition: 0.2s linear;
+				}
+			}
+			.title-info {
+				padding: .25em 1em;
+				span {
+					line-height: 1.5em;
+				}
+				.title-plat {
+					font-size: .8em;
+				}
+			}
+		}
+		.title-result:nth-child(odd) {
+			background-color: rgb(80, 78, 78);
+		}
+		.title-result:hover {
+			background-color: rgba(0, 175, 239, .65);
+			/*.title-result-btn {
+					width: 3em;
+					.title-submit {
+						font-size: .5em;
+					}
+				}*/
+		}
+
+		//GAME DATA RESULTS
+
+		#game-cover-title {
+			text-align: right;
+			border-right: 1px solid $white;
+			padding-right: 1em;
+			width: 25%;
+			margin: 1em;
+			#game-name {
+				margin: 0;
+				font-size: 1.5em;
+			}
+			img {
+				display: inline;
+				vertical-align: top;
+				object-fit: contain;
+				margin: 0 .5em;
+			}
+		}
+
+		#title-result-container {
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			p {
+				margin: .25em 0;
+			}
+			#game-score {
+				display: inline-block;
+				width: 1.85em;
+				height: 1.85em;
+				margin-left: .5em;
+				line-height: 1.85em;
+				text-align: center;
+				font-size: 1.1em;
+				letter-spacing: .1em;
+				font-weight: bold;
+				border-radius: 6px;
+			}
+			//Rating bg coloring
+			.green-bg {
+				background-color: $good-green;
+			}
+			.yellow-bg {
+				background-color: $meh-yellow;
+			}
+			.red-bg {
+				background-color: $bad-red;
+			}
+			#game-info {
+				margin-left: 2em;
+				width: 60%;
+				text-align: left;
+				span {
+					display: inline-block;
+					line-height: 1.5em;
+					margin-bottom: .5em;
+					strong {
+						font-weight: 700;
+					}
+				}
+			}
+		}
+	}
+}
+
+//SMALL SCREEN AND TABLET
+
+@media screen and (max-width: 1280px) {
+	main {
+		height: auto;
+	}
+	#wrapper {
+		#game-results {
+			> div {
+				width: 100%;
+				margin: 0 auto;
+			}
+			#title-result-container {
+				border-left: none;
+				padding-left: 0;
+				#game-cover-title {
+					width: auto;
+					border-right: none;
+					padding-right: 0;
+					margin: 1em auto;
+					display: flex;
+					flex-direction: row;
+					align-self: flex-start;
+					font-size: 1em;
+					text-align: left;
+					#game-title {
+						margin: .5em;
+					}
+				}
+				#game-info {
+					width: 100%;
+					margin: 0;
+					padding-top: 1em;
+					border-top: 1px solid $white;
+				}
+			}
+		}
+	}
+}
+
+//SMALL SCREEN AND MOBILE
+
+@media screen and (max-width: 739px) {
+	#wrapper {
+		flex-wrap: wrap;
+	}
+}

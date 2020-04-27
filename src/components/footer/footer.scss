@@ -15,9 +15,9 @@ footer {
     padding-left: 2em;
 }
 
-@media only screen and (max-width: 1279px) {
+@media screen and (max-width: 1279px) {
     
 	footer {
-		position: relative !important;
+		position: relative;
 	}
 }

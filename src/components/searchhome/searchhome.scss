@@ -39,29 +39,29 @@ $white: rgb(233, 232, 232);
 	}
 }
 
-@media only screen and (max-width: 1279px) {
+@media screen and (max-width: 1279px) {
 	#search-container {
-		flex-direction: column !important;
-		height: auto !important;
+		flex-direction: column;
+		height: auto;
 		form {
-			width: 100% !important;
+			width: 100%;
 		}
 	}
 }
 
-@media only screen and (max-width: 739px) {
+@media screen and (max-width: 739px) {
 	#search-container {
-		flex-direction: row !important;
-		justify-content: space-around !important;
-		width: 100vw !important;
-		padding: 1em 0 !important;
+		flex-direction: row;
+		justify-content: space-around;
+		width: 100vw;
+		padding: 1em 0;
 		border-bottom: 1px solid $white;
-		margin: 1em !important;
-		margin-bottom: 0 !important;
-		text-align: center !important;
+		margin: 1em;
+		margin-bottom: 0;
+		text-align: center;
 		form {
 			margin: 0;
-			width: 40vw !important;
+			width: 40vw;
 			fieldset {
 				width: 40vw;
 				legend {

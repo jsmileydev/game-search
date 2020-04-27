@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from './components/header/header';
-import ChickenCoop from './components/api';
+import ChickenCoop from './components/searchresults/api';
 import Footer from './components/footer/footer';
 import './App.scss';
 import 'normalize.css';

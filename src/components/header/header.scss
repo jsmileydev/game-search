@@ -29,11 +29,11 @@ header {
     }
 }
 
-@media only screen and (max-width: 739px) {
+@media screen and (max-width: 739px) {
     header {
         #gameboy-head {
-            padding: 0 !important;
-            text-align: center !important;
+            padding: 0;
+            text-align: center;
             font-size: .75em;
         }
     }
