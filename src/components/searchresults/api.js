@@ -248,13 +248,23 @@ class ChickenCoop extends React.Component {
 				_this.setState({ isLoaded: null });
 				document.getElementById('search-title-data').value = '';
 				document.getElementById('search-plat-data').value = '';
+	
+
+				const noInput = (
+					<div id="no-input">
+						<span>Please enter a game title and platform</span>
+					</div>
+				);
+				if (_this.state.game === '<empty string>') {
+					console.log('No input');
+					_this.setState({ gameItem: noInput });
+				}
 
 				//Convert responseText string to useable object
 				var gameobj = JSON.parse(this.responseText);
 				console.log(gameobj.result);
 
 				//Create no result, server error, and result div
-
 				if (gameobj.result === 'No result') {
 					console.log('Incorrect game title');
 				}
@@ -274,6 +284,7 @@ class ChickenCoop extends React.Component {
 					</div>
 				);
 
+				if (gameobj.result === '')
 				if (gameobj.result === 'No result') {
 					_this.setState({ gameItem: noResult });
 				} else if ('error' in gameobj) {
@@ -386,7 +397,7 @@ class ChickenCoop extends React.Component {
 						{this.state.isLoaded ? <LoadAni /> : <div>{this.state.gameItem}</div> }{' '}
 					</div>
 				</div>
-				
+				<div className="push"></div>
 			</main>
 		);
 	}

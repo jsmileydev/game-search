@@ -36,31 +36,6 @@ function SearchHome(props) {
 							onKeyPress={props.handleKeyDownData}
 							required
 						/>
-						{/*Select platform from dropdown to reduce input errors?
-						<select id="plat-drop" defaultValue="pc"
-							onChange={props.inputPlatData}
-							required>
-							<option value="pc">PC</option>
-							<option value="playstation4">PS4</option>
-							<option value="xboxone">Xbox One</option>
-							<option value="switch">Switch</option>
-							<option value="wiiu">Wii U</option>
-							<option value="3ds">3DS</option>
-							<option value="playstation-vita">PS Vita</option>
-							<option value="ios">IOS</option>
-							<option value="playstation3">PS3</option>
-							<option value="playstation2">PS2</option>
-							<option value="playstation">Playstation</option>
-							<option value="psp">PSP</option>
-							<option value="x360">Xbox 360</option>
-							<option value="xbox">Xbox</option>
-							<option value="wii">Nintendo Wii</option>
-							<option value="ds">Nintendo DS</option>
-							<option value="gamecube">Gamecube</option>
-							<option value="nintendo64">Nintendo 64</option>
-							<option value="gameboyadvance">Game Boy Advance</option>
-							<option value="dreamcast">Dreamcast</option>
-</select>*/}
 					</div>
 				</fieldset>
 			</form>
