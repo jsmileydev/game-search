@@ -14,7 +14,7 @@ function SearchHome(props) {
 					</div>
 				</fieldset>
 			</form>
-			<form className="pure-form pure-form-stacked column">
+			{/*<form className="pure-form pure-form-stacked column">
 				<fieldset>
 					<legend>Search By Name</legend>
 					<div>
@@ -38,7 +38,7 @@ function SearchHome(props) {
 						/>
 					</div>
 				</fieldset>
-			</form>
+	</form>*/}
 		</div>
 	);
 }

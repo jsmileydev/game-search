@@ -63,7 +63,7 @@ class ChickenCoop extends React.Component {
 		console.log(this.state.game);
 	}
 
-	//API search function
+	//API search function 
 
 	submitTitle() {
 		//Turn on loading animation and convert input to readable data
@@ -134,8 +134,8 @@ class ChickenCoop extends React.Component {
 							<div 
 							className="title-result" 
 							key={item.title + item.platform} 
-							onMouseOver={_this.searchTitle}	
-							onClick={_this.submitData}
+							onMouseDown={_this.searchTitle}	
+							onMouseUp={_this.submitData}
 							data-title={item.title} 
 							data-plat={item.platform} >
 								<div className="title-result-btn" data-title={item.title} data-plat={item.platform} >
@@ -170,11 +170,11 @@ class ChickenCoop extends React.Component {
 	// SEARCH FULL DATA FOR ONE GAME
 
 	//Set state of platform to default value of input field ('pc') on initial load
-	componentDidMount() {
+	/*componentDidMount() {
 		var platSearch = document.getElementById('search-plat-data').value;
 		this.setState({ plat: platSearch });
 		console.log(platSearch);
-	}
+	}*/
 
 	//Take title and platform from input fields
 
@@ -211,7 +211,7 @@ class ChickenCoop extends React.Component {
 		return loadUpdate;
 	}
 
-	//Search API function
+	//API Search function
 
 	submitData() {
 		//Turn on loading animation and convert input to readable data for database request
@@ -246,8 +246,8 @@ class ChickenCoop extends React.Component {
 				console.log(this.responseText);
 				//Turn off loading animation and clear input fields
 				_this.setState({ isLoaded: null });
-				document.getElementById('search-title-data').value = '';
-				document.getElementById('search-plat-data').value = '';
+				//document.getElementById('search-title-data').value = '';
+				//document.getElementById('search-plat-data').value = '';
 	
 
 				const noInput = (
@@ -263,6 +263,7 @@ class ChickenCoop extends React.Component {
 				//Convert responseText string to useable object
 				var gameobj = JSON.parse(this.responseText);
 				console.log(gameobj.result);
+				
 
 				//Create no result, server error, and result div
 				if (gameobj.result === 'No result') {
@@ -284,7 +285,6 @@ class ChickenCoop extends React.Component {
 					</div>
 				);
 
-				if (gameobj.result === '')
 				if (gameobj.result === 'No result') {
 					_this.setState({ gameItem: noResult });
 				} else if ('error' in gameobj) {
@@ -365,6 +365,7 @@ class ChickenCoop extends React.Component {
 						</div>
 					);
 					_this.setState({ gameItem: gameItemData });
+					console.log('Success');
 				}
 			}
 		});
@@ -379,6 +380,7 @@ class ChickenCoop extends React.Component {
 	render() {
 		return (
 			<main>
+				<div className="push"></div>
 
 				<div id="wrapper">
 					<SearchHome

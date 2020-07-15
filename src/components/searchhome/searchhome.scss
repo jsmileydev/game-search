@@ -20,7 +20,7 @@ $white: rgb(233, 232, 232);
 	    -ms-flex-align: stretch;
 	        align-items: stretch;
 	width: 25vw;
-	padding: 2em 5vw 2em 8vw;
+	padding: 5vw;
 	text-align: left;
 
 	form {
@@ -72,16 +72,16 @@ $white: rgb(233, 232, 232);
 		-ms-flex-pack: distribute;
 		    justify-content: space-around;
 		width: 100vw;
-		padding: 1em 0;
+		padding: 1em;
 		border-bottom: 1px solid $white;
 		margin: 1em;
-		margin-bottom: 0;
 		text-align: center;
 		form {
-			margin: 0;
-			width: 40vw;
+			margin: 0 auto;
+			width: 80vw;
 			fieldset {
-				width: 40vw;
+				margin: 0 auto;
+				width: 60vw;
 				legend {
 					margin: 0 auto;
 				}
