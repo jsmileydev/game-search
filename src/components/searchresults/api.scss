@@ -203,9 +203,8 @@ main {
 
 //SMALL SCREEN AND TABLET
 
-@media screen and (min-width: 740px) and (max-width: 1200px) {
+/*@media screen and (min-width: 740px) and (max-width: 1200px) {
 	main {
-		margin-bottom: 1.5em;
 		#wrapper {
 			#game-results {
 				> div {
@@ -246,13 +245,12 @@ main {
 		}
 
 	}
-}
+}*/
 
 //SMALL SCREEN AND MOBILE
 
-@media (max-width: 739px) {
+@media (max-width: 1200px) {
 	main {
-		margin-bottom: 0;
 		#wrapper {
 			-ms-flex-wrap: wrap;
 			flex-wrap: wrap;
